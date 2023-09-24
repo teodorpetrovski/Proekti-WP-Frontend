@@ -51,7 +51,7 @@ const header = (props) =>
                             className={`dropdown-menu${isDropdownOpen ? ' show' : ''}`}
                             aria-labelledby="navbarDropdown"
                         >
-                            <a className="dropdown-item" href="/">
+                            <a className="dropdown-item" href="/nationalprojects">
                                 Национални проекти
                             </a>
                             <a className="dropdown-item" href="/internationalprojects">

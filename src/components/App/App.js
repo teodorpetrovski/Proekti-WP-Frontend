@@ -4,6 +4,7 @@ import {Component} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "../Header/header";
 import InternationalProjects from "../InternationalProject/ProjectList/internationalProjectList";
+import NationalProjects from "../NationalProject/ProjectList/nationalProjectList";
 import projectsRepository from "../../repository/projectsRepository";
 import Calls from "../ScientificProjectCall/CallList/callList";
 
@@ -13,6 +14,7 @@ class App extends Component {
     super(props);
     this.state = {
         internationalProjects:[],
+        nationalProjects:[],
         calls:[],
 
     }
@@ -34,7 +36,8 @@ class App extends Component {
                 <Route path={"/internationalprojects"} exact
                        element={<InternationalProjects projects={this.state.internationalProjects} onExport={this.exportInternationalProject}/>}/>
 
-
+                  <Route path={"/nationalprojects"} exact
+                         element={<NationalProjects projects={this.state.nationalProjects} onExport={this.exportNationalProject}/>}/>
 
               </Routes>
 
@@ -58,6 +61,16 @@ class App extends Component {
             )
     }
 
+    loadNationalProjects = () => {
+        projectsRepository.fetchNationalProjects()
+            .then((data) => {
+                    this.setState({
+                        nationalProjects: data.data
+                    })
+                }
+            )
+    }
+
     loadCalls = () => {
         projectsRepository.fetchCalls()
             .then((data) => {
@@ -74,7 +87,10 @@ class App extends Component {
         projectsRepository.exportInternationalProject(id)
     }
 
-
+    exportNationalProject = (id) =>
+    {
+        projectsRepository.exportNationalProject(id)
+    }
 
 
 
@@ -82,6 +98,7 @@ class App extends Component {
 
     componentDidMount() {
     this.loadInternationalProjects();
+    this.loadNationalProjects();
     this.loadCalls();
 
   }
