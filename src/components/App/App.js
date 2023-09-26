@@ -7,7 +7,7 @@ import InternationalProjects from "../InternationalProject/ProjectList/internati
 import NationalProjects from "../NationalProject/ProjectList/nationalProjectList";
 import projectsRepository from "../../repository/projectsRepository";
 import Calls from "../ScientificProjectCall/CallList/callList";
-
+import AddCall from "../Create/AddCall";
 
 class App extends Component {
   constructor(props) {
@@ -38,6 +38,8 @@ class App extends Component {
 
                   <Route path={"/nationalprojects"} exact
                          element={<NationalProjects projects={this.state.nationalProjects} onExport={this.exportNationalProject}/>}/>
+                  
+                  <Route path="/add-call" element={<AddCall />} />
 
               </Routes>
 

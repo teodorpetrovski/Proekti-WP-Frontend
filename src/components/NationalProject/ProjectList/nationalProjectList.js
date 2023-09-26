@@ -25,7 +25,6 @@ class NationalProjects extends React.Component{
 
         return (
             <div className={"container mm-4 mt-5"}>
-
                 <h3>Национални проекти</h3>
                 <br/>
                 <div className={"row"}>

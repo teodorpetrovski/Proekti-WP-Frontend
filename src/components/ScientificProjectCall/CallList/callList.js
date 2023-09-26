@@ -13,49 +13,52 @@ class Calls extends React.Component{
 
         this.state={
             page:0,
-            size:5
+            size:5,
+            calls:[]
         }
     }
 
-    render() {
+    componentDidMount() {
+        ProjectRepository.fetchCalls()
+            .then(response => {
+                this.setState({ calls: response.data });
+            })
+            .catch(error => {
+                console.error("Error fetching calls", error);
+            });
+    }
 
-        const pageCount=Math.ceil(this.props.calls.length/this.state.size)
-        const offset=this.state.page*this.state.size;
-        const nextPageOffset=offset+this.state.size;
-        const calls=this.getCallsPage(offset,nextPageOffset);
+    render() {
+        const pageCount = Math.ceil(this.state.calls.length / this.state.size);
+        const offset = this.state.page * this.state.size;
+        const nextPageOffset = offset + this.state.size;
+        const calls = this.getCallsPage(offset, nextPageOffset);
 
         return (
-            <div className={"container mm-4 mt-5"}>
-
+            <div className={"container m-4 mt-5"}>
                 <h3>Повици</h3>
-                <br/>
+                <br />
                 <div className={"row"}>
                     <div className={"row"}>
-
-                            {calls}
-
+                        {calls}
                     </div>
-
-
-                        <ul className="pagination justify-content-center">
-                    <ReactPaginate previousLabel={"<"}
-                                   nextLabel={">"}
-                                   breakLabel={<a href="/#">...</a>}
-                                   breakClassName={"break-me"}
-                                   pageClassName={"page-item"}
-                                   pageCount={pageCount}
-                                   marginPagesDisplayed={2}
-                                   pageRangeDisplayed={5}
-                                   onPageChange={this.handlePageClick}
-                                   containerClassName={"pagination m-4 justify-content-center border"}
-                                   activeClassName={"active"}/>
-                        </ul>
-
-
+                    <ul className="pagination justify-content-center">
+                        <ReactPaginate
+                            previousLabel={"<"}
+                            nextLabel={">"}
+                            breakLabel={<a href="/#">...</a>}
+                            breakClassName={"break-me"}
+                            pageClassName={"page-item"}
+                            pageCount={pageCount}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={this.handlePageClick}
+                            containerClassName={"pagination m-4 justify-content-center border"}
+                            activeClassName={"active"}
+                        />
+                    </ul>
                 </div>
             </div>
-
-
         );
     }
 
