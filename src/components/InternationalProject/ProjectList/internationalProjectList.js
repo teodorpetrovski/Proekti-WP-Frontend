@@ -4,24 +4,24 @@ import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
 
 
-class InternationalProjects extends React.Component{
+class InternationalProjects extends React.Component {
 
 
     constructor(props) {
         super(props);
 
-        this.state={
-            page:0,
-            size:5
+        this.state = {
+            page: 0,
+            size: 5
         }
     }
 
     render() {
 
-        const pageCount=Math.ceil(this.props.projects.length/this.state.size)
-        const offset=this.state.page*this.state.size;
-        const nextPageOffset=offset+this.state.size;
-        const projects=this.getProjectsPage(offset,nextPageOffset);
+        const pageCount = Math.ceil(this.props.projects.length / this.state.size)
+        const offset = this.state.page * this.state.size;
+        const nextPageOffset = offset + this.state.size;
+        const projects = this.getProjectsPage(offset, nextPageOffset);
 
         return (
             <div className={"container mm-4 mt-5"}>
@@ -31,24 +31,24 @@ class InternationalProjects extends React.Component{
                 <div className={"row"}>
                     <div className={"row"}>
 
-                            {projects}
+                        {projects}
 
                     </div>
 
 
-                        <ul className="pagination justify-content-center">
-                    <ReactPaginate previousLabel={"<"}
-                                   nextLabel={">"}
-                                   breakLabel={<a href="/#">...</a>}
-                                   breakClassName={"break-me"}
-                                   pageClassName={"page-item"}
-                                   pageCount={pageCount}
-                                   marginPagesDisplayed={2}
-                                   pageRangeDisplayed={5}
-                                   onPageChange={this.handlePageClick}
-                                   containerClassName={"pagination m-4 justify-content-center border"}
-                                   activeClassName={"active"}/>
-                        </ul>
+                    <ul className="pagination justify-content-center">
+                        <ReactPaginate previousLabel={"<"}
+                                       nextLabel={">"}
+                                       breakLabel={<a href="/#">...</a>}
+                                       breakClassName={"break-me"}
+                                       pageClassName={"page-item"}
+                                       pageCount={pageCount}
+                                       marginPagesDisplayed={2}
+                                       pageRangeDisplayed={5}
+                                       onPageChange={this.handlePageClick}
+                                       containerClassName={"pagination m-4 justify-content-center border"}
+                                       activeClassName={"active"}/>
+                    </ul>
 
 
                 </div>
@@ -58,11 +58,10 @@ class InternationalProjects extends React.Component{
         );
     }
 
-    handlePageClick = (data) =>
-    {
-        let selected=data.selected;
+    handlePageClick = (data) => {
+        let selected = data.selected;
         this.setState({
-            page:selected
+            page: selected
         })
     }
 
@@ -70,7 +69,7 @@ class InternationalProjects extends React.Component{
     getProjectsPage = (offset, nextPageOffset) => {
         const projectTerms = this.props.projects.map((term, index) => {
             return (
-                <InternationalProjectTerm term={term} />
+                <InternationalProjectTerm term={term}/>
             );
         }).filter((product, index) => {
             return index >= offset && index < nextPageOffset;

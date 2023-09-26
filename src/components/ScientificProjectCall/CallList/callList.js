@@ -5,23 +5,23 @@ import {Link} from "react-router-dom";
 import CallTerm from "../CallTerm/callTerm";
 
 
-class Calls extends React.Component{
+class Calls extends React.Component {
 
 
     constructor(props) {
         super(props);
 
-        this.state={
-            page:0,
-            size:5,
-            calls:[]
+        this.state = {
+            page: 0,
+            size: 5,
+            calls: []
         }
     }
 
     componentDidMount() {
         ProjectRepository.fetchCalls()
             .then(response => {
-                this.setState({ calls: response.data });
+                this.setState({calls: response.data});
             })
             .catch(error => {
                 console.error("Error fetching calls", error);
@@ -37,7 +37,7 @@ class Calls extends React.Component{
         return (
             <div className={"container m-4 mt-5"}>
                 <h3>Повици</h3>
-                <br />
+                <br/>
                 <div className={"row"}>
                     <div className={"row"}>
                         {calls}
@@ -62,11 +62,10 @@ class Calls extends React.Component{
         );
     }
 
-    handlePageClick = (data) =>
-    {
-        let selected=data.selected;
+    handlePageClick = (data) => {
+        let selected = data.selected;
         this.setState({
-            page:selected
+            page: selected
         })
     }
 
@@ -74,7 +73,7 @@ class Calls extends React.Component{
     getCallsPage = (offset, nextPageOffset) => {
         const projectTerms = this.props.calls.map((term, index) => {
             return (
-                <CallTerm term={term} />
+                <CallTerm term={term}/>
             );
         }).filter((product, index) => {
             return index >= offset && index < nextPageOffset;

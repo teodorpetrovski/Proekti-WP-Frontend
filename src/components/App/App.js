@@ -1,7 +1,7 @@
 import logo from '../../logo.svg';
 import './App.css';
 import {Component} from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Header from "../Header/header";
 import InternationalProjects from "../InternationalProject/ProjectList/internationalProjectList";
 import NationalProjects from "../NationalProject/ProjectList/nationalProjectList";
@@ -10,47 +10,55 @@ import Calls from "../ScientificProjectCall/CallList/callList";
 import AddCall from "../Create/AddCall";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        internationalProjects:[],
-        nationalProjects:[],
-        calls:[],
+    constructor(props) {
+        super(props);
+        this.state = {
+            internationalProjects: [],
+            nationalProjects: [],
+            calls: [],
 
+        }
     }
-  }
 
-  render() {
-    return (
-        <div className={"bg-light"}>
-        <Router>
-          <Header/>
-          <main>
-            <div className={"container "}>
+    render() {
+        return (
+            <div className={"bg-light"}>
+                <Router>
+                    <Header/>
+                    <main>
+                        <div className={"container "}>
 
-              <Routes>
+                            <Routes>
 
-                  <Route path={"/calls"} exact
-                         element={<Calls calls={this.state.calls}/>}/>
+                                <Route path={"/calls"} exact
+                                       element={<Calls calls={this.state.calls}/>}/>
 
-                <Route path={"/internationalprojects"} exact
-                       element={<InternationalProjects projects={this.state.internationalProjects} onExport={this.exportInternationalProject}/>}/>
+                                <Route path={"/internationalprojects"} exact
+                                       element={<InternationalProjects projects={this.state.internationalProjects}
+                                                                       onExport={this.exportInternationalProject}/>}/>
 
-                  <Route path={"/nationalprojects"} exact
-                         element={<NationalProjects projects={this.state.nationalProjects} onExport={this.exportNationalProject}/>}/>
+                                <Route path={"/nationalprojects"} exact
+                                       element={<NationalProjects projects={this.state.nationalProjects}
+                                                                  onExport={this.exportNationalProject}/>}/>
+
+                                <Route path="/add-call" element={<AddCall/>}/>
+
+                                <Route path="/edit-internationalproject/:projectId"
+                                       element={<EditInternationalProjectForm/>}/>
                   
-                  <Route path="/add-call" element={<AddCall />} />
+                                <Route path="/edit-nationalproject/:projectId" element={<EditNationalProjectForm/>}/>
 
-              </Routes>
+
+                            </Routes>
+
+                        </div>
+                    </main>
+                </Router>
 
             </div>
-          </main>
-        </Router>
 
-        </div>
-
-    );
-  }
+        );
+    }
 
 
     loadInternationalProjects = () => {
@@ -84,26 +92,21 @@ class App extends Component {
     }
 
 
-    exportInternationalProject = (id) =>
-    {
+    exportInternationalProject = (id) => {
         projectsRepository.exportInternationalProject(id)
     }
 
-    exportNationalProject = (id) =>
-    {
+    exportNationalProject = (id) => {
         projectsRepository.exportNationalProject(id)
     }
 
 
-
-
-
     componentDidMount() {
-    this.loadInternationalProjects();
-    this.loadNationalProjects();
-    this.loadCalls();
+        this.loadInternationalProjects();
+        this.loadNationalProjects();
+        this.loadCalls();
 
-  }
+    }
 }
 
 export default App;
