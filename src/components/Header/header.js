@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendar, faCalendarDays, faRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import logo from "./static/img.png"
@@ -14,11 +14,38 @@ const header = (props) =>
     };
 
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const navigate=useNavigate();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [formData,updateFormData]=React.useState({
+        keyword: "",
+
+    })
+
+    const handleChange = (e) =>
+    {
+        updateFormData({...formData,
+            [e.target.name]:e.target.value.trim()
+        })
+    }
+
+    const onFormSubmit = (e) =>
+    {
+        e.preventDefault();
+        const keyword=formData.keyword;
+
+
+        props.onFilterNational(keyword);
+        props.onFilterInternational(keyword);
+        navigate("/results");
+    }
+
+
     return (
 
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
-            <a className="navbar-brand" href="#"> <img
+            <a className="navbar-brand" href="/allprojects"> <img
                 src={logo}
                 alt="Logo"
                 style={{ maxHeight: '45px' }}
@@ -75,8 +102,8 @@ const header = (props) =>
                 </ul>
 
 
-                <form className="d-flex">
-                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
+                <form   onSubmit={onFormSubmit} className="d-flex">
+                    <input  onChange={handleChange} name="keyword" className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
                         <button className="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>

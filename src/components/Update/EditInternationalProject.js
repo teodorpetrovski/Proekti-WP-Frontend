@@ -43,7 +43,7 @@ const EditNationalProjectForm = ({projectId, onCancel}) => {
                 </label>
                 <label>
                     Повик:
-                    <input type="text" name="call" value={project.call} onChange={handleInputChange}/>
+                    <input type="text" name="call" value={project.call}  onChange={handleInputChange}/>
                 </label>
                 <label>
                     Раководидел на проектот:

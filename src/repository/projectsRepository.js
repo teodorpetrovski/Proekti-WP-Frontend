@@ -13,6 +13,17 @@ const ProjectRepository = {
         return axios.get("/national/all")
     },
 
+    fetchInternationalProjectsFiltered:(keyword)=> {
+        return axios.post(`/international/filterByKeyword?keyword=${keyword}`)
+    },
+    fetchNationalProjectsFiltered:(keyword)=> {
+        return axios.post(`/national/searchByNameOrKeyword?keyword=${keyword}`,)
+    },
+
+    deleteProject: (id) => {
+        return axios.delete(`/project/delete/${id}`);
+    },
+
 
     exportInternationalProject: (id) => {
         return axios.get(`international//export/pdf/${id}`,
@@ -55,8 +66,8 @@ const ProjectRepository = {
         });
     },
 
-    
-    }
+
+
 
 
 

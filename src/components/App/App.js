@@ -8,8 +8,11 @@ import NationalProjects from "../NationalProject/ProjectList/nationalProjectList
 import projectsRepository from "../../repository/projectsRepository";
 import Calls from "../ScientificProjectCall/CallList/callList";
 import AddCall from "../Create/AddCall";
-import EditInternationalProjectForm from "../Update/EditInternationalProject";
+import HomeProjects from "../Home/ProjectList/allProjectList";
 import EditNationalProjectForm from "../Update/EditNationalProject";
+import EditInternationalProjectForm from "../Update/EditInternationalProject";
+import SearchResults from "../SearchResults/searchResults";
+
 
 class App extends Component {
     constructor(props) {
@@ -18,6 +21,8 @@ class App extends Component {
             internationalProjects: [],
             nationalProjects: [],
             calls: [],
+            internationalProjectsFiltered: [],
+            nationalProjectsFiltered: [],
 
         }
     }
@@ -26,11 +31,16 @@ class App extends Component {
         return (
             <div className={"bg-light"}>
                 <Router>
-                    <Header/>
+                    <Header onFilterNational={this.loadNationalProjectsFiltered} onFilterInternational={this.loadInternationalProjectsFiltered}/>
                     <main>
                         <div className={"container "}>
 
                             <Routes>
+
+                                <Route path={"/results"} exact
+                                       element={<SearchResults  internationalProjects={this.state.internationalProjectsFiltered}
+                                                               nationalProjects={this.state.nationalProjectsFiltered}
+                                       />}/>
 
                                 <Route path={"/calls"} exact
                                        element={<Calls calls={this.state.calls}/>}/>
@@ -38,6 +48,10 @@ class App extends Component {
                                 <Route path={"/internationalprojects"} exact
                                        element={<InternationalProjects projects={this.state.internationalProjects}
                                                                        onExport={this.exportInternationalProject}/>}/>
+                                <Route path={"/allprojects"} exact
+                                       element={<HomeProjects  internationalProjects={this.state.internationalProjects}
+                                                               nationalProjects={this.state.nationalProjects}
+                                                              />}/>
 
                                 <Route path={"/nationalprojects"} exact
                                        element={<NationalProjects projects={this.state.nationalProjects}
@@ -63,6 +77,7 @@ class App extends Component {
     }
 
 
+
     loadInternationalProjects = () => {
         projectsRepository.fetchInternationalProjects()
             .then((data) => {
@@ -83,6 +98,29 @@ class App extends Component {
             )
     }
 
+
+    loadInternationalProjectsFiltered = (keyword) => {
+        projectsRepository.fetchInternationalProjectsFiltered(keyword)
+            .then((data) => {
+                    this.setState({
+                        internationalProjectsFiltered: data.data
+                    })
+                }
+            )
+    }
+
+    loadNationalProjectsFiltered = (keyword) => {
+        projectsRepository.fetchNationalProjectsFiltered(keyword)
+            .then((data) => {
+                    this.setState({
+                        nationalProjectsFiltered: data.data
+                    })
+                }
+            )
+    }
+
+
+
     loadCalls = () => {
         projectsRepository.fetchCalls()
             .then((data) => {
@@ -91,6 +129,13 @@ class App extends Component {
                     })
                 }
             )
+    }
+
+    deleteProject = (id) => {
+        projectsRepository.deleteProject(id)
+            .then(() => {
+                this.loadProducts();
+            });
     }
 
 
@@ -102,11 +147,15 @@ class App extends Component {
         projectsRepository.exportNationalProject(id)
     }
 
+    exportAllProject = (id) => {
+        projectsRepository.exportAllProject(id)
+    }
 
     componentDidMount() {
         this.loadInternationalProjects();
         this.loadNationalProjects();
         this.loadCalls();
+
 
     }
 }
