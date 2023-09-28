@@ -4,6 +4,13 @@ import EditInternationalProjectForm from "../../Update/EditInternationalProject"
 
 const InternationalProjectTerm = (props) => {
     const [isEditing, setIsEditing] = useState(false);
+    const handleExportClick = () => {
+        try {
+            props.onExport(props.term.id);
+        } catch (error) {
+            console.error("Error exporting project:", error);
+        }
+    };
 
     return (
         <div className="col">
@@ -24,7 +31,14 @@ const InternationalProjectTerm = (props) => {
                                 <strong>Финансиер: </strong>{props.term.primaryGrantHolder.name}<br/>
                                 <strong>Статус: </strong>{props.term.status}<br/>
                             </p>
+                            <a title={"Delete"} className={"btn btn-danger"}
+                               onClick={() => props.onDelete(props.term.id)}>
+                                Избриши
+                            </a>
                             <button className="btn btn-success btn-sm" onClick={() => setIsEditing(true)}>Уреди</button>
+                            <button className="btn btn-primary btn-sm" onClick={handleExportClick}>
+                                Експорт
+                            </button>
                         </div>
                     </div>
 

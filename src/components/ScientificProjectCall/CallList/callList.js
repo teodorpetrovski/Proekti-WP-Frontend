@@ -39,6 +39,7 @@ class Calls extends React.Component {
             <div className={"container m-4 mt-5"}>
                 <h3>Повици</h3>
                 <br/>
+                <a href="/addCall" class="btn btn-primary" className="btn btn-primary">Додади нов повик</a>
                 <div className={"row"}>
                     <div className={"row"}>
                         {calls}
@@ -90,11 +91,8 @@ class Calls extends React.Component {
             );
             callsPage.push(page);
         }
-
         return callsPage;
     }
-
-
 }
 
 export default Calls;
