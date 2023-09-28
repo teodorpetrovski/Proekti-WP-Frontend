@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import "./styles.css"
-import EditInternationalProject from "../../Update/EditInternationalProject";
+import EditInternationalProjectForm from "../../Update/EditInternationalProject";
 
 const InternationalProjectTerm = (props) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -10,7 +10,7 @@ const InternationalProjectTerm = (props) => {
             {isEditing ? (
                 <EditInternationalProjectForm projectId={props.term.id} onCancel={() => setIsEditing(false)}/>
             ) : (
-                <a href="/your-link-here" style={{textDecoration: 'none'}}>
+
                     <div
                         className={`card rounded-0 bg-white mb-3 ${props.term.approved === true ? 'green-corner' : 'red-corner'} `}
                         style={{maxWidth: 390}}>
@@ -27,7 +27,7 @@ const InternationalProjectTerm = (props) => {
                             <button className="btn btn-success btn-sm" onClick={() => setIsEditing(true)}>Уреди</button>
                         </div>
                     </div>
-                </a>
+
             )}
         </div>
     );

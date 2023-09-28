@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AddCall = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [grantHolders, setGrantHolders] = useState([]);
     const [name, setName] = useState('');
     const [acronym, setAcronym] = useState('');
@@ -37,7 +37,7 @@ const AddCall = () => {
         axios.post('/api/projects/scientificProjectCall/add', callData)
             .then(response => {
                 console.log("Successfully added", response.data);
-                history.push("/calls");
+                navigate("/calls");
                 setName('');
                 setAcronym('');
                 setEndDate('');

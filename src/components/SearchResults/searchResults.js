@@ -1,11 +1,11 @@
 import React from 'react';
-import AllProjectTerm from "../ProjectTerm/allProjectTerm";
 import ReactPaginate from "react-paginate";
-import NationalProjectTerm from "../../NationalProject/ProjectTerm/nationalProjectTerm";
-import InternationalProjectTerm from "../../InternationalProject/ProjectTerm/internationalProjectTerm";
+import InternationalProjectTerm from "../InternationalProject/ProjectTerm/internationalProjectTerm";
+import NationalProjectTerm from "../NationalProject/ProjectTerm/nationalProjectTerm";
 
 
-class HomeProjects extends React.Component {
+
+class SearchResults extends React.Component {
 
     constructor(props) {
         super(props);
@@ -26,12 +26,12 @@ class HomeProjects extends React.Component {
         const nationalProjects = this.getNationalProjects(offset, nextPageOffset);
         return (
             <div className={"container mm-4 mt-5"}>
-                <h3>Сите проекти</h3>
+                <h3>Резултати од пребарување</h3>
                 <br/>
                 <div className={"row"}>
                     <div className={"row"}>
                         {internationalProjects}
-                
+
                         {nationalProjects}
                     </div>
                     <ul className="pagination justify-content-center">
@@ -115,4 +115,4 @@ class HomeProjects extends React.Component {
 
 }
 
-export default HomeProjects;
+export default SearchResults;

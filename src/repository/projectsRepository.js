@@ -6,14 +6,18 @@ const ProjectRepository = {
         return axios.get("/scientificProjectCall/all")
     },
 
-    fetchHomeProjects:()=> {
-        return axios.get("/home")
-    },
     fetchInternationalProjects:()=> {
         return axios.get("/international/all")
     },
     fetchNationalProjects:()=> {
         return axios.get("/national/all")
+    },
+
+    fetchInternationalProjectsFiltered:(keyword)=> {
+        return axios.post(`/international/filterByKeyword?keyword=${keyword}`)
+    },
+    fetchNationalProjectsFiltered:(keyword)=> {
+        return axios.post(`/national/searchByNameOrKeyword?keyword=${keyword}`,)
     },
 
     deleteProject: (id) => {
@@ -62,26 +66,8 @@ const ProjectRepository = {
         });
     },
 
-    exportAllProject: (id) => {
-        return axios.get(`all//export/pdf/${id}`,
-            {
-                responseType: 'blob',
-            }).then(response => {
-
-            const blob = new Blob([response.data], { type: response.headers['content-type'] });
-            const url = window.URL.createObjectURL(blob);
 
 
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', 'File.pdf');
-            document.body.appendChild(link);
-            link.click();
-
-
-            window.URL.revokeObjectURL(url);
-        });
-    },
 
 
 

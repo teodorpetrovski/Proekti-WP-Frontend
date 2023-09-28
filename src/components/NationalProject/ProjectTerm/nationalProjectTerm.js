@@ -11,8 +11,8 @@ const NationalProjectTerm = (props) => {
                         <p className="card-text p-1" style={{fontSize:'15px'}} >
                             <strong>Име на проектот: </strong>{props.term.name}<br/>
                             <strong>Внесен на: </strong>{props.term.dateEntry}<br/>
-                            <strong>Повик: </strong>{props.term.call}<br/>
-                            <strong>Раководидел на проектот: </strong>{props.term.manager}<br/>
+                            <strong>Повик: </strong>{props.term.scientificProjectCall.name}<br/>
+                            <strong>Раководидел на проектот: </strong>{props.term.manager.name}<br/>
                             <strong>Статус: </strong>{props.term.typeStatus}<br/>
                         </p>
                         <button className="btn btn-success btn-sm">Уреди</button>

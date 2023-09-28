@@ -9,6 +9,9 @@ import projectsRepository from "../../repository/projectsRepository";
 import Calls from "../ScientificProjectCall/CallList/callList";
 import AddCall from "../Create/AddCall";
 import HomeProjects from "../Home/ProjectList/allProjectList";
+import EditNationalProjectForm from "../Update/EditNationalProject";
+import EditInternationalProjectForm from "../Update/EditInternationalProject";
+import SearchResults from "../SearchResults/searchResults";
 
 class App extends Component {
     constructor(props) {
@@ -17,7 +20,8 @@ class App extends Component {
             internationalProjects: [],
             nationalProjects: [],
             calls: [],
-            homeProjects: [],
+            internationalProjectsFiltered: [],
+            nationalProjectsFiltered: [],
 
         }
     }
@@ -26,11 +30,16 @@ class App extends Component {
         return (
             <div className={"bg-light"}>
                 <Router>
-                    <Header/>
+                    <Header onFilterNational={this.loadNationalProjectsFiltered} onFilterInternational={this.loadInternationalProjectsFiltered}/>
                     <main>
                         <div className={"container "}>
 
                             <Routes>
+
+                                <Route path={"/results"} exact
+                                       element={<SearchResults  internationalProjects={this.state.internationalProjectsFiltered}
+                                                               nationalProjects={this.state.nationalProjectsFiltered}
+                                       />}/>
 
                                 <Route path={"/calls"} exact
                                        element={<Calls calls={this.state.calls}/>}/>
@@ -41,8 +50,7 @@ class App extends Component {
                                 <Route path={"/allprojects"} exact
                                        element={<HomeProjects  internationalProjects={this.state.internationalProjects}
                                                                nationalProjects={this.state.nationalProjects}
-                                                              onDelete={this.deleteProject}
-                                                                       onExport={this.exportAllProject}/>}/>
+                                                              />}/>
 
                                 <Route path={"/nationalprojects"} exact
                                        element={<NationalProjects projects={this.state.nationalProjects}
@@ -67,15 +75,7 @@ class App extends Component {
         );
     }
 
-    loadAllProjects = () => {
-        projectsRepository.fetchHomeProjects()
-            .then((data) => {
-                    this.setState({
-                        allProjects: data.data
-                    })
-                }
-            )
-    }
+
 
     loadInternationalProjects = () => {
         projectsRepository.fetchInternationalProjects()
@@ -96,6 +96,29 @@ class App extends Component {
                 }
             )
     }
+
+
+    loadInternationalProjectsFiltered = (keyword) => {
+        projectsRepository.fetchInternationalProjectsFiltered(keyword)
+            .then((data) => {
+                    this.setState({
+                        internationalProjectsFiltered: data.data
+                    })
+                }
+            )
+    }
+
+    loadNationalProjectsFiltered = (keyword) => {
+        projectsRepository.fetchNationalProjectsFiltered(keyword)
+            .then((data) => {
+                    this.setState({
+                        nationalProjectsFiltered: data.data
+                    })
+                }
+            )
+    }
+
+
 
     loadCalls = () => {
         projectsRepository.fetchCalls()
@@ -131,11 +154,7 @@ class App extends Component {
         this.loadInternationalProjects();
         this.loadNationalProjects();
         this.loadCalls();
-        const combinedProjects = [
-            ...this.state.internationalProjects,
-            ...this.state.nationalProjects,
-        ];
-        this.setState({ homeProjects: combinedProjects });
+
 
     }
 }
