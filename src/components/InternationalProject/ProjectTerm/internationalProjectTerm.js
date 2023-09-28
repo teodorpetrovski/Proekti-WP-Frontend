@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css"
-import EditInternationalProject from "../../Update/EditInternationalProject";
+import EditInternationalProjectForm from "../../Update/EditInternationalProject";
 
 const InternationalProjectTerm = (props) => {
     const [isEditing, setIsEditing] = useState(false);

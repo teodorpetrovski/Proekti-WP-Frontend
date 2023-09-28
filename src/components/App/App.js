@@ -8,6 +8,8 @@ import NationalProjects from "../NationalProject/ProjectList/nationalProjectList
 import projectsRepository from "../../repository/projectsRepository";
 import Calls from "../ScientificProjectCall/CallList/callList";
 import AddCall from "../Create/AddCall";
+import EditInternationalProjectForm from "../Update/EditInternationalProject";
+import EditNationalProjectForm from "../Update/EditNationalProject";
 
 class App extends Component {
     constructor(props) {

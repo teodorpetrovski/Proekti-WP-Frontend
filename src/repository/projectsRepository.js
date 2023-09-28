@@ -60,6 +60,6 @@ const ProjectRepository = {
 
 
 
-}
+
 
 export default ProjectRepository;

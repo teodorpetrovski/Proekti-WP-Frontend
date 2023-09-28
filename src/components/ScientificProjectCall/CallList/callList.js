@@ -3,6 +3,7 @@ import React from 'react';
 import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
 import CallTerm from "../CallTerm/callTerm";
+import ProjectRepository from "../../../repository/projectsRepository";
 
 
 class Calls extends React.Component {

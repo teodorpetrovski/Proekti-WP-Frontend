@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AddCall = () => {
-    const history = useHistory();
+    const history = useNavigate();
     const [grantHolders, setGrantHolders] = useState([]);
     const [name, setName] = useState('');
     const [acronym, setAcronym] = useState('');
