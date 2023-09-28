@@ -8,6 +8,7 @@ import NationalProjects from "../NationalProject/ProjectList/nationalProjectList
 import projectsRepository from "../../repository/projectsRepository";
 import Calls from "../ScientificProjectCall/CallList/callList";
 import AddCall from "../Create/AddCall";
+import HomeProjects from "../Home/ProjectList/allProjectList";
 
 class App extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class App extends Component {
             internationalProjects: [],
             nationalProjects: [],
             calls: [],
+            homeProjects: [],
 
         }
     }
@@ -36,6 +38,11 @@ class App extends Component {
                                 <Route path={"/internationalprojects"} exact
                                        element={<InternationalProjects projects={this.state.internationalProjects}
                                                                        onExport={this.exportInternationalProject}/>}/>
+                                <Route path={"/allprojects"} exact
+                                       element={<HomeProjects  internationalProjects={this.state.internationalProjects}
+                                                               nationalProjects={this.state.nationalProjects}
+                                                              onDelete={this.deleteProject}
+                                                                       onExport={this.exportAllProject}/>}/>
 
                                 <Route path={"/nationalprojects"} exact
                                        element={<NationalProjects projects={this.state.nationalProjects}
@@ -60,6 +67,15 @@ class App extends Component {
         );
     }
 
+    loadAllProjects = () => {
+        projectsRepository.fetchHomeProjects()
+            .then((data) => {
+                    this.setState({
+                        allProjects: data.data
+                    })
+                }
+            )
+    }
 
     loadInternationalProjects = () => {
         projectsRepository.fetchInternationalProjects()
@@ -91,6 +107,13 @@ class App extends Component {
             )
     }
 
+    deleteProject = (id) => {
+        projectsRepository.deleteProject(id)
+            .then(() => {
+                this.loadProducts();
+            });
+    }
+
 
     exportInternationalProject = (id) => {
         projectsRepository.exportInternationalProject(id)
@@ -100,11 +123,19 @@ class App extends Component {
         projectsRepository.exportNationalProject(id)
     }
 
+    exportAllProject = (id) => {
+        projectsRepository.exportAllProject(id)
+    }
 
     componentDidMount() {
         this.loadInternationalProjects();
         this.loadNationalProjects();
         this.loadCalls();
+        const combinedProjects = [
+            ...this.state.internationalProjects,
+            ...this.state.nationalProjects,
+        ];
+        this.setState({ homeProjects: combinedProjects });
 
     }
 }

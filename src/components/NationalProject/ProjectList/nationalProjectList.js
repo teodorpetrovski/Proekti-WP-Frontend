@@ -6,7 +6,6 @@ import {Link} from "react-router-dom";
 
 class NationalProjects extends React.Component {
 
-
     constructor(props) {
         super(props);
 
