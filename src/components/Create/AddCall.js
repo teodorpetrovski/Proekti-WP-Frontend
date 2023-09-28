@@ -3,11 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const AddCall = () => {
-<<<<<<< HEAD
-    const history = useNavigate();
-=======
     const navigate = useNavigate();
->>>>>>> f83b7cc3ec4a57b5e1bb5e06a3335c5e5346b448
     const [grantHolders, setGrantHolders] = useState([]);
     const [name, setName] = useState('');
     const [acronym, setAcronym] = useState('');

@@ -6,17 +6,17 @@ const ProjectRepository = {
         return axios.get("/scientificProjectCall/all")
     },
 
-    fetchInternationalProjects:()=> {
+    fetchInternationalProjects: () => {
         return axios.get("/international/all")
     },
-    fetchNationalProjects:()=> {
+    fetchNationalProjects: () => {
         return axios.get("/national/all")
     },
 
-    fetchInternationalProjectsFiltered:(keyword)=> {
+    fetchInternationalProjectsFiltered: (keyword) => {
         return axios.post(`/international/filterByKeyword?keyword=${keyword}`)
     },
-    fetchNationalProjectsFiltered:(keyword)=> {
+    fetchNationalProjectsFiltered: (keyword) => {
         return axios.post(`/national/searchByNameOrKeyword?keyword=${keyword}`,)
     },
 
@@ -28,10 +28,10 @@ const ProjectRepository = {
     exportInternationalProject: (id) => {
         return axios.get(`international//export/pdf/${id}`,
             {
-            responseType: 'blob',
-        }).then(response => {
+                responseType: 'blob',
+            }).then(response => {
 
-            const blob = new Blob([response.data], { type: response.headers['content-type'] });
+            const blob = new Blob([response.data], {type: response.headers['content-type']});
             const url = window.URL.createObjectURL(blob);
 
 
@@ -51,7 +51,7 @@ const ProjectRepository = {
                 responseType: 'blob',
             }).then(response => {
 
-            const blob = new Blob([response.data], { type: response.headers['content-type'] });
+            const blob = new Blob([response.data], {type: response.headers['content-type']});
             const url = window.URL.createObjectURL(blob);
 
 
@@ -66,7 +66,7 @@ const ProjectRepository = {
         });
     },
 
-
+}
 
 
 
