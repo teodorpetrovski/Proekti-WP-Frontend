@@ -1,7 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
-const EditNationalProjectForm = ({projectId, onCancel}) => {
-    const [project, setProject] = useState({
+const EditNationalProjectForm = ({ projectId, onCancel }) => {
+    const history = useNavigate();
+
+    const [project, setProject] = useState(null);
+    const [formData, updateFormData] = useState({
         name: "",
         dateEntry: "",
         call: "",
@@ -19,18 +23,32 @@ const EditNationalProjectForm = ({projectId, onCancel}) => {
     }, [projectId]);
 
     const handleInputChange = (e) => {
-        const {name, value} = e.target;
-        setProject({...project, [name]: value});
+        updateFormData({
+            ...formData,
+            [e.target.name]: e.target.value.trim()
+        });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const payload = {
+            name: formData.name || project.name,
+            dateEntry: formData.dateEntry || project.dateEntry,
+            call: formData.call || project.call,
+            manager: formData.manager || project.manager,
+            typeStatus: formData.typeStatus || project.typeStatus
+        };
+
         fetch(`/api/projects/national/edit/${projectId}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(project)
+            body: JSON.stringify(payload)
         })
-            .then(() => onCancel());
+            .then(() => {
+                onCancel();
+                history.push('/projects'); 
+            });
     };
 
     return (
@@ -38,15 +56,15 @@ const EditNationalProjectForm = ({projectId, onCancel}) => {
             <form onSubmit={handleSubmit}>
                 <label>
                     Име на проектот:
-                    <input type="text" name="name" value={project.name} onChange={handleInputChange}/>
+                    <input type="text" name="name" value={formData.name} placeholder={project.name} onChange={handleInputChange}/>
                 </label>
                 <label>
                     Внесен на:
-                    <input type="text" name="dateEntry" value={project.dateEntry} onChange={handleInputChange}/>
+                    <input type="text" name="dateEntry" value={formData.dateEntry} placeholder={project.dateEntry} onChange={handleInputChange}/>
                 </label>
                 <label>
                     Повик:
-                    <select name="call" value={project.call} onChange={handleInputChange}>
+                    <select name="call" value={formData.call.name} onChange={handleInputChange}>
                         {TypeScientificProjectCall.map(call => (
                             <option key={call} value={call}>{call}</option>
                         ))}
@@ -54,11 +72,11 @@ const EditNationalProjectForm = ({projectId, onCancel}) => {
                 </label>
                 <label>
                     Раководидел на проектот:
-                    <input type="text" name="manager" value={project.manager} onChange={handleInputChange}/>
+                    <input type="text" name="manager" value={formData.manager.name} placeholder={project.manager.name} onChange={handleInputChange}/>
                 </label>
                 <label>
                     Статус:
-                    <select name="typeStatus" value={project.typeStatus} onChange={handleInputChange}>
+                    <select name="typeStatus" value={formData.typeStatus} onChange={handleInputChange}>
                         {TypeStatus.map(status => (
                             <option key={status} value={status}>{status}</option>
                         ))}
