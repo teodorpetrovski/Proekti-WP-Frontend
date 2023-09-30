@@ -64,8 +64,7 @@ class App extends Component {
                   
                                 <Route path="/edit-nationalproject/:projectId" element={<EditNationalProjectForm/>}/>
 
-                                <Route path={"/addCall"} exact render={() =>
-                                <AddCall onAddCall={this.addCall}/>}/>
+                                <Route path={"/addCall"} exact element={<AddCall onAddCall={this.addCall}/>} />
                                 {/*<Route path="/nationalprojects/add" element={<Add />} />*/}
 
                             </Routes>
