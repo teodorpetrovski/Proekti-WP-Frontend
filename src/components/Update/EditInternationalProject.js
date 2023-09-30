@@ -1,34 +1,55 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
-const EditNationalProjectForm = ({projectId, onCancel}) => {
-    const [project, setProject] = useState({
+const EditInternationalProjectForm = ({ projectId, onCancel }) => {
+    const [originalProject, setOriginalProject] = useState(null);
+    const [formData, updateFormData] = useState({
         name: "",
-        dateEntry: "",
-        call: "",
-        manager: "",
-        typeStatus: ""
+        description: "",
+        type: "",
+        startDate: "",
+        endDate: "",
+        primaryGrantHolder: { name: "" },
+        status: ""
     });
 
-    const TypeScientificProjectCall = ["OPENED", "CLOSED"];
     const TypeStatus = ["OLD", "NEW"];
 
     useEffect(() => {
-        fetch(`/api/projects/national/${projectId}`)
+        fetch(`/api/projects/international/${projectId}`)
             .then(res => res.json())
-            .then(data => setProject(data));
+            .then(data => {
+                setOriginalProject(data);
+                updateFormData(data);
+            });
     }, [projectId]);
 
     const handleInputChange = (e) => {
-        const {name, value} = e.target;
-        setProject({...project, [name]: value});
+        const { name, value } = e.target;
+        updateFormData({
+            ...formData,
+            [name]: value.trim()
+        });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch(`/api/projects/national/edit/${projectId}`, {
+
+        const payload = {
+            name: formData.name || originalProject.name,
+            description: formData.description || originalProject.description,
+            type: formData.type || originalProject.type,
+            startDate: formData.startDate || originalProject.startDate,
+            endDate: formData.endDate || originalProject.endDate,
+            primaryGrantHolder: {
+                name: formData.primaryGrantHolder.name || originalProject.primaryGrantHolder.name
+            },
+            status: formData.status || originalProject.status
+        };
+
+        fetch(`/api/projects/international/edit/${projectId}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(project)
+            body: JSON.stringify(payload)
         })
             .then(() => onCancel());
     };
@@ -38,27 +59,27 @@ const EditNationalProjectForm = ({projectId, onCancel}) => {
             <form onSubmit={handleSubmit}>
                 <label>
                     Име на проектот:
-                    <input type="text" name="name" value={project.name} placeholder={project.name} onChange={handleInputChange}/>
+                    <input type="text" name="name" value={formData.name} onChange={handleInputChange}/>
                 </label>
                 <label>
-                    Внесен на:
-                    <input type="text" name="dateEntry" value={project.dateEntry} placeholder={project.dateEntry} onChange={handleInputChange}/>
+                    Тип на проектот:
+                    <input type="text" name="type" value={formData.type} onChange={handleInputChange}/>
                 </label>
                 <label>
-                    Повик:
-                    <select name="call" value={project.call} onChange={handleInputChange}>
-                        {TypeScientificProjectCall.map(call => (
-                            <option key={call} value={call}>{call}</option>
-                        ))}
-                    </select>
+                    Почеток на проектот:
+                    <input type="date" name="startDate" value={formData.startDate} onChange={handleInputChange}/>
                 </label>
                 <label>
-                    Раководидел на проектот:
-                    <input type="text" name="manager" value={project.manager} placeholder={project.manager} onChange={handleInputChange}/>
+                    Крај на проектот:
+                    <input type="date" name="endDate" value={formData.endDate} onChange={handleInputChange}/>
+                </label>
+                <label>
+                    Финансиер:
+                    <input type="text" name="primaryGrantHolder" value={formData.primaryGrantHolder.name} onChange={handleInputChange}/>
                 </label>
                 <label>
                     Статус:
-                    <select name="typeStatus" value={project.typeStatus} onChange={handleInputChange}>
+                    <select name="typeStatus" value={formData.typeStatus} onChange={handleInputChange}>
                         {TypeStatus.map(status => (
                             <option key={status} value={status}>{status}</option>
                         ))}
@@ -71,4 +92,4 @@ const EditNationalProjectForm = ({projectId, onCancel}) => {
     );
 };
 
-export default EditNationalProjectForm;
+export default EditInternationalProjectForm;
