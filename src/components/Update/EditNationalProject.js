@@ -9,9 +9,6 @@ const EditNationalProjectForm = ({projectId, onCancel}) => {
         typeStatus: ""
     });
 
-    const TypeScientificProjectCall = ["OPENED", "CLOSED"];
-    const TypeStatus = ["OLD", "NEW"];
-
     useEffect(() => {
         fetch(`/api/projects/national/${projectId}`)
             .then(res => res.json())
@@ -46,11 +43,7 @@ const EditNationalProjectForm = ({projectId, onCancel}) => {
                 </label>
                 <label>
                     Повик:
-                    <select name="call" value={project.call} onChange={handleInputChange}>
-                        {TypeScientificProjectCall.map(call => (
-                            <option key={call} value={call}>{call}</option>
-                        ))}
-                    </select>
+                    <input type="text" name="call" value={project.call} onChange={handleInputChange}/>
                 </label>
                 <label>
                     Раководидел на проектот:
@@ -58,11 +51,7 @@ const EditNationalProjectForm = ({projectId, onCancel}) => {
                 </label>
                 <label>
                     Статус:
-                    <select name="typeStatus" value={project.typeStatus} onChange={handleInputChange}>
-                        {TypeStatus.map(status => (
-                            <option key={status} value={status}>{status}</option>
-                        ))}
-                    </select>
+                    <input type="text" name="typeStatus" value={project.typeStatus} onChange={handleInputChange}/>
                 </label>
                 <button type="submit">Уреди</button>
                 <button type="button" onClick={onCancel}>Откажи</button>
