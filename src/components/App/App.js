@@ -67,6 +67,7 @@ class App extends Component {
 
                                 <Route path={"/national/edit/:projectId"}exact
                                        element={<EditNationalProjectForm
+                                           calls={this.state.calls}
                                            project={this.state.selectedNationalProject}
                                            onEditNatProject={this.editNationalProject}
                                            loadNationalProjects={this.loadNationalProjects}
@@ -199,9 +200,10 @@ class App extends Component {
         }
 
     componentDidMount() {
+        this.loadCalls();
         this.loadInternationalProjects();
         this.loadNationalProjects();
-        this.loadCalls();
+
     }
 }
 
