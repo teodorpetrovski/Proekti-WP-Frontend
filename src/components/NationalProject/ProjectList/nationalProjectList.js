@@ -2,6 +2,7 @@ import React from 'react';
 import NationalProjectTerm from "../ProjectTerm/nationalProjectTerm";
 import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
+import AddNationalProject from "../AddNationallProject/addNationalProject";
 
 
 class NationalProjects extends React.Component {
@@ -27,14 +28,15 @@ class NationalProjects extends React.Component {
             <div className={"container mm-4 mt-5"}>
                 <h3>Национални проекти</h3>
                 <br/>
+
+                {/*<AddNationalProject>Додади nov проект</AddNationalProject>*/}
+                <Link to="/nationalprojects/add" className="btn btn-primary">Додади nov проект</Link>
                 <div className={"row"}>
                     <div className={"row"}>
 
                         {nationalProjects}
 
                     </div>
-
-
                     <ul className="pagination justify-content-center">
                         <ReactPaginate previousLabel={"<"}
                                        nextLabel={">"}
@@ -68,8 +70,9 @@ class NationalProjects extends React.Component {
     getNationalProjects = (offset, nextPageOffset) => {
         const projectTerms = this.props.projects.map((term, index) => {
             return (
-                <NationalProjectTerm term={term}
-                                     onEdit={this.props.onEdit}/>
+                <NationalProjectTerm key={term.id} term={term} onEdit={this.props.onEdit}  onDelete={this.props.onDelete}
+                                     onExport={this.props.onExport}/>
+                
             );
         }).filter((product, index) => {
             return index >= offset && index < nextPageOffset;

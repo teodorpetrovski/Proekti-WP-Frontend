@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 
 const EditNationalProjectForm = (props) => {
@@ -11,7 +11,6 @@ const EditNationalProjectForm = (props) => {
         manager: "",
         typeStatus: ""
     });
-
     const TypeScientificProjectCall = ["OPENED", "CLOSED"];
     const TypeStatus = ["OLD", "NEW"];
 
@@ -21,7 +20,6 @@ const EditNationalProjectForm = (props) => {
             [e.target.name]: e.target.value.trim()
         });
     }
-
     const onFormSubmit = (e) => {
         e.preventDefault();
 
@@ -89,7 +87,7 @@ const EditNationalProjectForm = (props) => {
                 </form>
             </div>
         </div>
-    );
+            );
 }
 
 export default EditNationalProjectForm;

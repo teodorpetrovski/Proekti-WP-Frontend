@@ -7,7 +7,7 @@ import InternationalProjects from "../InternationalProject/ProjectList/internati
 import NationalProjects from "../NationalProject/ProjectList/nationalProjectList";
 import projectsRepository from "../../repository/projectsRepository";
 import Calls from "../ScientificProjectCall/CallList/callList";
-import AddCall from "../Create/AddCall";
+import AddCall from "../ScientificProjectCall/AddScientificProjectCall/addCall"
 import HomeProjects from "../Home/ProjectList/allProjectList";
 import EditNationalProjectForm from "../Update/EditNationalProject";
 import EditInternationalProjectForm from "../Update/EditInternationalProject";
@@ -48,6 +48,7 @@ class App extends Component {
 
                                 <Route path={"/internationalprojects"} exact
                                        element={<InternationalProjects projects={this.state.internationalProjects}
+                                                                       onDelete={this.deleteInternationalProject}
                                                                        onExport={this.exportInternationalProject}/>}/>
                                 <Route path={"/allprojects"} exact
                                        element={<HomeProjects  internationalProjects={this.state.internationalProjects}
@@ -61,7 +62,7 @@ class App extends Component {
 
                                 <Route path="/add-call" element={<AddCall/>}/>
 
-                                <Route path="/edit/:projectId"
+                                <Route path="/edit-internationalproject/:projectId"
                                        element={<EditInternationalProjectForm/>}/>
 
                                 <Route path={"/nationalprojects/edit/:projectId"}exact
@@ -70,6 +71,7 @@ class App extends Component {
                                            onEditNatProject={this.editNationalProject}
                                        />}/>
 
+                                <Route path={"/addCall"} exact element={<AddCall onAddCall={this.addCall}/>} />
 
                             </Routes>
 
@@ -136,7 +138,6 @@ class App extends Component {
                 }
             )
     }
-
     getNationalProject = (id) => {
         projectsRepository.getNationalProject(id)
             .then((data) => {
@@ -148,37 +149,46 @@ class App extends Component {
 
     deleteProject = (id) => {
         projectsRepository.deleteProject(id)
-            .then(() => {
-                this.loadProducts();
-            });
     }
-    editNationalProject = (id, name, dateEntry, call, manager, typeStatus) => {
-        projectsRepository.editNationalProject(id, name, dateEntry, call, manager, typeStatus)
-            .then(() => {
-                this.loadNationalProjects();
-            });
-    }
+        addCall = (name, acronym, endDate, typeScientificProjectCall, grantHolder, typeStatus) => {
+            projectsRepository.addCall(name, acronym, endDate, typeScientificProjectCall, grantHolder, typeStatus)
+                .then(() => {
+                    this.loadCalls();
+                });
+        }
+        
+        editNationalProject = (id, name, dateEntry, call, manager, typeStatus) => {
+            projectsRepository.editNationalProject(id, name, dateEntry, call, manager, typeStatus)
+                .then(() => {
+                    this.loadNationalProjects();
+                });
+        }
 
+        deleteNationalProject = (id) => {
+            projectsRepository.deleteNationalProject(id)
+                .then(() => {
+                    this.loadNationalProjects();
+                });
+        }
 
+        deleteInternationalProject = (id) => {
+            projectsRepository.deleteInternationalProject(id)
+                .then(() => {
+                    this.loadInternationalProjects();
+                });
+        }
+        exportInternationalProject = (id) => {
+            projectsRepository.exportInternationalProject(id)
+        }
 
-    exportInternationalProject = (id) => {
-        projectsRepository.exportInternationalProject(id)
-    }
-
-    exportNationalProject = (id) => {
-        projectsRepository.exportNationalProject(id)
-    }
-
-    exportAllProject = (id) => {
-        projectsRepository.exportAllProject(id)
-    }
+        exportNationalProject = (id) => {
+            projectsRepository.exportNationalProject(id)
+        }
 
     componentDidMount() {
         this.loadInternationalProjects();
         this.loadNationalProjects();
         this.loadCalls();
-
-
     }
 }
 

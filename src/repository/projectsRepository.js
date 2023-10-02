@@ -13,6 +13,17 @@ const ProjectRepository = {
         return axios.get("/national/all")
     },
 
+    addCall: (name, acronym, endDate, typeScientificProjectCall, grantHolder, typeStatus) => {
+        return axios.post("/scientificProjectCall/add", {
+            "name": name,
+            "acronym": acronym,
+            "endDate": endDate,
+            "typeScientificProjectCall": typeScientificProjectCall,
+            "grantHolder": grantHolder,
+            "typeStatus": typeStatus
+        });
+    },
+
     fetchInternationalProjectsFiltered: (keyword) => {
         return axios.post(`/international/filterByKeyword?keyword=${keyword}`)
     },
@@ -20,9 +31,10 @@ const ProjectRepository = {
         return axios.post(`/national/searchByNameOrKeyword?keyword=${keyword}`,)
     },
 
-    deleteProject: (id) => {
-        return axios.delete(`/project/delete/${id}`);
+    deleteNationalProject: (id) => {
+        return axios.delete(`/national/delete/${id}`);
     },
+    
     editNationalProject: (id, name, dateEntry, call, manager, typeStatus) => {
         return axios.put(`/national/edit/${id}`, {
             "name": name,
@@ -35,7 +47,11 @@ const ProjectRepository = {
     getNationalProject: (id) => {
         return axios.get(`/national/${id}`);
     },
-    
+
+    deleteInternationalProject: (id) => {
+        return axios.delete(`/international/delete/${id}`);
+    },
+
     exportInternationalProject: (id) => {
         return axios.get(`international//export/pdf/${id}`,
             {
@@ -78,10 +94,4 @@ const ProjectRepository = {
     },
 
 }
-
-
-
-
-
-
 export default ProjectRepository;
