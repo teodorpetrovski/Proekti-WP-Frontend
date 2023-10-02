@@ -94,7 +94,7 @@ const EditNationalProjectForm = (props) => {
                         <label>Повик:</label>
                         <select name="callId" className="form-control" value={formData.callId || ""} onChange={handleChange}>
                             <option value="">None</option>
-                            {calls.map((call) => (
+                            {this.props.calls.map((call) => (
                                 <option key={call.id} value={call.id}>{call.name}</option>
                             ))}
                         </select>

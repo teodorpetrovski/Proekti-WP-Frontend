@@ -4,18 +4,18 @@ import axios from '../custom-axios/axios';
 const ProjectRepository = {
     fetchCalls: () => {
         return axios.get("/scientificProjectCall/all")
-            .then(response => {
-                if (Array.isArray(response.data)) {
-                    return response.data;
-                } else {
-                    console.warn("Received non-array response data for calls:", response.data);
-                    return [];
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching calls:", error);
-                throw error;
-            });
+            // .then(response => {
+            //     if (Array.isArray(response.data)) {
+            //         return response.data;
+            //     } else {
+            //         console.warn("Received non-array response data for calls:", response.data);
+            //         return [];
+            //     }
+            // })
+            // .catch(error => {
+            //     console.error("Error fetching calls:", error);
+            //     throw error;
+            // });
     },
 
 
