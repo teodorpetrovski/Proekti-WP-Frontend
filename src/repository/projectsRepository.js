@@ -23,8 +23,19 @@ const ProjectRepository = {
     deleteProject: (id) => {
         return axios.delete(`/project/delete/${id}`);
     },
-
-
+    editNationalProject: (id, name, dateEntry, call, manager, typeStatus) => {
+        return axios.put(`/national/edit/${id}`, {
+            "name": name,
+            "dateEntry": dateEntry,
+            "call": call,
+            "manager": manager,
+            "typeStatus": typeStatus
+        });
+    },
+    getNationalProject: (id) => {
+        return axios.get(`/national/${id}`);
+    },
+    
     exportInternationalProject: (id) => {
         return axios.get(`international//export/pdf/${id}`,
             {

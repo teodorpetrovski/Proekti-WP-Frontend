@@ -20,7 +20,8 @@ class NationalProjects extends React.Component {
         const pageCount = Math.ceil(this.props.projects.length / this.state.size)
         const offset = this.state.page * this.state.size;
         const nextPageOffset = offset + this.state.size;
-        const projects = this.getProjectsPage(offset, nextPageOffset);
+        //const projects = this.getProjectsPage(offset, nextPageOffset);
+        const nationalProjects = this.getNationalProjects(offset, nextPageOffset);
 
         return (
             <div className={"container mm-4 mt-5"}>
@@ -29,7 +30,7 @@ class NationalProjects extends React.Component {
                 <div className={"row"}>
                     <div className={"row"}>
 
-                        {projects}
+                        {nationalProjects}
 
                     </div>
 
@@ -64,10 +65,11 @@ class NationalProjects extends React.Component {
     }
 
 
-    getProjectsPage = (offset, nextPageOffset) => {
+    getNationalProjects = (offset, nextPageOffset) => {
         const projectTerms = this.props.projects.map((term, index) => {
             return (
-                <NationalProjectTerm term={term}/>
+                <NationalProjectTerm term={term}
+                                     onEdit={this.props.onEdit}/>
             );
         }).filter((product, index) => {
             return index >= offset && index < nextPageOffset;

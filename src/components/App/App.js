@@ -20,6 +20,7 @@ class App extends Component {
         this.state = {
             internationalProjects: [],
             nationalProjects: [],
+            selectedNationalProject: {},
             calls: [],
             internationalProjectsFiltered: [],
             nationalProjectsFiltered: [],
@@ -55,14 +56,19 @@ class App extends Component {
 
                                 <Route path={"/nationalprojects"} exact
                                        element={<NationalProjects projects={this.state.nationalProjects}
+                                                                  onEdit={this.getNationalProject}
                                                                   onExport={this.exportNationalProject}/>}/>
 
                                 <Route path="/add-call" element={<AddCall/>}/>
 
-                                <Route path="/edit-internationalproject/:projectId"
+                                <Route path="/edit/:projectId"
                                        element={<EditInternationalProjectForm/>}/>
-                  
-                                <Route path="/edit-nationalproject/:projectId" element={<EditNationalProjectForm/>}/>
+
+                                <Route path={"/nationalprojects/edit/:projectId"}exact
+                                       element={<EditNationalProjectForm
+                                           project={this.state.selectedNationalProject}
+                                           onEditNatProject={this.editNationalProject}
+                                       />}/>
 
 
                             </Routes>
@@ -131,12 +137,28 @@ class App extends Component {
             )
     }
 
+    getNationalProject = (id) => {
+        projectsRepository.getNationalProject(id)
+            .then((data) => {
+                this.setState({
+                    selectedNationalProject: data.data
+                })
+            })
+    }
+
     deleteProject = (id) => {
         projectsRepository.deleteProject(id)
             .then(() => {
                 this.loadProducts();
             });
     }
+    editNationalProject = (id, name, dateEntry, call, manager, typeStatus) => {
+        projectsRepository.editNationalProject(id, name, dateEntry, call, manager, typeStatus)
+            .then(() => {
+                this.loadNationalProjects();
+            });
+    }
+
 
 
     exportInternationalProject = (id) => {

@@ -1,10 +1,11 @@
 import React from "react";
 import "./styles.css"
+import {Link} from 'react-router-dom';
 
 const NationalProjectTerm = (props) => {
     return (
         <div className="col">
-            <a href="/your-link-here" style={{ textDecoration: 'none' }}>
+            <a style={{ textDecoration: 'none' }}>
                 <div className={`card rounded-0 bg-white mb-3 ${props.term.approved === true ? 'green-corner' : 'red-corner'} `} style={{ maxWidth: 390 }}>
                     <div className="card-body">
                         <h2 className="card-title fw-lighter ">{props.term.name}</h2>
@@ -15,7 +16,12 @@ const NationalProjectTerm = (props) => {
                             <strong>Раководидел на проектот: </strong>{props.term.manager.name}<br/>
                             <strong>Статус: </strong>{props.term.typeStatus}<br/>
                         </p>
-                        <button className="btn btn-success btn-sm">Уреди</button>
+                        <Link className={"btn btn-info ml-2"}
+                              onClick={() => props.onEdit(props.term.id)}
+                              to={`/nationalprojects/edit/${props.term.id}`}>
+                            Уреди
+                        </Link>
+
                     </div>
                 </div>
             </a>
