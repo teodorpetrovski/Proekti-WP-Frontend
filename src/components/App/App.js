@@ -55,7 +55,7 @@ class App extends Component {
                                                                nationalProjects={this.state.nationalProjects}
                                                               />}/>
 
-                                <Route path={"/nationalprojects"} exact
+                                <Route path={"/national"} exact
                                        element={<NationalProjects projects={this.state.nationalProjects}
                                                                   onEdit={this.getNationalProject}
                                                                   onExport={this.exportNationalProject}/>}/>
@@ -65,10 +65,11 @@ class App extends Component {
                                 <Route path="/edit-internationalproject/:projectId"
                                        element={<EditInternationalProjectForm/>}/>
 
-                                <Route path={"/nationalprojects/edit/:projectId"}exact
+                                <Route path={"/national/edit/:projectId"}exact
                                        element={<EditNationalProjectForm
                                            project={this.state.selectedNationalProject}
                                            onEditNatProject={this.editNationalProject}
+                                           loadNationalProjects={this.loadNationalProjects}
                                        />}/>
 
                                 <Route path={"/addCall"} exact element={<AddCall onAddCall={this.addCall}/>} />
@@ -156,13 +157,25 @@ class App extends Component {
                     this.loadCalls();
                 });
         }
-        
-        editNationalProject = (id, name, dateEntry, call, manager, typeStatus) => {
-            projectsRepository.editNationalProject(id, name, dateEntry, call, manager, typeStatus)
-                .then(() => {
-                    this.loadNationalProjects();
-                });
-        }
+
+    editNationalProject = (id, name, dateEntry, call, manager, typeStatus) => {
+        console.log("Editing project with the following data:");
+        console.log("ID:", id);
+        console.log("Name:", name);
+        console.log("Date Entry:", dateEntry);
+        console.log("Call:", call);
+        console.log("Manager:", manager);
+        console.log("Type Status:", typeStatus);
+
+        projectsRepository.editNationalProject(id, name, dateEntry, call, manager, typeStatus)
+            .then(() => {
+                console.log("Project edited successfully.");
+                this.loadNationalProjects();
+            })
+            .catch((error) => {
+                console.error("Error editing project:", error);
+            });
+    };
 
         deleteNationalProject = (id) => {
             projectsRepository.deleteNationalProject(id)

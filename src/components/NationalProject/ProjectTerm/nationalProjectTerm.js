@@ -20,7 +20,7 @@ const NationalProjectTerm = (props) => {
                         </p>
                         <Link className={"btn btn-info ml-2"}
                               onClick={() => props.onEdit(props.term.id)}
-                              to={`/nationalprojects/edit/${props.term.id}`}>
+                              to={`/national/edit/${props.term.id}`}>
                             Уреди
                         </Link>
 

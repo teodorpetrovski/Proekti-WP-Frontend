@@ -30,7 +30,7 @@ class NationalProjects extends React.Component {
                 <br/>
 
                 {/*<AddNationalProject>Додади nov проект</AddNationalProject>*/}
-                <Link to="/nationalprojects/add" className="btn btn-primary">Додади nov проект</Link>
+                <Link to="/national/add" className="btn btn-primary">Додади nov проект</Link>
                 <div className={"row"}>
                     <div className={"row"}>
 

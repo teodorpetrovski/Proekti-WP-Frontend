@@ -4,7 +4,20 @@ import axios from '../custom-axios/axios';
 const ProjectRepository = {
     fetchCalls: () => {
         return axios.get("/scientificProjectCall/all")
+            .then(response => {
+                if (Array.isArray(response.data)) {
+                    return response.data;
+                } else {
+                    console.warn("Received non-array response data for calls:", response.data);
+                    return [];
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching calls:", error);
+                throw error;
+            });
     },
+
 
     fetchInternationalProjects: () => {
         return axios.get("/international/all")
@@ -34,12 +47,19 @@ const ProjectRepository = {
     deleteNationalProject: (id) => {
         return axios.delete(`/national/delete/${id}`);
     },
-    
-    editNationalProject: (id, name, dateEntry, call, manager, typeStatus) => {
+
+    editNationalProject: (id, name, dateEntry, callId, manager, typeStatus) => {
+        console.log("Editing project with data:", {
+            "name": name,
+            "dateEntry": dateEntry,
+            "callId": callId,
+            "manager": manager,
+            "typeStatus": typeStatus
+        });
         return axios.put(`/national/edit/${id}`, {
             "name": name,
             "dateEntry": dateEntry,
-            "call": call,
+            "callId": callId,
             "manager": manager,
             "typeStatus": typeStatus
         });
