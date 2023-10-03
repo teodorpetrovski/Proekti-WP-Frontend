@@ -69,8 +69,10 @@ class InternationalProjects extends React.Component {
     getProjectsPage = (offset, nextPageOffset) => {
         const projectTerms = this.props.projects.map((term, index) => {
             return (
-                <InternationalProjectTerm key={term.id} term={term} onDelete={this.props.onDelete}
-                                          onExport={this.props.onExport}/>
+                <InternationalProjectTerm key={term.id} term={term}
+                                          onDelete={this.props.onDelete}
+                                          onExport={this.props.onExport}
+                                          onApprove={this.props.onApprove}/>
             );
         }).filter((product, index) => {
             return index >= offset && index < nextPageOffset;

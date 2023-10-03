@@ -72,8 +72,16 @@ const ProjectRepository = {
         return axios.delete(`/international/delete/${id}`);
     },
 
+    approveNationalProject: (id) => {
+        return axios.post(`/national/approve/${id}`)
+    },
+
+    approveInternationalProject: (id) => {
+        return axios.post(`/international/approve/${id}`)
+    },
+
     exportInternationalProject: (id) => {
-        return axios.get(`international//export/pdf/${id}`,
+        return axios.get(`international/export/pdf/${id}`,
             {
                 responseType: 'blob',
             }).then(response => {
@@ -93,7 +101,7 @@ const ProjectRepository = {
         });
     },
     exportNationalProject: (id) => {
-        return axios.get(`national//export/pdf/${id}`,
+        return axios.get(`national/export/pdf/${id}`,
             {
                 responseType: 'blob',
             }).then(response => {

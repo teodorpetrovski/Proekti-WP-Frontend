@@ -12,6 +12,12 @@ const InternationalProjectTerm = (props) => {
         }
     };
 
+    const handleApproveClick = () => {
+        if (props.term.approved) {
+            return;
+        }
+        props.onApprove(props.term.id);
+    };
     return (
         <div className="col">
             {isEditing ? (
@@ -38,6 +44,13 @@ const InternationalProjectTerm = (props) => {
                             <button className="btn btn-success btn-sm" onClick={() => setIsEditing(true)}>Уреди</button>
                             <button className="btn btn-primary btn-sm" onClick={handleExportClick}>
                                 Експорт
+                            </button>
+                            <button
+                                className="btn btn-warning btn-sm"
+                                onClick={handleApproveClick}
+                                disabled={props.term.approved}
+                            >
+                                {props.term.approved ? 'Одобрено' : 'Одобри'}
                             </button>
                         </div>
                     </div>
