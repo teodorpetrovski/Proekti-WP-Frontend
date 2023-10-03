@@ -30,6 +30,48 @@ class App extends Component {
         }
     }
 
+    handleApproveNationalProject = (projectId) => {
+        projectsRepository.approveNationalProject(projectId)
+            .then((response) => {
+                if (response.status === 200) {
+                    const updatedProjects = this.state.nationalProjects.map((project) => {
+                        if (project.id === projectId) {
+                            return {
+                                ...project,
+                                approved: true,
+                            };
+                        }
+                        return project;
+                    });
+                    this.setState({ nationalProjects: updatedProjects });
+                }
+            })
+            .catch((error) => {
+                console.error('Error approving project:', error);
+            });
+    };
+
+    handleApproveInternatioanlProject = (projectId) => {
+        projectsRepository.approveInternationalProject(projectId)
+            .then((response) => {
+                if (response.status === 200) {
+                    const updatedProjects = this.state.internationalProjects.map((project) => {
+                        if (project.id === projectId) {
+                            return {
+                                ...project,
+                                approved: true,
+                            };
+                        }
+                        return project;
+                    });
+                    this.setState({ internationalProjects: updatedProjects });
+                }
+            })
+            .catch((error) => {
+                console.error('Error approving project:', error);
+            });
+    };
+
     render() {
         return (
             <div className={"bg-light"}>
@@ -54,7 +96,10 @@ class App extends Component {
                                 <Route path={"/internationalprojects"} exact
                                        element={<InternationalProjects projects={this.state.internationalProjects}
                                                                        onDelete={this.deleteInternationalProject}
-                                                                       onExport={this.exportInternationalProject}/>}/>
+                                                                       onExport={this.exportInternationalProject}
+                                                                       onApprove={this.handleApproveInternatioanlProject}
+                                       />
+                                }/>
                                 <Route path={"/allprojects"} exact
                                        element={<HomeProjects  internationalProjects={this.state.internationalProjects}
                                                                nationalProjects={this.state.nationalProjects}
@@ -63,7 +108,10 @@ class App extends Component {
                                 <Route path={"/national"} exact
                                        element={<NationalProjects projects={this.state.nationalProjects}
                                                                   onEdit={this.getNationalProject}
-                                                                  onExport={this.exportNationalProject}/>}/>
+                                                                  onDelete={this.deleteNationalProject}
+                                                                  onExport={this.exportNationalProject}
+                                                                  onApprove={this.handleApproveNationalProject}
+                                       />}/>
 
                                 <Route path="/add-call" element={<AddCall/>}/>
 
@@ -213,6 +261,8 @@ class App extends Component {
         exportNationalProject = (id) => {
             projectsRepository.exportNationalProject(id)
         }
+
+
 
     componentDidMount() {
         this.loadCalls();

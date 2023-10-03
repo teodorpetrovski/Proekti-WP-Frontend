@@ -15,7 +15,6 @@ class NationalProjects extends React.Component {
             size: 5
         }
     }
-
     render() {
 
         const pageCount = Math.ceil(this.props.projects.length / this.state.size)
@@ -30,7 +29,7 @@ class NationalProjects extends React.Component {
                 <br/>
 
                 {/*<AddNationalProject>Додади nov проект</AddNationalProject>*/}
-                <Link to="/national/add" className="btn btn-primary">Додади nov проект</Link>
+                <Link to="/national/add" className="btn btn-primary">Додади нов проект</Link>
                 <div className={"row"}>
                     <div className={"row"}>
 
@@ -70,9 +69,13 @@ class NationalProjects extends React.Component {
     getNationalProjects = (offset, nextPageOffset) => {
         const projectTerms = this.props.projects.map((term, index) => {
             return (
-                <NationalProjectTerm key={term.id} term={term} onEdit={this.props.onEdit}  onDelete={this.props.onDelete}
-                                     onExport={this.props.onExport}/>
-                
+                <NationalProjectTerm key={term.id} term={term}
+                                     onEdit={this.props.onEdit}
+                                     onDelete={this.props.onDelete}
+                                     onExport={this.props.onExport}
+                                     onApprove={this.props.onApprove}
+                />
+
             );
         }).filter((product, index) => {
             return index >= offset && index < nextPageOffset;
