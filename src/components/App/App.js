@@ -12,6 +12,7 @@ import HomeProjects from "../Home/ProjectList/allProjectList";
 import EditNationalProjectForm from "../Update/EditNationalProject";
 import EditInternationalProjectForm from "../Update/EditInternationalProject";
 import SearchResults from "../SearchResults/searchResults";
+import GrantHolder from "../GrantHolder/GrantHolderList/GrantHolderList";
 
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
             nationalProjects: [],
             selectedNationalProject: {},
             calls: [],
+            managers:[],
             internationalProjectsFiltered: [],
             nationalProjectsFiltered: [],
 
@@ -46,6 +48,9 @@ class App extends Component {
                                 <Route path={"/calls"} exact
                                        element={<Calls calls={this.state.calls}/>}/>
 
+                                <Route path={"/grantHolder"} exact
+                                       element={<GrantHolder managers={this.state.managers}/>}/>
+
                                 <Route path={"/internationalprojects"} exact
                                        element={<InternationalProjects projects={this.state.internationalProjects}
                                                                        onDelete={this.deleteInternationalProject}
@@ -67,6 +72,8 @@ class App extends Component {
 
                                 <Route path={"/national/edit/:projectId"}exact
                                        element={<EditNationalProjectForm
+                                           calls={this.state.calls}
+                                           managers={this.state.managers}
                                            project={this.state.selectedNationalProject}
                                            onEditNatProject={this.editNationalProject}
                                            loadNationalProjects={this.loadNationalProjects}
@@ -139,6 +146,15 @@ class App extends Component {
                 }
             )
     }
+    loadManagers = () => {
+        projectsRepository.fetchManagers()
+            .then((data) => {
+                    this.setState({
+                        managers: data.data
+                    })
+                }
+            )
+    }
     getNationalProject = (id) => {
         projectsRepository.getNationalProject(id)
             .then((data) => {
@@ -199,9 +215,11 @@ class App extends Component {
         }
 
     componentDidMount() {
+        this.loadCalls();
         this.loadInternationalProjects();
         this.loadNationalProjects();
-        this.loadCalls();
+        this.loadManagers();
+
     }
 }
 
