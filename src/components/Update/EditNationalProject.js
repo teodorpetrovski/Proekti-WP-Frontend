@@ -9,11 +9,12 @@ const EditNationalProjectForm = (props) => {
         name: "",
         dateEntry: "",
         typeStatus: "",
-        manager: "",
+        managerId: null,
         callId: null
     });
 
     const [calls, setCalls] = useState([]);
+    const [managers, setManagers] = useState([]);
     const TypeStatus = ["OLD", "NEW"];
 
     useEffect(() => {
@@ -23,7 +24,7 @@ const EditNationalProjectForm = (props) => {
                 name: props.project.name || "",
                 dateEntry: props.project.dateEntry || "",
                 callId: props.project.callId || null,
-                manager: props.project.manager || "",
+                managerId: props.project.managerId || null,
                 typeStatus: props.project.typeStatus || ""
             }));
         }
@@ -33,6 +34,15 @@ const EditNationalProjectForm = (props) => {
         projectsRepository.fetchCalls()
             .then(data => {
                 setCalls(data);
+            })
+            .catch(error => {
+                console.error("Error fetching calls:", error);
+            });
+    }, []);
+    useEffect(() => {
+        projectsRepository.fetchManagers()
+            .then(data => {
+                setManagers(data);
             })
             .catch(error => {
                 console.error("Error fetching calls:", error);
@@ -51,11 +61,12 @@ const EditNationalProjectForm = (props) => {
         e.preventDefault();
 
         const selectedCallId = formData.callId;
+        const selectedManagerId = formData.managerId;
         const preparedData = {
             name: formData.name,
             dateEntry: formData.dateEntry,
             callId: selectedCallId ? Number(selectedCallId) : null,
-            manager: formData.manager,
+            managerId: selectedManagerId ? Number(selectedManagerId) : null,
             typeStatus: formData.typeStatus,
         };
 
@@ -67,7 +78,7 @@ const EditNationalProjectForm = (props) => {
                 preparedData.name,
                 preparedData.dateEntry,
                 preparedData.callId,
-                preparedData.manager,
+                preparedData.managerId,
                 preparedData.typeStatus
             );
             console.log("Project edited successfully.");
@@ -100,8 +111,13 @@ const EditNationalProjectForm = (props) => {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="manager">Раководител на проектот:</label>
-                        <input type="text" className="form-control" id="manager" name="manager" value={formData.manager.name} onChange={handleChange} />
+                        <label>Раководител на проектот:</label>
+                        <select name="managerId" className="form-control" value={formData.managerId || ""} onChange={handleChange}>
+                            <option value="">None</option>
+                            {props.managers?.map((manager) => (
+                                <option key={manager.id} value={manager.id}>{manager.name}</option>
+                            ))}
+                        </select>
                     </div>
                     <div className="form-group">
                         <label>Статус:</label>
