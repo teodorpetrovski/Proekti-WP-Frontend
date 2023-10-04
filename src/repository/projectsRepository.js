@@ -120,6 +120,9 @@ const ProjectRepository = {
             window.URL.revokeObjectURL(url);
         });
     },
+    fetchProjectCallById: (id) => {
+        return axios.get(`/scientificProjectCall/${id}`);
+    },
 
 }
 export default ProjectRepository;

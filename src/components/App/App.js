@@ -12,6 +12,8 @@ import HomeProjects from "../Home/ProjectList/allProjectList";
 import EditNationalProjectForm from "../Update/EditNationalProject";
 import EditInternationalProjectForm from "../Update/EditInternationalProject";
 import SearchResults from "../SearchResults/searchResults";
+import ScientificProjectCallDetails from "../ScientificProjectCall/CallDetails/scientificProjectCallDetails";
+import DetailsCall from "../ScientificProjectCall/CallDetails/detailsCall";
 
 
 class App extends Component {
@@ -24,9 +26,22 @@ class App extends Component {
             calls: [],
             internationalProjectsFiltered: [],
             nationalProjectsFiltered: [],
-
+            selectedCall: null,
         }
     }
+
+    handleCallSelect = (projectId) => {
+        const selectedProject = this.state.calls.find((project) => project.id === projectId);
+        this.setState({ selectedProject });
+    };
+    fetchCallDetails = (id) => {
+        projectsRepository.fetchProjectCallById(id)
+            .then((data) => {
+                this.setState({
+                    selectedCall: data.data,
+                });
+            });
+    };
 
     handleApproveNationalProject = (projectId) => {
         projectsRepository.approveNationalProject(projectId)
@@ -85,9 +100,16 @@ class App extends Component {
                                                                nationalProjects={this.state.nationalProjectsFiltered}
                                        />}/>
 
-                                <Route path={"/calls"} exact
-                                       element={<Calls calls={this.state.calls}/>}/>
+                                {/*<Route path={"/calls"} exact*/}
+                                {/*       element={<Calls calls={this.state.calls}*/}
+                                {/*                       onSelect={this.handleCallSelect}*/}
+                                {/*       />}/>*/}
 
+                                {/*<Route path={"/calls"} exact element={<Calls calls={this.state.calls} project={this.state.selectedProject} />} />*/}
+
+                                <Route path={"/calls"} exactt element={<Calls calls={this.state.calls}/>}/>
+
+                                <Route path="/calls/:callId" element={<DetailsCall />} />
                                 <Route path={"/internationalprojects"} exact
                                        element={<InternationalProjects projects={this.state.internationalProjects}
                                                                        onDelete={this.deleteInternationalProject}
@@ -122,6 +144,15 @@ class App extends Component {
                                        />}/>
 
                                 <Route path={"/addCall"} exact element={<AddCall onAddCall={this.addCall}/>} />
+                                <Route
+                                    path="/national/details"
+                                    element={<ScientificProjectCallDetails project={this.state.selectedProject} />}
+                                />
+
+                                {/*<Route*/}
+                                {/*    path="/calls/:id"*/}
+                                {/*    element={<ScientificProjectCallDetails call={this.state.selectedCall} />}*/}
+                                {/*/>*/}
 
                             </Routes>
 

@@ -4,6 +4,7 @@ import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
 import CallTerm from "../CallTerm/callTerm";
 import ProjectRepository from "../../../repository/projectsRepository";
+import { useNavigate } from "react-router-dom";
 
 
 class Calls extends React.Component {
@@ -18,6 +19,7 @@ class Calls extends React.Component {
             calls: []
         }
     }
+
 
     componentDidMount() {
         ProjectRepository.fetchCalls()
@@ -41,6 +43,7 @@ class Calls extends React.Component {
                 <br/>
                 <a href="/addCall" class="btn btn-primary" className="btn btn-primary">Додади нов повик</a>
                 <div className={"row"}>
+
                     <div className={"row"}>
                         {calls}
                     </div>
@@ -75,7 +78,13 @@ class Calls extends React.Component {
     getCallsPage = (offset, nextPageOffset) => {
         const projectTerms = this.props.calls.map((term, index) => {
             return (
-                <CallTerm term={term}/>
+                // <CallTerm term={term}
+                //           onClick={() => onSelect(project.id)}
+                // />
+                <Link key={term.id} to={`/calls/${term.id}`}>
+                    {/* Use Link to navigate to the call details page */}
+                    <CallTerm term={term} />
+                </Link>
             );
         }).filter((product, index) => {
             return index >= offset && index < nextPageOffset;
