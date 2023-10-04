@@ -4,7 +4,6 @@ import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
 import CallTerm from "../CallTerm/callTerm";
 import ProjectRepository from "../../../repository/projectsRepository";
-import { useNavigate } from "react-router-dom";
 
 
 class Calls extends React.Component {
@@ -16,23 +15,13 @@ class Calls extends React.Component {
         this.state = {
             page: 0,
             size: 5,
-            calls: []
+
         }
     }
 
 
-    componentDidMount() {
-        ProjectRepository.fetchCalls()
-            .then(response => {
-                this.setState({calls: response.data});
-            })
-            .catch(error => {
-                console.error("Error fetching calls", error);
-            });
-    }
-
     render() {
-        const pageCount = Math.ceil(this.state.calls.length / this.state.size);
+        const pageCount = Math.ceil(this.props.calls.length / this.state.size);
         const offset = this.state.page * this.state.size;
         const nextPageOffset = offset + this.state.size;
         const calls = this.getCallsPage(offset, nextPageOffset);
@@ -41,9 +30,8 @@ class Calls extends React.Component {
             <div className={"container m-4 mt-5"}>
                 <h3>Повици</h3>
                 <br/>
-                <a href="/addCall" class="btn btn-primary" className="btn btn-primary">Додади нов повик</a>
+                <a href="/calls/add" class="btn btn-primary" className="btn btn-primary">Додади нов повик</a>
                 <div className={"row"}>
-
                     <div className={"row"}>
                         {calls}
                     </div>
@@ -78,13 +66,7 @@ class Calls extends React.Component {
     getCallsPage = (offset, nextPageOffset) => {
         const projectTerms = this.props.calls.map((term, index) => {
             return (
-                // <CallTerm term={term}
-                //           onClick={() => onSelect(project.id)}
-                // />
-                <Link key={term.id} to={`/calls/${term.id}`}>
-                    {/* Use Link to navigate to the call details page */}
-                    <CallTerm term={term} />
-                </Link>
+                <CallTerm term={term}/>
             );
         }).filter((product, index) => {
             return index >= offset && index < nextPageOffset;

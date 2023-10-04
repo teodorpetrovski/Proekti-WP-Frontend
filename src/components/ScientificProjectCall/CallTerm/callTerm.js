@@ -11,7 +11,7 @@ const CallTerm = (props) => {
                     <div className="card-body">
                         <h2 className="card-title fw-lighter ">{props.term.name}</h2>
                         <p className="card-text p-1" style={{fontSize: '15px'}}>
-                            <strong>Име на повикот: </strong>{props.term.description}<br/>
+                            <strong>Име на повикот: </strong>{props.term.name}<br/>
                             <strong>Статус на повикот: </strong>{props.term.typeScientificProjectCall}<br/>
                             <strong>Краен рок за аплицирање: </strong>{props.term.endDate}<br/>
                             <strong>Финансиер: </strong>{props.term.grantHolder.name}<br/>

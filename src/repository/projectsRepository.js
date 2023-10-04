@@ -16,13 +16,14 @@ const ProjectRepository = {
         return axios.get("/national/all")
     },
 
-    addCall: (name, acronym, endDate, typeScientificProjectCall, grantHolder, typeStatus) => {
+    addCall: (name, acronym, endDate, typeScientificProjectCall, grantHolderName,grantHolderDescription, typeStatus) => {
         return axios.post("/scientificProjectCall/add", {
             "name": name,
             "acronym": acronym,
             "endDate": endDate,
             "typeScientificProjectCall": typeScientificProjectCall,
-            "grantHolder": grantHolder,
+            "grantHolderName": grantHolderName,
+            "grantHolderDescription":grantHolderDescription,
             "typeStatus": typeStatus
         });
     },

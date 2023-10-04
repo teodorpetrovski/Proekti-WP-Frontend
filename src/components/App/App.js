@@ -117,6 +117,10 @@ class App extends Component {
                                                                        onApprove={this.handleApproveInternatioanlProject}
                                        />
                                 }/>
+
+
+                                <Route path="/calls/add" element={<AddCall onAdd={this.addCall} />}></Route>
+
                                 <Route path={"/allprojects"} exact
                                        element={<HomeProjects  internationalProjects={this.state.internationalProjects}
                                                                nationalProjects={this.state.nationalProjects}
@@ -130,7 +134,7 @@ class App extends Component {
                                                                   onApprove={this.handleApproveNationalProject}
                                        />}/>
 
-                                <Route path="/add-call" element={<AddCall/>}/>
+
 
                                 <Route path="/edit-internationalproject/:projectId"
                                        element={<EditInternationalProjectForm/>}/>
@@ -143,7 +147,7 @@ class App extends Component {
                                            loadNationalProjects={this.loadNationalProjects}
                                        />}/>
 
-                                <Route path={"/addCall"} exact element={<AddCall onAddCall={this.addCall}/>} />
+
                                 <Route
                                     path="/national/details"
                                     element={<ScientificProjectCallDetails project={this.state.selectedProject} />}
@@ -228,15 +232,19 @@ class App extends Component {
             })
     }
 
+
+    addCall=(name, acronym, endDate, typeScientificProjectCall, grantHolderName,grantHolderDescription, typeStatus)=>{
+        projectsRepository.addCall(name, acronym, endDate, typeScientificProjectCall, grantHolderName,grantHolderDescription, typeStatus)
+            .then(() => {
+              this.loadCalls();
+            })
+    }
+
+
     deleteProject = (id) => {
         projectsRepository.deleteProject(id)
     }
-        addCall = (name, acronym, endDate, typeScientificProjectCall, grantHolder, typeStatus) => {
-            projectsRepository.addCall(name, acronym, endDate, typeScientificProjectCall, grantHolder, typeStatus)
-                .then(() => {
-                    this.loadCalls();
-                });
-        }
+
 
     editNationalProject = (id, name, dateEntry, call, manager, typeStatus) => {
         console.log("Editing project with the following data:");
