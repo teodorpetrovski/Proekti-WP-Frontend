@@ -2,11 +2,11 @@ import React from 'react';
 
 import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
-import GrantHolderTerm from "../GrantHolderTerm/GrantHolderTerm";
+import GrandholderTerm from "../GrandholderTerm/grandholderTerm";
 import ProjectRepository from "../../../repository/projectsRepository";
 
 
-class GrantHolder extends React.Component {
+class Grandholder extends React.Component {
 
 
     constructor(props) {
@@ -15,14 +15,14 @@ class GrantHolder extends React.Component {
         this.state = {
             page: 0,
             size: 5,
-            managers: []
+            grandholders: []
         }
     }
 
     componentDidMount() {
-        ProjectRepository.fetchManagers()
+        ProjectRepository.fetchGrandholders()
             .then(response => {
-                this.setState({managers: response.data});
+                this.setState({grandholders: response.data});
             })
             .catch(error => {
                 console.error("Error fetching calls", error);
@@ -33,15 +33,15 @@ class GrantHolder extends React.Component {
         const pageCount = Math.ceil(this.state.calls.length / this.state.size);
         const offset = this.state.page * this.state.size;
         const nextPageOffset = offset + this.state.size;
-        const managers = this.getManagersPage(offset, nextPageOffset);
+        const grandholders = this.getGrandholdersPage(offset, nextPageOffset);
 
         return (
             <div className={"container m-4 mt-5"}>
-                <h3>Менаџери</h3>
+                <h3>Грандхолдери</h3>
                 <br/>
                 <div className={"row"}>
                     <div className={"row"}>
-                        {managers}
+                        {grandholders}
                     </div>
                     <ul className="pagination justify-content-center">
                         <ReactPaginate
@@ -71,16 +71,16 @@ class GrantHolder extends React.Component {
     }
 
 
-    getManagersPage = (offset, nextPageOffset) => {
-        const projectTerms = this.props.managers.map((term, index) => {
+    getGrandholdersPage = (offset, nextPageOffset) => {
+        const projectTerms = this.props.grandholders.map((term, index) => {
             return (
-                <GrantHolderTerm term={term}/>
+                <GrandholderTerm term={term}/>
             );
         }).filter((product, index) => {
             return index >= offset && index < nextPageOffset;
         });
 
-        const managersPage = [];
+        const grandholdersPage = [];
         for (let i = 0; i < projectTerms.length; i += 4) {
             const pageTerms = projectTerms.slice(i, i + 4);
             const page = (
@@ -88,10 +88,10 @@ class GrantHolder extends React.Component {
                     {pageTerms}
                 </div>
             );
-            managersPage.push(page);
+            grandholdersPage.push(page);
         }
-        return managersPage;
+        return grandholdersPage;
     }
 }
 
-export default GrantHolder;
+export default Grandholder;

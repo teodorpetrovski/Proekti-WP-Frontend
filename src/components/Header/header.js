@@ -81,7 +81,7 @@ const header = (props) =>
                             <a className="dropdown-item" href="/national">
                                 Национални проекти
                             </a>
-                            <a className="dropdown-item" href="/internationalprojects">
+                            <a className="dropdown-item" href="/international">
                                Интернационални проекти
                             </a>
 

@@ -9,10 +9,11 @@ import projectsRepository from "../../repository/projectsRepository";
 import Calls from "../ScientificProjectCall/CallList/callList";
 import AddCall from "../ScientificProjectCall/AddScientificProjectCall/addCall"
 import HomeProjects from "../Home/ProjectList/allProjectList";
-import EditNationalProjectForm from "../Update/EditNationalProject";
-import EditInternationalProjectForm from "../Update/EditInternationalProject";
+import EditNationalProjectForm from "../NationalProject/EditNationalProject/EditNationalProject";
+import EditInternationalProjectForm from "../InternationalProject/EditInternationalProject/EditInternationalProject";
 import SearchResults from "../SearchResults/searchResults";
-import GrantHolder from "../GrantHolder/GrantHolderList/GrantHolderList";
+import Professor from "../Professor/ProfessorList/professorList";
+import Grandholder from "../Grandholder/GrandholderList/grandholderList";
 
 
 class App extends Component {
@@ -22,8 +23,10 @@ class App extends Component {
             internationalProjects: [],
             nationalProjects: [],
             selectedNationalProject: {},
+            selectedInternationalProject: {},
             calls: [],
-            managers:[],
+            professors:[],
+            grandholders:[],
             internationalProjectsFiltered: [],
             nationalProjectsFiltered: [],
 
@@ -90,11 +93,15 @@ class App extends Component {
                                 <Route path={"/calls"} exact
                                        element={<Calls calls={this.state.calls}/>}/>
 
-                                <Route path={"/grantHolder"} exact
-                                       element={<GrantHolder managers={this.state.managers}/>}/>
+                                <Route path={"/professors"} exact
+                                       element={<Professor professors={this.state.professors}/>}/>
 
-                                <Route path={"/internationalprojects"} exact
+                                <Route path={"/grantHolder"} exact
+                                       element={<Grandholder grandholder={this.state.grandholders}/>}/>
+                                
+                                <Route path={"/international"} exact
                                        element={<InternationalProjects projects={this.state.internationalProjects}
+                                                                       onEdit={this.getInternationalProject}
                                                                        onDelete={this.deleteInternationalProject}
                                                                        onExport={this.exportInternationalProject}
                                                                        onApprove={this.handleApproveInternatioanlProject}
@@ -115,13 +122,18 @@ class App extends Component {
 
                                 <Route path="/add-call" element={<AddCall/>}/>
 
-                                <Route path="/edit-internationalproject/:projectId"
-                                       element={<EditInternationalProjectForm/>}/>
+                                <Route path={"/international/edit/:projectId"} exact
+                                       element={<EditInternationalProjectForm
+                                            grandholders={this.state.grandholders}
+                                            project={this.state.selectedInternationalProject}
+                                            onEditIntProject={this.editInternationalProject}
+                                            loadInternationalProjects={this.loadInternationalProjects}
+                                       />}/>
 
                                 <Route path={"/national/edit/:projectId"}exact
                                        element={<EditNationalProjectForm
                                            calls={this.state.calls}
-                                           managers={this.state.managers}
+                                           professors={this.state.professors}
                                            project={this.state.selectedNationalProject}
                                            onEditNatProject={this.editNationalProject}
                                            loadNationalProjects={this.loadNationalProjects}
@@ -194,11 +206,21 @@ class App extends Component {
                 }
             )
     }
-    loadManagers = () => {
-        projectsRepository.fetchManagers()
+    loadProfessors = () => {
+        projectsRepository.fetchProfessors()
             .then((data) => {
                     this.setState({
-                        managers: data.data
+                        professors: data.data
+                    })
+                }
+            )
+    }
+
+    loadGrandholders = () => {
+        projectsRepository.fetchGrandholders()
+            .then((data) => {
+                    this.setState({
+                        grandholders: data.data
                     })
                 }
             )
@@ -208,6 +230,14 @@ class App extends Component {
             .then((data) => {
                 this.setState({
                     selectedNationalProject: data.data
+                })
+            })
+    }
+    getInternationalProject = (id) => {
+        projectsRepository.getInternationalProject(id)
+            .then((data) => {
+                this.setState({
+                    selectedInternationalProject: data.data
                 })
             })
     }
@@ -241,6 +271,26 @@ class App extends Component {
             });
     };
 
+    editInternationalProject = (id, name, type, startDate, endDate, primaryInstitution, typeStatus) => {
+        console.log("Editing project with the following data:");
+        console.log("ID:", id);
+        console.log("Name:", name);
+        console.log("Type:", type);
+        console.log("Start Date:", startDate);
+        console.log("End Date:", endDate);
+        console.log("Primary Institution:", primaryInstitution);
+        console.log("Type Status:", typeStatus);
+
+        projectsRepository.editInternationalProject(id, name, type, startDate, endDate, primaryInstitution, typeStatus)
+            .then(() => {
+                console.log("Project edited successfully.");
+                this.loadInternationalProjects();
+            })
+            .catch((error) => {
+                console.error("Error editing project:", error);
+            });
+    };
+
         deleteNationalProject = (id) => {
             projectsRepository.deleteNationalProject(id)
                 .then(() => {
@@ -268,7 +318,8 @@ class App extends Component {
         this.loadCalls();
         this.loadInternationalProjects();
         this.loadNationalProjects();
-        this.loadManagers();
+        this.loadProfessors();
+        this.loadGrandholders();
 
     }
 }

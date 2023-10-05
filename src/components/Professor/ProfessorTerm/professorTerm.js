@@ -1,10 +1,10 @@
 import React from "react";
 import "./styles.css"
 
-const GrantHolderTerm = (props) => {
+const ProfessorTerm = (props) => {
     return (
         <div className="col">
-            <a href="/grantHolder/{id}" style={{textDecoration: 'none'}}>
+            <a href="/professors/{id}" style={{textDecoration: 'none'}}>
                 <div
                     className={`card rounded-0 bg-white mb-3 `}
                     style={{maxWidth: 390}}>
@@ -12,7 +12,8 @@ const GrantHolderTerm = (props) => {
                         <h2 className="card-title fw-lighter ">{props.term.name}</h2>
                         <p className="card-text p-1" style={{fontSize: '15px'}}>
                             <strong>Име: </strong>{props.term.name}<br/>
-                            <strong>Опис: </strong>{props.term.description}<br/>
+                            <strong>Емаил: </strong>{props.term.email}<br/>
+                            <strong>Титула: </strong>{props.term.title}<br/>
                         </p>
                     </div>
                 </div>
@@ -21,4 +22,4 @@ const GrantHolderTerm = (props) => {
     );
 }
 
-export default GrantHolderTerm;
+export default ProfessorTerm;

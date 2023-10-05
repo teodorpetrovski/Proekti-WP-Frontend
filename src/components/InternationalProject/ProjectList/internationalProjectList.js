@@ -21,7 +21,8 @@ class InternationalProjects extends React.Component {
         const pageCount = Math.ceil(this.props.projects.length / this.state.size)
         const offset = this.state.page * this.state.size;
         const nextPageOffset = offset + this.state.size;
-        const projects = this.getProjectsPage(offset, nextPageOffset);
+        //const projects = this.getProjectsPage(offset, nextPageOffset);
+        const internationalProjects = this.getInternationalProjects(offset, nextPageOffset);
 
         return (
             <div className={"container mm-4 mt-5"}>
@@ -31,7 +32,7 @@ class InternationalProjects extends React.Component {
                 <div className={"row"}>
                     <div className={"row"}>
 
-                        {projects}
+                        {internationalProjects}
 
                     </div>
 
@@ -66,10 +67,11 @@ class InternationalProjects extends React.Component {
     }
 
 
-    getProjectsPage = (offset, nextPageOffset) => {
+    getInternationalProjects = (offset, nextPageOffset) => {
         const projectTerms = this.props.projects.map((term, index) => {
             return (
                 <InternationalProjectTerm key={term.id} term={term}
+                                          onEdit={this.props.onEdit}
                                           onDelete={this.props.onDelete}
                                           onExport={this.props.onExport}
                                           onApprove={this.props.onApprove}/>

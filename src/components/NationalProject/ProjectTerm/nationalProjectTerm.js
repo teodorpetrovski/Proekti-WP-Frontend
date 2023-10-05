@@ -21,7 +21,7 @@ const NationalProjectTerm = (props) => {
 
     return (
         <div className="col">
-            <a style={{textDecoration: 'none'}}>
+            <a href={"/national/{id}"} style={{textDecoration: 'none'}}>
                 <div
                     className={`card rounded-0 bg-white mb-3 ${props.term.approved === true ? 'green-corner' : 'red-corner'} `}
                     style={{maxWidth: 390}}>

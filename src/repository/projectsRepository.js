@@ -5,7 +5,10 @@ const ProjectRepository = {
     fetchCalls: () => {
         return axios.get("/scientificProjectCall/all")
     },
-    fetchManagers: () => {
+    fetchProfessors: () => {
+        return axios.get("/professors/all")
+    },
+    fetchGrandholders: () => {
         return axios.get("/grantHolder/all")
     },
 
@@ -54,8 +57,29 @@ const ProjectRepository = {
             "typeStatus": typeStatus
         });
     },
+    editInternationalProject: (id, name, type, startDate, endDate, primaryInstitution, typeStatus) => {
+        console.log("Editing project with data:", {
+            "name": name,
+            "type": type,
+            "startDate": startDate,
+            "endDate": endDate,
+            "primaryInstitution":primaryInstitution,
+            "typeStatus": typeStatus
+        });
+        return axios.put(`/international/edit/${id}`, {
+            "name": name,
+            "type": type,
+            "startDate": startDate,
+            "endDate": endDate,
+            "primaryInstitution":primaryInstitution,
+            "typeStatus": typeStatus
+        });
+    },
     getNationalProject: (id) => {
         return axios.get(`/national/${id}`);
+    },
+    getInternationalProject: (id) => {
+        return axios.get(`/international/${id}`);
     },
 
     deleteInternationalProject: (id) => {

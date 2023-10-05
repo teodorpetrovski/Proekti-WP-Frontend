@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import projectsRepository from "../../repository/projectsRepository";
+import projectsRepository from "../../../repository/projectsRepository";
 
 const EditNationalProjectForm = (props) => {
     const navigate = useNavigate();
@@ -9,12 +9,12 @@ const EditNationalProjectForm = (props) => {
         name: "",
         dateEntry: "",
         typeStatus: "",
-        managerId: null,
+        professorId: null,
         callId: null
     });
 
     const [calls, setCalls] = useState([]);
-    const [managers, setManagers] = useState([]);
+    const [professors, setProfessors] = useState([]);
     const TypeStatus = ["OLD", "NEW"];
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const EditNationalProjectForm = (props) => {
                 name: props.project.name || "",
                 dateEntry: props.project.dateEntry || "",
                 callId: props.project.callId || null,
-                managerId: props.project.managerId || null,
+                professorId: props.project.professorId || null,
                 typeStatus: props.project.typeStatus || ""
             }));
         }
@@ -40,9 +40,9 @@ const EditNationalProjectForm = (props) => {
             });
     }, []);
     useEffect(() => {
-        projectsRepository.fetchManagers()
+        projectsRepository.fetchProfessors()
             .then(data => {
-                setManagers(data);
+                setProfessors(data);
             })
             .catch(error => {
                 console.error("Error fetching calls:", error);
@@ -61,12 +61,12 @@ const EditNationalProjectForm = (props) => {
         e.preventDefault();
 
         const selectedCallId = formData.callId;
-        const selectedManagerId = formData.managerId;
+        const selectedProfessorId = formData.professorId;
         const preparedData = {
             name: formData.name,
             dateEntry: formData.dateEntry,
             callId: selectedCallId ? Number(selectedCallId) : null,
-            managerId: selectedManagerId ? Number(selectedManagerId) : null,
+            professorId: selectedProfessorId ? Number(selectedProfessorId) : null,
             typeStatus: formData.typeStatus,
         };
 
@@ -78,7 +78,7 @@ const EditNationalProjectForm = (props) => {
                 preparedData.name,
                 preparedData.dateEntry,
                 preparedData.callId,
-                preparedData.managerId,
+                preparedData.professorId,
                 preparedData.typeStatus
             );
             console.log("Project edited successfully.");
@@ -112,10 +112,10 @@ const EditNationalProjectForm = (props) => {
                     </div>
                     <div className="form-group">
                         <label>Раководител на проектот:</label>
-                        <select name="managerId" className="form-control" value={formData.managerId || ""} onChange={handleChange}>
+                        <select name="professorId" className="form-control" value={formData.professorId || ""} onChange={handleChange}>
                             <option value="">None</option>
-                            {props.managers?.map((manager) => (
-                                <option key={manager.id} value={manager.id}>{manager.name}</option>
+                            {props.professors?.map((professor) => (
+                                <option key={professor.id} value={professor.id}>{professor.name}</option>
                             ))}
                         </select>
                     </div>
