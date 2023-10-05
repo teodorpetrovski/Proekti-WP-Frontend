@@ -9,7 +9,8 @@ const AddCall = (props) => {
         acronym: '',
         endDate: '',
         typeScientificProjectCall: '',
-        grantHolder: '',
+        grantHolderName: '',
+        grantHolderDescription: '',
         typeStatus: '',
     });
 
@@ -26,15 +27,17 @@ const AddCall = (props) => {
         const acronym = formData.acronym;
         const endDate = formData.endDate;
         const typeScientificProjectCall = formData.typeScientificProjectCall;
-        const grantHolder = formData.grantHolder;
+        const grantHolderName=formData.grantHolderName;
+        const grantHolderDescription=formData.grantHolderDescription;
         const typeStatus = formData.typeStatus;
         props
-            .onAddCall(
+            .onAdd(
                 name,
                 acronym,
                 endDate,
                 typeScientificProjectCall,
-                grantHolder,
+                grantHolderName,
+                grantHolderDescription,
                 typeStatus
             )
             navigate("/calls");
@@ -88,11 +91,21 @@ const AddCall = (props) => {
                     </select>
                 </div>
                 <div className="form-group">
-                    <label>Финансиер:</label>
+                    <label>Име на финансиер:</label>
                     <input
                         type="text"
-                        name="grantHolder"
-                        value={formData.grantHolder}
+                        name="grantHolderName"
+                        value={formData.grantHolderName}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Опис на финансиер:</label>
+                    <input
+                        type="text"
+                        name="grantHolderDescription"
+                        value={formData.grantHolderDescription}
                         onChange={handleChange}
                         required
                     />

@@ -15,22 +15,13 @@ class Calls extends React.Component {
         this.state = {
             page: 0,
             size: 5,
-            calls: []
+
         }
     }
 
-    componentDidMount() {
-        ProjectRepository.fetchCalls()
-            .then(response => {
-                this.setState({calls: response.data});
-            })
-            .catch(error => {
-                console.error("Error fetching calls", error);
-            });
-    }
 
     render() {
-        const pageCount = Math.ceil(this.state.calls.length / this.state.size);
+        const pageCount = Math.ceil(this.props.calls.length / this.state.size);
         const offset = this.state.page * this.state.size;
         const nextPageOffset = offset + this.state.size;
         const calls = this.getCallsPage(offset, nextPageOffset);
@@ -39,7 +30,7 @@ class Calls extends React.Component {
             <div className={"container m-4 mt-5"}>
                 <h3>Повици</h3>
                 <br/>
-                <a href="/addCall" class="btn btn-primary" className="btn btn-primary">Додади нов повик</a>
+                <a href="/calls/add" class="btn btn-primary" className="btn btn-primary">Додади нов повик</a>
                 <div className={"row"}>
                     <div className={"row"}>
                         {calls}
