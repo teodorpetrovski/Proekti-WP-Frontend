@@ -85,6 +85,16 @@ const ProjectRepository = {
             "typeStatus": typeStatus
         })
     },
+    addInternationalProject: (name, type, startDate, endDate, primaryInstitution, typeStatus) => {
+        return axios.post("/international/add", {
+            "name": name,
+            "type": type,
+            "startDate": startDate,
+            "endDate": endDate,
+            "primaryInstitution": primaryInstitution,
+            "typeStatus": typeStatus
+        })
+    },
     getNationalProject: (id) => {
         return axios.get(`/national/${id}`);
     },

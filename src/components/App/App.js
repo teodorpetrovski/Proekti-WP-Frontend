@@ -17,6 +17,7 @@ import Grandholder from "../Grandholder/GrandholderList/grandholderList";
 import ScientificProjectCallDetails from "../ScientificProjectCall/CallDetails/scientificProjectCallDetails";
 import DetailsCall from "../ScientificProjectCall/CallDetails/detailsCall";
 import NationalProjectAdd from "../NationalProject/AddNationallProject/addNationalProject";
+import InternationalProjectAdd from "../InternationalProject/AddInternationalProject/addInternationalProject";
 
 
 class App extends Component {
@@ -166,6 +167,12 @@ class App extends Component {
                                            project={this.state.selectedNationalProject}
                                            onAddNationalProject={this.addNationalProject}
                                            />}/>
+                                <Route path={"/international/add"} exact
+                                       element={<InternationalProjectAdd
+                                           grandholders={this.state.grandholders}
+                                           project={this.state.selectedInternationalProject}
+                                           onAddInternationalProject={this.addInternationalProject}
+                                       />}/>
                                 <Route
                                     path="/national/details"
                                     element={<ScientificProjectCallDetails project={this.state.selectedProject} />}
@@ -311,7 +318,12 @@ class App extends Component {
                 this.loadNationalProjects();
             });
     }
-
+    addInternationalProject = (name, type, startDate, endDate, primaryInstitution, typeStatus) => {
+        projectsRepository.addInternationalProject(name, type, startDate, endDate, primaryInstitution, typeStatus)
+            .then(() => {
+                this.loadInternationalProjects();
+            });
+    }
     editInternationalProject = (id, name, type, startDate, endDate, primaryInstitution, typeStatus) => {
         console.log("Editing project with the following data:");
         console.log("ID:", id);

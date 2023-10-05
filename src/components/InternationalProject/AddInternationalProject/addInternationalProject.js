@@ -2,14 +2,16 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 
-const NationalProjectAdd = (props) => {
+const InternationalProjectAdd = (props) => {
 
     const navigate = useNavigate();
+    
     const [formData, updateFormData] = React.useState({
         name: "",
-        dateEntry: "",
-        callId: null,
-        professorId: 0,
+        type: "",
+        startDate: "",
+        endDate: "",
+        primaryInstitution: null,
         typeStatus: "",
     })
 
@@ -24,13 +26,14 @@ const NationalProjectAdd = (props) => {
     const onFormSubmit = (e) => {
         e.preventDefault();
         const name = formData.name;
-        const dateEntry = formData.dateEntry;
-        const callId = formData.callId;
-        const professorId = formData.professorId;
+        const type = formData.type;
+        const startDate = formData.startDate;
+        const endDate = formData.endDate;
+        const primaryInstitution = formData.primaryInstitution;
         const typeStatus = formData.typeStatus;
-        
-        props.onAddNationalProject(name, dateEntry, callId, professorId, typeStatus);
-        navigate("/national");
+
+        props.onAddInternationalProject(name, type, startDate, endDate, primaryInstitution, typeStatus);
+        navigate("/international");
     }
 
     return(
@@ -49,31 +52,44 @@ const NationalProjectAdd = (props) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="dateEntry">Внесен на:</label>
-                        <input type="date"
+                        <label htmlFor="type">Тип на проектот:</label>
+                        <input type="text"
                                className="form-control"
-                               id="dateEntry"
-                               name="dateEntry"
-                               placeholder="Внесен на"
+                               id="type"
+                               name="type"
+                               placeholder="Тип на проектот"
                                required
                                onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="callId">Повик:</label>
-                        <select name="callId" className="form-control" value={formData.callId || ""} onChange={handleChange}>
-                            <option value="">None</option>
-                            {props.calls.map((call) => (
-                                <option key={call.id} value={call.id}>{call.name}</option>
-                            ))}
-                        </select>
+                        <label htmlFor="startDate">Почеток на проектот:</label>
+                        <input type="date"
+                               className="form-control"
+                               id="startDate"
+                               name="startDate"
+                               placeholder="Почеток на проектот"
+                               required
+                               onChange={handleChange}
+                        />
                     </div>
                     <div className="form-group">
-                        <label>Раководител на проектот:</label>
-                        <select name="professorId" className="form-control" value={formData.professorId || ""} onChange={handleChange}>
+                        <label htmlFor="endDate">Крај на проектот:</label>
+                        <input type="date"
+                               className="form-control"
+                               id="endDate"
+                               name="endDate"
+                               placeholder="Крај на проектот"
+                               required
+                               onChange={handleChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Финансиер:</label>
+                        <select name="primaryInstitution" className="form-control" value={formData.primaryInstitution || ""} onChange={handleChange}>
                             <option value="">None</option>
-                            {props.professors?.map((professor) => (
-                                <option key={professor.id} value={professor.id}>{professor.name}</option>
+                            {props.grandholders?.map((primaryInstitution) => (
+                                <option key={primaryInstitution.id} value={primaryInstitution.id}>{primaryInstitution.name}</option>
                             ))}
                         </select>
                     </div>
@@ -98,4 +114,4 @@ const NationalProjectAdd = (props) => {
     )
 }
 
-export default NationalProjectAdd;
+export default InternationalProjectAdd;
