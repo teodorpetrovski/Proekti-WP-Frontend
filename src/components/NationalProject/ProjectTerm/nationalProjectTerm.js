@@ -31,7 +31,7 @@ const NationalProjectTerm = (props) => {
                             <strong>Име на проектот: </strong>{props.term.name}<br/>
                             <strong>Внесен на: </strong>{props.term.dateEntry}<br/>
                             <strong>Повик: </strong>{props.term.scientificProjectCall.name}<br/>
-                            <strong>Раководидел на проектот: </strong>{props.term.manager.name}<br/>
+                            <strong>Раководител на проектот: </strong>{props.term.manager.name}<br/>
                             <strong>Статус: </strong>{props.term.typeStatus}<br/>
                         </p>
                         <Link className={"btn btn-info ml-2"}

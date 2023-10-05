@@ -20,7 +20,6 @@ class NationalProjects extends React.Component {
         const pageCount = Math.ceil(this.props.projects.length / this.state.size)
         const offset = this.state.page * this.state.size;
         const nextPageOffset = offset + this.state.size;
-        //const projects = this.getProjectsPage(offset, nextPageOffset);
         const nationalProjects = this.getNationalProjects(offset, nextPageOffset);
 
         return (
@@ -28,7 +27,6 @@ class NationalProjects extends React.Component {
                 <h3>Национални проекти</h3>
                 <br/>
 
-                {/*<AddNationalProject>Додади nov проект</AddNationalProject>*/}
                 <Link to="/national/add" className="btn btn-primary">Додади нов проект</Link>
                 <div className={"row"}>
                     <div className={"row"}>

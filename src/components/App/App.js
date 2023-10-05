@@ -16,6 +16,7 @@ import Professor from "../Professor/ProfessorList/professorList";
 import Grandholder from "../Grandholder/GrandholderList/grandholderList";
 import ScientificProjectCallDetails from "../ScientificProjectCall/CallDetails/scientificProjectCallDetails";
 import DetailsCall from "../ScientificProjectCall/CallDetails/detailsCall";
+import NationalProjectAdd from "../NationalProject/AddNationallProject/addNationalProject";
 
 
 class App extends Component {
@@ -158,7 +159,13 @@ class App extends Component {
                                            loadNationalProjects={this.loadNationalProjects}
                                        />}/>
 
-
+                                <Route path={"/national/add"} exact
+                                       element={<NationalProjectAdd
+                                           calls={this.state.calls}
+                                           professors={this.state.professors}
+                                           project={this.state.selectedNationalProject}
+                                           onAddNationalProject={this.addNationalProject}
+                                           />}/>
                                 <Route
                                     path="/national/details"
                                     element={<ScientificProjectCallDetails project={this.state.selectedProject} />}
@@ -297,6 +304,13 @@ class App extends Component {
                 console.error("Error editing project:", error);
             });
     };
+
+    addNationalProject = (name, dateEntry, call, manager, typeStatus) => {
+        projectsRepository.addNationalProject(name, dateEntry, call, manager, typeStatus)
+            .then(() => {
+                this.loadNationalProjects();
+            });
+    }
 
     editInternationalProject = (id, name, type, startDate, endDate, primaryInstitution, typeStatus) => {
         console.log("Editing project with the following data:");
