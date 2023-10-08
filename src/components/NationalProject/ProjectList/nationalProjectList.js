@@ -67,6 +67,8 @@ class NationalProjects extends React.Component {
     getNationalProjects = (offset, nextPageOffset) => {
         const projectTerms = this.props.projects.map((term, index) => {
             return (
+
+
                 <NationalProjectTerm key={term.id} term={term}
                                      onEdit={this.props.onEdit}
                                      onDelete={this.props.onDelete}

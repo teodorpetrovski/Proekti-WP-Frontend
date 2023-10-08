@@ -14,10 +14,10 @@ import EditInternationalProjectForm from "../InternationalProject/EditInternatio
 import SearchResults from "../SearchResults/searchResults";
 import Professor from "../Professor/ProfessorList/professorList";
 import Grandholder from "../Grandholder/GrandholderList/grandholderList";
-import ScientificProjectCallDetails from "../ScientificProjectCall/CallDetails/scientificProjectCallDetails";
-import DetailsCall from "../ScientificProjectCall/CallDetails/detailsCall";
 import NationalProjectAdd from "../NationalProject/AddNationallProject/addNationalProject";
 import InternationalProjectAdd from "../InternationalProject/AddInternationalProject/addInternationalProject";
+import NationalDetails from "../NationalProject/DetailsNational/nationalDetails";
+import InternationalDetails from "../InternationalProject/DetailsInternational/internationalDetails";
 
 
 class App extends Component {
@@ -33,22 +33,9 @@ class App extends Component {
             grandholders:[],
             internationalProjectsFiltered: [],
             nationalProjectsFiltered: [],
-            selectedCall: null,
         }
     }
 
-    handleCallSelect = (projectId) => {
-        const selectedProject = this.state.calls.find((project) => project.id === projectId);
-        this.setState({ selectedProject });
-    };
-    fetchCallDetails = (id) => {
-        projectsRepository.fetchProjectCallById(id)
-            .then((data) => {
-                this.setState({
-                    selectedCall: data.data,
-                });
-            });
-    };
 
     handleApproveNationalProject = (projectId) => {
         projectsRepository.approveNationalProject(projectId)
@@ -71,6 +58,8 @@ class App extends Component {
             });
     };
 
+
+
     handleApproveInternatioanlProject = (projectId) => {
         projectsRepository.approveInternationalProject(projectId)
             .then((response) => {
@@ -92,6 +81,30 @@ class App extends Component {
             });
     };
 
+    fetchNationalProjectDetails = (projectId) => {
+        projectsRepository.getNationalProject(projectId)
+            .then((response) => {
+                this.setState({
+                    nationalProject: response.data,
+                });
+            })
+            .catch((error) => {
+                console.error("Error fetching project details:", error);
+            });
+    }
+
+    fetchInternationalProjectDetails = (projectId) => {
+        projectsRepository.getInternationalProject(projectId)
+            .then((response) => {
+                this.setState({
+                    internationalProjects: response.data,
+                });
+            })
+            .catch((error) => {
+                console.error("Error fetching project details:", error);
+            });
+    }
+
     render() {
         return (
             <div className={"bg-light"}>
@@ -112,9 +125,8 @@ class App extends Component {
                                 <Route path={"/grantHolder"} exact
                                        element={<Grandholder grandholder={this.state.grandholders}/>}/>
 
-                                <Route path={"/calls"} exactt element={<Calls calls={this.state.calls}/>}/>
 
-                                <Route path="/calls/:callId" element={<DetailsCall />} />
+                                <Route path={"/calls"} exactt element={<Calls calls={this.state.calls}/>}/>
                                 
                                 <Route path={"/international"} exact
                                        element={<InternationalProjects projects={this.state.internationalProjects}
@@ -174,9 +186,15 @@ class App extends Component {
                                            onAddInternationalProject={this.addInternationalProject}
                                        />}/>
                                 <Route
-                                    path="/national/details"
-                                    element={<ScientificProjectCallDetails project={this.state.selectedProject} />}
+                                    path="/national/details/:projectId"
+                                    element={<NationalDetails fetchDetails={this.fetchNationalProjectDetails} nationalProject={this.state.nationalProject} />}
                                 />
+
+                                <Route
+                                    path="/international/details/:projectId"
+                                    element={<InternationalDetails fetchDetails={this.fetchInternationalProjectDetails} nationalProject={this.state.internationalProjects} />}
+                                />
+
                             </Routes>
 
                         </div>

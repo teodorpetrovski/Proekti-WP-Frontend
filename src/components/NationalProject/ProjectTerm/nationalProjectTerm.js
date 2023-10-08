@@ -21,7 +21,7 @@ const NationalProjectTerm = (props) => {
 
     return (
         <div className="col">
-            <a href={"/national/{id}"} style={{textDecoration: 'none'}}>
+            <Link to={`/national/details/${props.term.id}`} style={{ textDecoration: 'none' }}>
                 <div
                     className={`card rounded-0 bg-white mb-3 ${props.term.approved === true ? 'green-corner' : 'red-corner'} `}
                     style={{maxWidth: 390}}>
@@ -34,19 +34,20 @@ const NationalProjectTerm = (props) => {
                             <strong>Раководител на проектот: </strong>{props.term.manager.name}<br/>
                             <strong>Статус: </strong>{props.term.typeStatus}<br/>
                         </p>
-                        <Link className={"btn btn-info ml-2"}
+                        <Link className={"btn btn-info ml-2 ms-5"}
                               onClick={() => props.onEdit(props.term.id)}
                               to={`/national/edit/${props.term.id}`}>
                             Уреди
                         </Link>
-                        <a title="Delete" className="btn btn-danger" onClick={() => props.onDelete(props.term.id)}>
+                        <a title="Delete" className="btn btn-danger ms-5" onClick={() => props.onDelete(props.term.id)}>
                             Избриши
                         </a>
-                        <button className="btn btn-primary btn-sm" onClick={handleExportClick}>
+                        <br/>
+                        <button className="btn btn-primary btn-sm mt-3 ms-5" onClick={handleExportClick}>
                             Експорт
                         </button>
                         <button
-                            className="btn btn-warning btn-sm"
+                            className="btn btn-warning btn-sm mt-3 ms-5"
                             onClick={handleApproveClick}
                             disabled={props.term.approved}
                         >
@@ -54,7 +55,8 @@ const NationalProjectTerm = (props) => {
                         </button>
                     </div>
                 </div>
-            </a>
+            
+            </Link>
         </div>
     );
 
