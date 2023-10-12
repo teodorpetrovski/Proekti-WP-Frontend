@@ -76,24 +76,35 @@ const ProjectRepository = {
             "typeStatus": typeStatus
         });
     },
-    addNationalProject: (name, dateEntry, callId, manager, typeStatus) => {
+    addNationalProject: (name, dateEntry, callId, managerId, typeStatus, keyWords, summary, benefits, members) => {
         return axios.post("/national/add", {
-            "name": name,
-            "dateEntry": dateEntry,
-            "callId": callId,
-            "manager": manager,
-            "typeStatus": typeStatus
-        })
+            name,
+            dateEntry,
+            callId,
+            manager: managerId,
+            typeStatus,
+            keyWords,
+            summary,
+            benefits,
+            members
+        });
     },
-    addInternationalProject: (name, type, startDate, endDate, primaryInstitution, typeStatus) => {
+
+    addInternationalProject: (name, type, dateEntry, startDate, endDate, primaryInstitution, typeStatus, description, goals, anotherInstitution, carrier, partners) => {
         return axios.post("/international/add", {
-            "name": name,
-            "type": type,
-            "startDate": startDate,
-            "endDate": endDate,
-            "primaryInstitution": primaryInstitution,
-            "typeStatus": typeStatus
-        })
+            name,
+            type,
+            dateEntry,
+            startDate,
+            endDate,
+            primaryInstitution,
+            typeStatus,
+            description,
+            goals,
+            anotherInstitution,
+            carrier,
+            partners
+        });
     },
     getNationalProject: (id) => {
         return axios.get(`/national/${id}`);

@@ -5,14 +5,20 @@ import {useNavigate} from 'react-router-dom';
 const InternationalProjectAdd = (props) => {
 
     const navigate = useNavigate();
-    
+
     const [formData, updateFormData] = React.useState({
         name: "",
         type: "",
+        dateEntry: "",
         startDate: "",
         endDate: "",
         primaryInstitution: null,
         typeStatus: "",
+        description: "",
+        goals: "",
+        anotherInstitution: null,
+        carrier: null,
+        partners: null
     })
 
     const TypeStatus = ["OLD", "NEW"];
@@ -25,18 +31,26 @@ const InternationalProjectAdd = (props) => {
 
     const onFormSubmit = (e) => {
         e.preventDefault();
-        const name = formData.name;
-        const type = formData.type;
-        const startDate = formData.startDate;
-        const endDate = formData.endDate;
-        const primaryInstitution = formData.primaryInstitution;
-        const typeStatus = formData.typeStatus;
+        const {
+            name,
+            type,
+            dateEntry,
+            startDate,
+            endDate,
+            primaryInstitution,
+            typeStatus,
+            description,
+            goals,
+            anotherInstitution,
+            carrier,
+            partners
+        } = formData;
 
-        props.onAddInternationalProject(name, type, startDate, endDate, primaryInstitution, typeStatus);
+        props.onAddInternationalProject(name, type, dateEntry, startDate, endDate, primaryInstitution, typeStatus, description, goals, anotherInstitution, carrier, partners);
         navigate("/international");
-    }
+    };
 
-    return(
+    return (
         <div className="row mt-5">
             <div className="col-md-5">
                 <form onSubmit={onFormSubmit}>
@@ -58,6 +72,17 @@ const InternationalProjectAdd = (props) => {
                                id="type"
                                name="type"
                                placeholder="Тип на проектот"
+                               required
+                               onChange={handleChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="dateEntry">Датум на внесување:</label>
+                        <input type="date"
+                               className="form-control"
+                               id="dateEntry"
+                               name="dateEntry"
+                               placeholder="Датум на внесување"
                                required
                                onChange={handleChange}
                         />
@@ -86,10 +111,12 @@ const InternationalProjectAdd = (props) => {
                     </div>
                     <div className="form-group">
                         <label>Финансиер:</label>
-                        <select name="primaryInstitution" className="form-control" value={formData.primaryInstitution || ""} onChange={handleChange}>
+                        <select name="primaryInstitution" className="form-control"
+                                value={formData.primaryInstitution || ""} onChange={handleChange}>
                             <option value="">None</option>
                             {props.grandholders?.map((primaryInstitution) => (
-                                <option key={primaryInstitution.id} value={primaryInstitution.id}>{primaryInstitution.name}</option>
+                                <option key={primaryInstitution.id}
+                                        value={primaryInstitution.id}>{primaryInstitution.name}</option>
                             ))}
                         </select>
                     </div>
@@ -107,6 +134,64 @@ const InternationalProjectAdd = (props) => {
                             <option value="NEW">NEW</option>
                         </select>
                     </div>
+                    <div className="form-group">
+                        <label htmlFor="description">Опис:</label>
+                        <textarea className="form-control"
+                                  id="description"
+                                  name="description"
+                                  required
+                                  placeholder="Опис"
+                                  onChange={handleChange}>
+                        </textarea>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="goals">Цели:</label>
+                        <input type="text"
+                               className="form-control"
+                               id="goals"
+                               name="goals"
+                               required
+                               placeholder="Цели"
+                               onChange={handleChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Друга институција:</label>
+                        <select name="anotherInstitution" className="form-control"
+                                value={formData.anotherInstitution || ""} onChange={handleChange}>
+                            <option value="">None</option>
+                            {props.grandholders?.map((institution) => (
+                                <option key={institution.id}
+                                        value={institution.id}>{institution.name}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Носител:</label>
+                        <select name="carrier" className="form-control"
+                                value={formData.carrier || ""} onChange={handleChange}>
+                            <option value="">None</option>
+                            {props.grandholders?.map((carrier) => (
+                                <option key={carrier.id}
+                                        value={carrier.id}>{carrier.name}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Партнери:</label>
+                        <select name="partners" className="form-control"
+                                value={formData.partners || ""} onChange={handleChange}>
+                            <option value="">None</option>
+                            {props.grandholders?.map((partner) => (
+                                <option key={partner.id}
+                                        value={partner.id}>{partner.name}</option>
+                            ))}
+                        </select>
+                    </div>
+
                     <button id="submit" type="submit" className="btn btn-primary">Додади</button>
                 </form>
             </div>

@@ -192,7 +192,7 @@ class App extends Component {
 
                                 <Route
                                     path="/international/details/:projectId"
-                                    element={<InternationalDetails fetchDetails={this.fetchInternationalProjectDetails} nationalProject={this.state.internationalProjects} />}
+                                    element={<InternationalDetails fetchDetails={this.fetchInternationalProjectDetails} internationalProject={this.state.internationalProjects} />}
                                 />
 
                             </Routes>
@@ -330,14 +330,14 @@ class App extends Component {
             });
     };
 
-    addNationalProject = (name, dateEntry, call, manager, typeStatus) => {
-        projectsRepository.addNationalProject(name, dateEntry, call, manager, typeStatus)
+    addNationalProject = (name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members, manager) => {
+        projectsRepository.addNationalProject(name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members, manager)
             .then(() => {
                 this.loadNationalProjects();
             });
     }
-    addInternationalProject = (name, type, startDate, endDate, primaryInstitution, typeStatus) => {
-        projectsRepository.addInternationalProject(name, type, startDate, endDate, primaryInstitution, typeStatus)
+    addInternationalProject = (name, type, dateEntry, startDate, endDate, primaryInstitution, typeStatus, description, goals, anotherInstitution, carrier, partners) => {
+        projectsRepository.addInternationalProject(name, type, dateEntry, startDate, endDate, primaryInstitution, typeStatus, description, goals, anotherInstitution, carrier, partners)
             .then(() => {
                 this.loadInternationalProjects();
             });
