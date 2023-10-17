@@ -19,11 +19,11 @@ const InternationalProjectTerm = (props) => {
     };
     return (
         <div className="col">
-            <Link to={`/international/details/${props.term.id}`} style={{ textDecoration: 'none' }}>
                     <div
                         className={`card rounded-0 bg-white mb-3 ${props.term.approved === true ? 'green-corner' : 'red-corner'} `}
                         style={{maxWidth: 390}}>
                         <div className="card-body">
+                            <Link className={"text-dark"} to={`/international/details/${props.term.id}`} style={{ textDecoration: 'none'}} >
                             <h2 className="card-title fw-lighter ">{props.term.name}</h2>
                             <p className="card-text p-1" style={{fontSize: '15px'}}>
                                 <strong>Име на проектот: </strong>{props.term.name}<br/>
@@ -33,6 +33,7 @@ const InternationalProjectTerm = (props) => {
                                 <strong>Финансиер: </strong>{props.term.primaryGrantHolder.name}<br/>
                                 <strong>Статус: </strong>{props.term.typeStatus}<br/>
                             </p>
+                            </Link>
                             <Link className={"btn btn-info ml-2"}
                                   onClick={() => props.onEdit(props.term.id)}
                                   to={`/international/edit/${props.term.id}`}>
@@ -54,7 +55,6 @@ const InternationalProjectTerm = (props) => {
                             </button>
                         </div>
                     </div>
-            </Link>
         </div>
     );
 }

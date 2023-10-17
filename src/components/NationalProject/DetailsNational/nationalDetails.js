@@ -27,13 +27,6 @@ function NationalDetails({ fetchDetails, nationalProject }) {
                 <p>Придобивки: {nationalProject.benefits}</p>
                 <p>Одобрено: {nationalProject.approved ? 'Yes' : 'No'}</p>
                 <p>Раководител на проект: {nationalProject.manager ? nationalProject.manager?.name : 'N/A'}</p>
-
-                <h3>Членови:</h3>
-                <ul>
-                    {nationalProject.members?.map((member) => (
-                        <li key={member.id}>{member?.name}</li>
-                    ))}
-                </ul>
             </div>
         </div>
     )
