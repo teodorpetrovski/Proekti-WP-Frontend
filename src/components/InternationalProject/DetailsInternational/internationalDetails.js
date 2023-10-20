@@ -29,22 +29,25 @@ function InternationalDetails({ fetchDetails, internationalProject }) {
                         <strong>Цели:</strong> {internationalProject.goals}
                     </p>
                     <p>
+                        <strong>Датум на внесување:</strong> {internationalProject.dateEntry}
+                    </p>
+                    <p>
                         <strong>Почетен датум:</strong> {internationalProject.startDate}
                     </p>
                     <p>
                         <strong>Краен ден:</strong> {internationalProject.endDate}
                     </p>
                     <p>
-                        <strong>Главен финансиер:</strong> {internationalProject.primaryGrantHolder.name}
+                        <strong>Главен финансиер:</strong> {internationalProject.primaryGrantHolder?.name}
                     </p>
                     <p>
-                        <strong>Други финансиери:</strong> {internationalProject.anotherGrantHolder.name}
+                        <strong>Други финансиери:</strong> {internationalProject.anotherGrantHolder?.name}
                     </p>
                     <p>
-                        <strong>Кариера:</strong> {internationalProject.carrier.name}
+                        <strong>Кариера:</strong> {internationalProject.carrier?.name}
                     </p>
                     <p>
-                        <strong>Партнери:</strong> {internationalProject.partners.name}
+                        <strong>Партнери:</strong> {internationalProject.partners?.name}
                     </p>
                     <p>
                         <strong>Статус:</strong> {internationalProject.typeStatus}

@@ -11,6 +11,11 @@ const NationalProjectAdd = (props) => {
         callId: null,
         professorId: 0,
         typeStatus: "",
+        keyWords: "",
+        summary: "",
+        benefits: "",
+        members: [],
+        manager: ""
     })
 
     const TypeStatus = ["OLD", "NEW"];
@@ -23,13 +28,15 @@ const NationalProjectAdd = (props) => {
 
     const onFormSubmit = (e) => {
         e.preventDefault();
-        const name = formData.name;
-        const dateEntry = formData.dateEntry;
-        const callId = formData.callId;
-        const professorId = formData.professorId;
-        const typeStatus = formData.typeStatus;
-        
-        props.onAddNationalProject(name, dateEntry, callId, professorId, typeStatus);
+
+        const {
+            name, dateEntry, callId, professorId, typeStatus,
+            keyWords, summary, benefits, members, manager
+        } = formData;
+
+        const membersList = members.split(',').map(member => member.trim());
+
+        props.onAddNationalProject(name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, membersList, manager);
         navigate("/national");
     }
 
@@ -90,6 +97,54 @@ const NationalProjectAdd = (props) => {
                             <option value="OLD">OLD</option>
                             <option value="NEW">NEW</option>
                         </select>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="keyWords">Клучни зборови:</label>
+                        <input type="text"
+                               className="form-control"
+                               id="keyWords"
+                               name="keyWords"
+                               placeholder="Клучни зборови"
+                               onChange={handleChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="summary">Заклучок/Резиме:</label>
+                        <textarea className="form-control"
+                                  id="summary"
+                                  name="summary"
+                                  placeholder="Заклучок/Резиме"
+                                  onChange={handleChange}
+                        ></textarea>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="benefits">Придобивки:</label>
+                        <textarea className="form-control"
+                                  id="benefits"
+                                  name="benefits"
+                                  placeholder="Придобивки"
+                                  onChange={handleChange}
+                        ></textarea>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="members">Членови:</label>
+                        <input type="text"
+                               className="form-control"
+                               id="members"
+                               name="members"
+                               placeholder="Член1, Член2, ..."
+                               onChange={handleChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="manager">Раководител на проектот:</label>
+                        <input type="text"
+                               className="form-control"
+                               id="manager"
+                               name="manager"
+                               placeholder="Раководител на проектот"
+                               onChange={handleChange}
+                        />
                     </div>
                     <button id="submit" type="submit" className="btn btn-primary">Додади</button>
                 </form>
