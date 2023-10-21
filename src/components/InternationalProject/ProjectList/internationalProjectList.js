@@ -29,7 +29,7 @@ class InternationalProjects extends React.Component {
                 <h3>Меѓународни проекти</h3>
                 <br/>
 
-                <Link to="/international/add" className="btn btn-primary">Додади нов проект</Link>
+                <Link to="/international/add" className="btn btn-primary mb-3">Додади нов проект</Link>
                 <div className={"row"}>
                     <div className={"row"}>
 

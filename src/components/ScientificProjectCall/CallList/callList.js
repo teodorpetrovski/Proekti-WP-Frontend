@@ -30,7 +30,7 @@ class Calls extends React.Component {
             <div className={"container m-4 mt-5"}>
                 <h3>Повици</h3>
                 <br/>
-                <a href="/calls/add" class="btn btn-primary" className="btn btn-primary">Додади нов повик</a>
+                <a href="/calls/add" class="btn btn-primary" className="btn btn-primary mb-3">Додади нов повик</a>
                 <div className={"row"}>
                     <div className={"row"}>
                         {calls}

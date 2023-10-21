@@ -27,7 +27,7 @@ class NationalProjects extends React.Component {
                 <h3>Национални проекти</h3>
                 <br/>
 
-                <Link to="/national/add" className="btn btn-primary">Додади нов проект</Link>
+                <Link to="/national/add" className="btn btn-primary mb-3">Додади нов проект</Link>
                 <div className={"row"}>
                     <div className={"row"}>
 

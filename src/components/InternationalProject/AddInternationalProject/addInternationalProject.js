@@ -192,7 +192,7 @@ const InternationalProjectAdd = (props) => {
                         </select>
                     </div>
 
-                    <button id="submit" type="submit" className="btn btn-primary">Додади</button>
+                    <button id="submit" type="submit" className="btn btn-primary mt-3">Додади</button>
                 </form>
             </div>
         </div>
