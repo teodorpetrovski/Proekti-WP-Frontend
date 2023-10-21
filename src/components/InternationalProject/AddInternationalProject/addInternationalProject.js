@@ -181,7 +181,7 @@ const InternationalProjectAdd = (props) => {
                     </div>
 
                     <div className="form-group">
-                        <label>Партнери:</label>
+                        <label>Партнер:</label>
                         <select name="partners" className="form-control"
                                 value={formData.partners || ""} onChange={handleChange}>
                             <option value="">None</option>
