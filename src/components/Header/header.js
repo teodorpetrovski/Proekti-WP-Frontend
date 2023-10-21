@@ -45,7 +45,7 @@ const header = (props) =>
 
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
-            <a className="navbar-brand" href="/allprojects"> <img
+            <a className="navbar-brand" href="/"> <img
                 src={logo}
                 alt="Logo"
                 style={{ maxHeight: '45px' }}
