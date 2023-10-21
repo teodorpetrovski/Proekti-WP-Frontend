@@ -25,6 +25,13 @@ const NationalProjectAdd = (props) => {
             [e.target.name]: e.target.value.trim()
         })
     }
+    const handleMembersChange = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions);
+        updateFormData({
+            ...formData,
+            members: selectedOptions.map(option => option.value)
+        });
+    }
 
     const onFormSubmit = (e) => {
         e.preventDefault();
@@ -34,9 +41,7 @@ const NationalProjectAdd = (props) => {
             keyWords, summary, benefits, members, manager
         } = formData;
 
-        const membersList = members.split(',').map(member => member.trim());
-
-        props.onAddNationalProject(name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, membersList, manager);
+        props.onAddNationalProject(name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members, manager);
         navigate("/national");
     }
 
@@ -128,13 +133,16 @@ const NationalProjectAdd = (props) => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="members">Членови:</label>
-                        <input type="text"
-                               className="form-control"
-                               id="members"
-                               name="members"
-                               placeholder="Член1, Член2, ..."
-                               onChange={handleChange}
-                        />
+                        <select multiple={true}
+                                className="form-control"
+                                id="members"
+                                name="members"
+                                value={formData.members}
+                                onChange={handleMembersChange}>
+                            {props.professors?.map((professor) => (
+                                <option key={professor.id} value={professor.id}>{professor.name}</option>
+                            ))}
+                        </select>
                     </div>
                     <div className="form-group">
                         <label htmlFor="manager">Раководител на проектот:</label>

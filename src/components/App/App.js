@@ -140,7 +140,7 @@ class App extends Component {
 
                                 <Route path="/calls/add" element={<AddCall onAdd={this.addCall} />}></Route>
 
-                                <Route path={"/allprojects"} exact
+                                <Route path={"/"} exact
                                        element={<HomeProjects  internationalProjects={this.state.internationalProjects}
                                                                nationalProjects={this.state.nationalProjects}
                                                               />}/>
