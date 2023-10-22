@@ -13,8 +13,6 @@ const EditInternationalProjectForm = (props) => {
         primaryInstitution: null,
         typeStatus: ""
     });
-
-    const [grandholders, setGrandholders] = useState([]);
     const TypeStatus = ["OLD", "NEW"];
 
     useEffect(() => {
@@ -25,21 +23,11 @@ const EditInternationalProjectForm = (props) => {
                 type: props.project.type || "",
                 startDate: props.project.startDate || "",
                 endDate: props.project.endDate || "",
-                primaryInstitution: props.project.primaryInstitution || null,
+                primaryInstitution: props.project.primaryGrantHolder?.id || null,
                 typeStatus: props.project.typeStatus || ""
             }));
         }
     }, [props.project]);
-
-    useEffect(() => {
-        projectsRepository.fetchGrandholders()
-            .then(data => {
-                setGrandholders(data);
-            })
-            .catch(error => {
-                console.error("Error fetching calls:", error);
-            });
-    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -63,7 +51,7 @@ const EditInternationalProjectForm = (props) => {
             type: formData.type,
             startDate: formData.startDate,
             endDate: formData.endDate,
-            primaryInstitution: selectedInstitutionId ? (selectedInstitutionId) : null,
+            primaryInstitution: formData.primaryInstitution ? Number(formData.primaryInstitution) : null,
             typeStatus: formData.typeStatus
         };
 

@@ -12,42 +12,23 @@ const EditNationalProjectForm = (props) => {
         professorId: null,
         callId: null
     });
-
-    const [calls, setCalls] = useState([]);
-    const [professors, setProfessors] = useState([]);
     const TypeStatus = ["OLD", "NEW"];
 
     useEffect(() => {
+        console.log("Props Project:", props.project);
         if (props.project) {
             updateFormData(prevState => ({
                 ...prevState,
                 name: props.project.name || "",
                 dateEntry: props.project.dateEntry || "",
-                callId: props.project.callId || null,
-                professorId: props.project.professorId || null,
+                callId: props.project.scientificProjectCall?.id || null,
+                professorId: props.project.manager?.id || null,
                 typeStatus: props.project.typeStatus || ""
             }));
         }
+        console.log("FormData Call ID:", formData.callId);
+        console.log("FormData Professor ID:", formData.professorId);
     }, [props.project]);
-
-    useEffect(() => {
-        projectsRepository.fetchCalls()
-            .then(data => {
-                setCalls(data);
-            })
-            .catch(error => {
-                console.error("Error fetching calls:", error);
-            });
-    }, []);
-    useEffect(() => {
-        projectsRepository.fetchProfessors()
-            .then(data => {
-                setProfessors(data);
-            })
-            .catch(error => {
-                console.error("Error fetching calls:", error);
-            });
-    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -65,8 +46,8 @@ const EditNationalProjectForm = (props) => {
         const preparedData = {
             name: formData.name,
             dateEntry: formData.dateEntry,
-            callId: selectedCallId ? Number(selectedCallId) : null,
-            professorId: selectedProfessorId ? Number(selectedProfessorId) : null,
+            callId: formData.callId ? Number(formData.callId) : null,
+            professorId: formData.professorId ? Number(formData.professorId) : null,
             typeStatus: formData.typeStatus,
         };
 
@@ -127,7 +108,7 @@ const EditNationalProjectForm = (props) => {
                             ))}
                         </select>
                     </div>
-                    <button id="submit" type="submit" className="btn btn-primary">Уреди</button>
+                    <button id="submit" type="submit" className="btn btn-primary mt-3">Уреди</button>
                 </form>
             </div>
         </div>
