@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"; // Import useEffect from React
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 function InternationalDetails({ fetchDetails, internationalProject }) {

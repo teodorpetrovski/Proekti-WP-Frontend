@@ -112,7 +112,7 @@ const EditInternationalProjectForm = (props) => {
                             ))}
                         </select>
                     </div>
-                    <button id="submit" type="submit" className="btn btn-primary">Уреди</button>
+                    <button id="submit" type="submit" className="btn btn-primary mt-3">Уреди</button>
                 </form>
             </div>
         </div>
