@@ -165,6 +165,49 @@ const ProjectRepository = {
             window.URL.revokeObjectURL(url);
         });
     },
+    fetchNationalProjectReport: () => {
+        return axios.get("national/report",
+            {
+                responseType: 'blob',
+            }).then(response => {
+
+            const blob = new Blob([response.data], {type: response.headers['content-type']});
+            const url = window.URL.createObjectURL(blob);
+
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'File.pdf');
+            document.body.appendChild(link);
+            link.click();
+
+
+            window.URL.revokeObjectURL(url);
+        });
+    },
+    fetchInternationalProjectReport: () => {
+        return axios.get("international/report",
+            {
+                responseType: 'blob',
+            }).then(response => {
+
+            const blob = new Blob([response.data], {type: response.headers['content-type']});
+            const url = window.URL.createObjectURL(blob);
+
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'File.pdf');
+            document.body.appendChild(link);
+            link.click();
+
+
+            window.URL.revokeObjectURL(url);
+        });
+    },
+
+
+
     fetchProjectCallById: (id) => {
         return axios.get(`/scientificProjectCall/${id}`);
     },
