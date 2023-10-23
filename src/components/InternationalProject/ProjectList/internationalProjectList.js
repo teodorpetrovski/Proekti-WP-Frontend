@@ -34,7 +34,7 @@ class InternationalProjects extends React.Component {
                 <Link to="/international/add" className="btn btn-primary mb-3 me-3">Додади нов проект</Link>
 
                 <button className="btn btn-secondary mb-3" onClick={this.props.onReport}>
-                    Превземи извештај
+                    Преземи извештај
                 </button>
                 <div className={"row"}>
                     <div className={"row"}>

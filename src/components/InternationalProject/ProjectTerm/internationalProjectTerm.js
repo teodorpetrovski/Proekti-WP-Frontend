@@ -24,7 +24,7 @@ const InternationalProjectTerm = (props) => {
                         className={`card rounded-0 bg-white mb-3 ${props.term.approved === true ? 'green-corner' : 'red-corner'} `}
                         style={{maxWidth: 390}}>
                         <div className="card-body">
-                            <Link className={"text-dark"} to={`/international/${props.term.id}`} style={{ textDecoration: 'none' }}>
+                            <Link className={"text-dark"} to={`/international/details/${props.term.id}`} style={{ textDecoration: 'none' }}>
                             <h2 className="card-title fw-lighter ">{props.term.name}</h2>
                             <p className="card-text p-1" style={{fontSize: '15px'}}>
                                 <strong>Име на проектот: </strong>{props.term.name}<br/>
@@ -35,20 +35,20 @@ const InternationalProjectTerm = (props) => {
                                 <strong>Статус: </strong>{props.term.typeStatus}<br/>
                             </p>
                             </Link>
-                            <Link className={"btn btn-info mb-3 ms-5"}
+                            <Link className={"btn btn-info  mb-2 mt-3 ms-5 w-25"}
                                   onClick={() => props.onEdit(props.term.id)}
                                   to={`/international/edit/${props.term.id}`}>
                                 Уреди
                             </Link>
-                            <a title={"Delete"} className={"btn btn-danger mb-3 ms-5"}
+                            <a title={"Delete"} className={"btn btn-danger mb-2 mt-3 ms-3"}
                                onClick={() => props.onDelete(props.term.id)}>
                                 Избриши
                             </a>
-                            <button className="btn btn-primary btn-sm mt-3 ms-5" onClick={handleExportClick}>
+                            <button className="btn btn-primary btn-sm mt-3 ms-5 w-25" onClick={handleExportClick}>
                                 Експорт
                             </button>
                             <button
-                                className="btn btn-warning btn-sm mt-3 ms-5"
+                                className="btn btn-warning  btn-sm mt-3 ms-3 w-25 "
                                 onClick={handleApproveClick}
                                 disabled={props.term.approved}
                             >

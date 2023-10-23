@@ -48,6 +48,7 @@ const NationalProjectAdd = (props) => {
     return(
         <div className="row mt-5">
             <div className="col-md-5">
+                <h2>Додади национален проект</h2>
                 <form onSubmit={onFormSubmit}>
                     <div className="form-group">
                         <label htmlFor="name">Име на проектот:</label>
@@ -74,7 +75,7 @@ const NationalProjectAdd = (props) => {
                     <div className="form-group">
                         <label htmlFor="callId">Повик:</label>
                         <select name="callId" className="form-control" value={formData.callId || ""} onChange={handleChange}>
-                            <option value="">None</option>
+                            <option value="">Избери повик</option>
                             {props.calls.map((call) => (
                                 <option key={call.id} value={call.id}>{call.name}</option>
                             ))}
@@ -83,7 +84,7 @@ const NationalProjectAdd = (props) => {
                     <div className="form-group">
                         <label>Раководител на проектот:</label>
                         <select name="professorId" className="form-control" value={formData.professorId || ""} onChange={handleChange}>
-                            <option value="">None</option>
+                            <option value="">Избери раководител</option>
                             {props.professors?.map((professor) => (
                                 <option key={professor.id} value={professor.id}>{professor.name}</option>
                             ))}
@@ -98,7 +99,7 @@ const NationalProjectAdd = (props) => {
                                 required
                                 onChange={handleChange}
                         >
-                            <option value="" disabled>Избери статус на проект</option>
+                            <option value="" disabled>Избери статус</option>
                             <option value="OLD">OLD</option>
                             <option value="NEW">NEW</option>
                         </select>
@@ -145,16 +146,16 @@ const NationalProjectAdd = (props) => {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="manager">Раководител на проектот:</label>
+                        <label htmlFor="manager">Менаџер на проектот:</label>
                         <input type="text"
                                className="form-control"
                                id="manager"
                                name="manager"
-                               placeholder="Раководител на проектот"
+                               placeholder="Менаџер на проектот"
                                onChange={handleChange}
                         />
                     </div>
-                    <button id="submit" type="submit" className="btn btn-primary">Додади</button>
+                    <button id="submit" type="submit" className="btn btn-primary mt-3">Додади</button>
                 </form>
             </div>
         </div>

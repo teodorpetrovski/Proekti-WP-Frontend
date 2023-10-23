@@ -78,6 +78,7 @@ const EditInternationalProjectForm = (props) => {
     return (
         <div className="row mt-5">
             <div className="col-md-5">
+                <h2>Уреди</h2>
                 <form onSubmit={onFormSubmit}>
                     <div className="form-group">
                         <label htmlFor="name">Име на проектот:</label>
