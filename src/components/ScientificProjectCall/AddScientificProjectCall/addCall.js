@@ -44,9 +44,9 @@ const AddCall = (props) => {
     };
 
     return(
-        // <div className="container mt-5 ">
             <div className="row mt-5">
                 <div className="col-md-5">
+                    <h1>Додади повик</h1>
                     <form onSubmit={onFormSubmit}>
                         <div className="form-group">
                             <label htmlFor="name">Име:</label>
@@ -136,7 +136,7 @@ const AddCall = (props) => {
                             </select>
                         </div>
                         <button type="submit" className="btn btn-success mt-3">
-                            Додади повик!
+                            Додади повик
                         </button>
                     </form>
                 </div>

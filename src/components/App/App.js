@@ -134,6 +134,7 @@ class App extends Component {
                                                                        onDelete={this.deleteInternationalProject}
                                                                        onExport={this.exportInternationalProject}
                                                                        onApprove={this.handleApproveInternatioanlProject}
+                                                                       onReport={this.fetchInternationalProjectReport}
                                        />
                                 }/>
 
@@ -151,6 +152,7 @@ class App extends Component {
                                                                   onDelete={this.deleteNationalProject}
                                                                   onExport={this.exportNationalProject}
                                                                   onApprove={this.handleApproveNationalProject}
+                                                                  onReport={this.fetchNationalProjectReport}
                                        />}/>
 
 
@@ -382,6 +384,14 @@ class App extends Component {
         exportNationalProject = (id) => {
             projectsRepository.exportNationalProject(id)
         }
+
+    fetchNationalProjectReport = () => {
+        projectsRepository.fetchNationalProjectReport()
+    }
+
+    fetchInternationalProjectReport = () => {
+        projectsRepository.fetchInternationalProjectReport()
+    }
 
 
 

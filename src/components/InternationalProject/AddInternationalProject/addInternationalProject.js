@@ -53,6 +53,7 @@ const InternationalProjectAdd = (props) => {
     return (
         <div className="row mt-5">
             <div className="col-md-5">
+                <h3>Додади интернационален проект</h3>
                 <form onSubmit={onFormSubmit}>
                     <div className="form-group">
                         <label htmlFor="name">Име на проектот:</label>
@@ -113,7 +114,7 @@ const InternationalProjectAdd = (props) => {
                         <label>Финансиер:</label>
                         <select name="primaryInstitution" className="form-control"
                                 value={formData.primaryInstitution || ""} onChange={handleChange}>
-                            <option value="">None</option>
+                            <option value="">Избери главен финансиер</option>
                             {props.grandholders?.map((primaryInstitution) => (
                                 <option key={primaryInstitution.id}
                                         value={primaryInstitution.id}>{primaryInstitution.name}</option>
@@ -157,10 +158,10 @@ const InternationalProjectAdd = (props) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Друга институција:</label>
+                        <label>Друг финансиер:</label>
                         <select name="anotherInstitution" className="form-control"
                                 value={formData.anotherInstitution || ""} onChange={handleChange}>
-                            <option value="">None</option>
+                            <option value="">Избери друг финансиер</option>
                             {props.grandholders?.map((institution) => (
                                 <option key={institution.id}
                                         value={institution.id}>{institution.name}</option>
@@ -172,7 +173,7 @@ const InternationalProjectAdd = (props) => {
                         <label>Носител:</label>
                         <select name="carrier" className="form-control"
                                 value={formData.carrier || ""} onChange={handleChange}>
-                            <option value="">None</option>
+                            <option value="">Избери носител</option>
                             {props.grandholders?.map((carrier) => (
                                 <option key={carrier.id}
                                         value={carrier.id}>{carrier.name}</option>
@@ -184,7 +185,7 @@ const InternationalProjectAdd = (props) => {
                         <label>Партнер:</label>
                         <select name="partners" className="form-control"
                                 value={formData.partners || ""} onChange={handleChange}>
-                            <option value="">None</option>
+                            <option value="">Избери партнер</option>
                             {props.grandholders?.map((partner) => (
                                 <option key={partner.id}
                                         value={partner.id}>{partner.name}</option>
