@@ -58,7 +58,7 @@ const ProjectRepository = {
             "name": name,
             "dateEntry": dateEntry,
             "callId": callId,
-            "professor": professor,
+            "manager": professor,
             "typeStatus": typeStatus,
             "keyWords": keyWords,
             "summary": summary,
