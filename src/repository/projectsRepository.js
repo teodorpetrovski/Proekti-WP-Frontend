@@ -66,14 +66,19 @@ const ProjectRepository = {
             "members": members
         });
     },
-    editInternationalProject: (id, name, type, startDate, endDate, primaryInstitution, typeStatus) => {
+    editInternationalProject: (id, name, type, startDate, endDate, primaryInstitution, typeStatus, description, goals, anotherInstitution, carrier, partners) => {
         console.log("Editing project with data:", {
             "name": name,
             "type": type,
             "startDate": startDate,
             "endDate": endDate,
             "primaryInstitution":primaryInstitution,
-            "typeStatus": typeStatus
+            "typeStatus": typeStatus,
+            "description": description,
+            "goals": goals,
+            "anotherInstitution": anotherInstitution,
+            "carrier": carrier,
+            "partners": partners
         });
         return axios.put(`/international/edit/${id}`, {
             "name": name,
@@ -81,7 +86,12 @@ const ProjectRepository = {
             "startDate": startDate,
             "endDate": endDate,
             "primaryInstitution":primaryInstitution,
-            "typeStatus": typeStatus
+            "typeStatus": typeStatus,
+            "description": description,
+            "goals": goals,
+            "anotherInstitution": anotherInstitution,
+            "carrier": carrier,
+            "partners": partners
         });
     },
     addNationalProject: (name, dateEntry, callId, managerId, typeStatus, keyWords, summary, benefits, members) => {

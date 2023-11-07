@@ -348,7 +348,7 @@ class App extends Component {
                 this.loadInternationalProjects();
             });
     }
-    editInternationalProject = (id, name, type, startDate, endDate, primaryInstitution, typeStatus) => {
+    editInternationalProject = (id, name, type, startDate, endDate, primaryInstitution, typeStatus, description, goals, anotherInstitution, carrier, partners) => {
         console.log("Editing project with the following data:");
         console.log("ID:", id);
         console.log("Name:", name);
@@ -357,8 +357,13 @@ class App extends Component {
         console.log("End Date:", endDate);
         console.log("Primary Institution:", primaryInstitution);
         console.log("Type Status:", typeStatus);
+        console.log("Description:", description);
+        console.log("Goals:", goals);
+        console.log("Another Institution:", anotherInstitution);
+        console.log("Carrier:", carrier);
+        console.log("Partners:", partners);
 
-        projectsRepository.editInternationalProject(id, name, type, startDate, endDate, primaryInstitution, typeStatus)
+        projectsRepository.editInternationalProject(id, name, type, startDate, endDate, primaryInstitution, typeStatus, description, goals, anotherInstitution, carrier, partners)
             .then(() => {
                 console.log("Project edited successfully.");
                 this.loadInternationalProjects();
