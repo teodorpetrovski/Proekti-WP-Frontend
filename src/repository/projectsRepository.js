@@ -42,20 +42,28 @@ const ProjectRepository = {
         return axios.delete(`/national/delete/${id}`);
     },
 
-    editNationalProject: (id, name, dateEntry, callId, manager, typeStatus) => {
+    editNationalProject: (id, name, dateEntry, callId, professor, typeStatus, keyWords, summary, benefits, members) => {
         console.log("Editing project with data:", {
             "name": name,
             "dateEntry": dateEntry,
             "callId": callId,
-            "manager": manager,
-            "typeStatus": typeStatus
+            "professor": professor,
+            "typeStatus": typeStatus,
+            "keyWords": keyWords,
+            "summary": summary,
+            "benefits": benefits,
+            "members": members
         });
         return axios.put(`/national/edit/${id}`, {
             "name": name,
             "dateEntry": dateEntry,
             "callId": callId,
-            "manager": manager,
-            "typeStatus": typeStatus
+            "professor": professor,
+            "typeStatus": typeStatus,
+            "keyWords": keyWords,
+            "summary": summary,
+            "benefits": benefits,
+            "members": members
         });
     },
     editInternationalProject: (id, name, type, startDate, endDate, primaryInstitution, typeStatus) => {

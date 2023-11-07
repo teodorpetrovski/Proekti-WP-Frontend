@@ -313,16 +313,20 @@ class App extends Component {
     }
 
 
-    editNationalProject = (id, name, dateEntry, call, manager, typeStatus) => {
+    editNationalProject = (id, name, dateEntry, call, professor, typeStatus, keyWords, summary, benefits, members) => {
         console.log("Editing project with the following data:");
         console.log("ID:", id);
         console.log("Name:", name);
         console.log("Date Entry:", dateEntry);
         console.log("Call:", call);
-        console.log("Manager:", manager);
+        console.log("Professor:", professor);
         console.log("Type Status:", typeStatus);
+        console.log("Keywords:", keyWords);
+        console.log("Summary:", summary);
+        console.log("Benefits:", benefits);
+        console.log("Members:", members);
 
-        projectsRepository.editNationalProject(id, name, dateEntry, call, manager, typeStatus)
+        projectsRepository.editNationalProject(id, name, dateEntry, call, professor, typeStatus, keyWords, summary, benefits, members)
             .then(() => {
                 console.log("Project edited successfully.");
                 this.loadNationalProjects();
@@ -332,8 +336,8 @@ class App extends Component {
             });
     };
 
-    addNationalProject = (name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members, manager) => {
-        projectsRepository.addNationalProject(name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members, manager)
+    addNationalProject = (name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members) => {
+        projectsRepository.addNationalProject(name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members)
             .then(() => {
                 this.loadNationalProjects();
             });
