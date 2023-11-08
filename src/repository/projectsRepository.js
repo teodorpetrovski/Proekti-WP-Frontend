@@ -42,30 +42,43 @@ const ProjectRepository = {
         return axios.delete(`/national/delete/${id}`);
     },
 
-    editNationalProject: (id, name, dateEntry, callId, manager, typeStatus) => {
+    editNationalProject: (id, name, dateEntry, callId, professor, typeStatus, keyWords, summary, benefits, members) => {
         console.log("Editing project with data:", {
             "name": name,
             "dateEntry": dateEntry,
             "callId": callId,
-            "manager": manager,
-            "typeStatus": typeStatus
+            "professor": professor,
+            "typeStatus": typeStatus,
+            "keyWords": keyWords,
+            "summary": summary,
+            "benefits": benefits,
+            "members": members
         });
         return axios.put(`/national/edit/${id}`, {
             "name": name,
             "dateEntry": dateEntry,
             "callId": callId,
-            "manager": manager,
-            "typeStatus": typeStatus
+            "manager": professor,
+            "typeStatus": typeStatus,
+            "keyWords": keyWords,
+            "summary": summary,
+            "benefits": benefits,
+            "members": members
         });
     },
-    editInternationalProject: (id, name, type, startDate, endDate, primaryInstitution, typeStatus) => {
+    editInternationalProject: (id, name, type, startDate, endDate, primaryInstitution, typeStatus, description, goals, anotherInstitution, carrier, partners) => {
         console.log("Editing project with data:", {
             "name": name,
             "type": type,
             "startDate": startDate,
             "endDate": endDate,
             "primaryInstitution":primaryInstitution,
-            "typeStatus": typeStatus
+            "typeStatus": typeStatus,
+            "description": description,
+            "goals": goals,
+            "anotherInstitution": anotherInstitution,
+            "carrier": carrier,
+            "partners": partners
         });
         return axios.put(`/international/edit/${id}`, {
             "name": name,
@@ -73,7 +86,12 @@ const ProjectRepository = {
             "startDate": startDate,
             "endDate": endDate,
             "primaryInstitution":primaryInstitution,
-            "typeStatus": typeStatus
+            "typeStatus": typeStatus,
+            "description": description,
+            "goals": goals,
+            "anotherInstitution": anotherInstitution,
+            "carrier": carrier,
+            "partners": partners
         });
     },
     addNationalProject: (name, dateEntry, callId, managerId, typeStatus, keyWords, summary, benefits, members) => {
@@ -211,6 +229,9 @@ const ProjectRepository = {
     fetchProjectCallById: (id) => {
         return axios.get(`/scientificProjectCall/${id}`);
     },
+    fetchNationalProjectByCall:(callId) =>{
+        return axios.post(`/national/filterByCallOrStatus?callId=${callId}`)
+    }
 
 }
 export default ProjectRepository;

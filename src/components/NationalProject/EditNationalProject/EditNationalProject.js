@@ -10,9 +10,14 @@ const EditNationalProjectForm = (props) => {
         dateEntry: "",
         typeStatus: "",
         professorId: null,
-        callId: null
+        callId: null,
+        keyWords: "",
+        summary: "",
+        benefits: "",
+        members: [] 
     });
     const TypeStatus = ["OLD", "NEW"];
+    const [selectedMembers, setSelectedMembers] = useState([]);
 
     useEffect(() => {
         console.log("Props Project:", props.project);
@@ -23,11 +28,17 @@ const EditNationalProjectForm = (props) => {
                 dateEntry: props.project.dateEntry || "",
                 callId: props.project.scientificProjectCall?.id || null,
                 professorId: props.project.manager?.id || null,
-                typeStatus: props.project.typeStatus || ""
+                typeStatus: props.project.typeStatus || "",
+                keyWords: props.project.keyWords || "",
+                summary: props.project.summary || "",
+                benefits: props.project.benefits || "",
+                members: props.project.members?.map(member => member.id) || []
             }));
+            setSelectedMembers(props.project.members ? props.project.members.map(member => member.id) : []);
         }
         console.log("FormData Call ID:", formData.callId);
         console.log("FormData Professor ID:", formData.professorId);
+        console.log("FormData Members IDs:", formData.members);
     }, [props.project]);
 
     const handleChange = (e) => {
@@ -38,17 +49,32 @@ const EditNationalProjectForm = (props) => {
         });
     };
 
+    const handleMembersChange = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions);
+        setSelectedMembers(selectedOptions.map(option => option.value)); // Update selectedMembers state
+
+        updateFormData({
+            ...formData,
+            members: selectedOptions.map(option => option.value)
+        });
+    }
+
     const onFormSubmit = async (e) => {
         e.preventDefault();
 
         const selectedCallId = formData.callId;
         const selectedProfessorId = formData.professorId;
+        const selectedMembersIds = formData.members;
         const preparedData = {
             name: formData.name,
             dateEntry: formData.dateEntry,
             callId: formData.callId ? Number(formData.callId) : null,
             professorId: formData.professorId ? Number(formData.professorId) : null,
             typeStatus: formData.typeStatus,
+            keyWords: formData.keyWords,
+            summary: formData.summary,
+            benefits: formData.benefits,
+            members: formData.members || []
         };
 
         console.log("Sending the following data to onEditNatProject:", preparedData);
@@ -60,7 +86,11 @@ const EditNationalProjectForm = (props) => {
                 preparedData.dateEntry,
                 preparedData.callId,
                 preparedData.professorId,
-                preparedData.typeStatus
+                preparedData.typeStatus,
+                preparedData.keyWords,
+                preparedData.summary,
+                preparedData.benefits,
+                preparedData.members
             );
             console.log("Project edited successfully.");
             props.loadNationalProjects();
@@ -109,6 +139,36 @@ const EditNationalProjectForm = (props) => {
                             ))}
                         </select>
                     </div>
+                    <div className="form-group">
+                        <label htmlFor="keyWords">Клучни зборови:</label>
+                        <input type="text" className="form-control" id="keyWords" name="keyWords" value={formData.keyWords} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="summary">Резиме:</label>
+                        <input type="text" className="form-control" id="summary" name="summary" value={formData.summary} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="benefits">Придобивки:</label>
+                        <input type="text" className="form-control" id="benefits" name="benefits" value={formData.benefits} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <label>Членови:</label>
+                        <select
+                            multiple
+                            name="members"
+                            className="form-control"
+                            value={selectedMembers} // Use selectedMembers to manage selected options
+                            onChange={handleMembersChange}
+                        >
+                            {Array.isArray(props.professors) &&
+                                props.professors.map((professor) => (
+                                    <option key={professor.id} value={professor.id}>
+                                        {professor.name}
+                                    </option>
+                                ))}
+                        </select>
+                    </div>
+
                     <button id="submit" type="submit" className="btn btn-primary mt-3">Уреди</button>
                 </form>
             </div>

@@ -14,8 +14,7 @@ const NationalProjectAdd = (props) => {
         keyWords: "",
         summary: "",
         benefits: "",
-        members: [],
-        manager: ""
+        members: []
     })
 
     const TypeStatus = ["OLD", "NEW"];
@@ -38,10 +37,10 @@ const NationalProjectAdd = (props) => {
 
         const {
             name, dateEntry, callId, professorId, typeStatus,
-            keyWords, summary, benefits, members, manager
+            keyWords, summary, benefits, members
         } = formData;
 
-        props.onAddNationalProject(name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members, manager);
+        props.onAddNationalProject(name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members);
         navigate("/national");
     }
 
@@ -144,16 +143,6 @@ const NationalProjectAdd = (props) => {
                                 <option key={professor.id} value={professor.id}>{professor.name}</option>
                             ))}
                         </select>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="manager">Менаџер на проектот:</label>
-                        <input type="text"
-                               className="form-control"
-                               id="manager"
-                               name="manager"
-                               placeholder="Менаџер на проектот"
-                               onChange={handleChange}
-                        />
                     </div>
                     <button id="submit" type="submit" className="btn btn-primary mt-3">Додади</button>
                 </form>

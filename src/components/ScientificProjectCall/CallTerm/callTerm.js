@@ -1,10 +1,12 @@
 import React from "react";
 import "./styles.css"
+import {Link} from "react-router-dom";
 
 const CallTerm = (props) => {
     return (
         <div className="col">
-            <a href="/calls/{id}" style={{textDecoration: 'none'}}>
+            <Link onClick={() => props.onGetNationalProjects(props.term.id)}
+                  to={`/calls/projectsByCall/${props.term.id}`} style={{textDecoration: 'none'}}>
                 <div
                     className={`card rounded-0 bg-white mb-3 ${props.term.typeScientificProjectCall === 'OPENED' ? 'green-corner' : 'red-corner'} `}
                     style={{maxWidth: 390}}>
@@ -18,7 +20,7 @@ const CallTerm = (props) => {
                         </p>
                     </div>
                 </div>
-            </a>
+            </Link>
         </div>
     );
 }

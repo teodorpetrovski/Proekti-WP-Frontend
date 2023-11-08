@@ -18,6 +18,7 @@ import NationalProjectAdd from "../NationalProject/AddNationallProject/addNation
 import InternationalProjectAdd from "../InternationalProject/AddInternationalProject/addInternationalProject";
 import NationalDetails from "../NationalProject/DetailsNational/nationalDetails";
 import InternationalDetails from "../InternationalProject/DetailsInternational/internationalDetails";
+import ProjectsByCall from "../ScientificProjectCall/ProjectsByCallList/projectsByCallList";
 
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
             nationalProjects: [],
             selectedNationalProject: {},
             selectedInternationalProject: {},
+            selectedCall:{},
             calls: [],
             professors:[],
             grandholders:[],
@@ -126,7 +128,9 @@ class App extends Component {
                                        element={<Grandholder grandholder={this.state.grandholders}/>}/>
 
 
-                                <Route path={"/calls"} exactt element={<Calls calls={this.state.calls}/>}/>
+                                <Route path={"/calls"} exact element={<Calls calls={this.state.calls} onGetNationalProjects={this.fetchNationalProjectByCall}/>}/>
+
+                                <Route path={"/calls/projectsByCall/:callId"} exact element={<ProjectsByCall call={this.state.selectedCall} projects={this.state.nationalProjectsFiltered}/>}/>
                                 
                                 <Route path={"/international"} exact
                                        element={<InternationalProjects projects={this.state.internationalProjects}
@@ -313,16 +317,20 @@ class App extends Component {
     }
 
 
-    editNationalProject = (id, name, dateEntry, call, manager, typeStatus) => {
+    editNationalProject = (id, name, dateEntry, call, professor, typeStatus, keyWords, summary, benefits, members) => {
         console.log("Editing project with the following data:");
         console.log("ID:", id);
         console.log("Name:", name);
         console.log("Date Entry:", dateEntry);
         console.log("Call:", call);
-        console.log("Manager:", manager);
+        console.log("Professor:", professor);
         console.log("Type Status:", typeStatus);
+        console.log("Keywords:", keyWords);
+        console.log("Summary:", summary);
+        console.log("Benefits:", benefits);
+        console.log("Members:", members);
 
-        projectsRepository.editNationalProject(id, name, dateEntry, call, manager, typeStatus)
+        projectsRepository.editNationalProject(id, name, dateEntry, call, professor, typeStatus, keyWords, summary, benefits, members)
             .then(() => {
                 console.log("Project edited successfully.");
                 this.loadNationalProjects();
@@ -332,8 +340,8 @@ class App extends Component {
             });
     };
 
-    addNationalProject = (name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members, manager) => {
-        projectsRepository.addNationalProject(name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members, manager)
+    addNationalProject = (name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members) => {
+        projectsRepository.addNationalProject(name, dateEntry, callId, professorId, typeStatus, keyWords, summary, benefits, members)
             .then(() => {
                 this.loadNationalProjects();
             });
@@ -344,7 +352,7 @@ class App extends Component {
                 this.loadInternationalProjects();
             });
     }
-    editInternationalProject = (id, name, type, startDate, endDate, primaryInstitution, typeStatus) => {
+    editInternationalProject = (id, name, type, startDate, endDate, primaryInstitution, typeStatus, description, goals, anotherInstitution, carrier, partners) => {
         console.log("Editing project with the following data:");
         console.log("ID:", id);
         console.log("Name:", name);
@@ -353,8 +361,13 @@ class App extends Component {
         console.log("End Date:", endDate);
         console.log("Primary Institution:", primaryInstitution);
         console.log("Type Status:", typeStatus);
+        console.log("Description:", description);
+        console.log("Goals:", goals);
+        console.log("Another Institution:", anotherInstitution);
+        console.log("Carrier:", carrier);
+        console.log("Partners:", partners);
 
-        projectsRepository.editInternationalProject(id, name, type, startDate, endDate, primaryInstitution, typeStatus)
+        projectsRepository.editInternationalProject(id, name, type, startDate, endDate, primaryInstitution, typeStatus, description, goals, anotherInstitution, carrier, partners)
             .then(() => {
                 console.log("Project edited successfully.");
                 this.loadInternationalProjects();
@@ -391,6 +404,25 @@ class App extends Component {
 
     fetchInternationalProjectReport = () => {
         projectsRepository.fetchInternationalProjectReport()
+    }
+
+    fetchNationalProjectByCall = (callId)=>{
+            projectsRepository.fetchNationalProjectByCall(callId)
+                .then((data) => {
+                        this.setState({
+                            nationalProjectsFiltered: data.data
+
+                        })
+                    }
+                )
+        projectsRepository.fetchProjectCallById(callId)
+            .then((data) => {
+                    this.setState({
+                        selectedCall:data.data
+                    })
+                }
+            )
+
     }
 
 

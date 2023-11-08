@@ -11,7 +11,12 @@ const EditInternationalProjectForm = (props) => {
         startDate: "",
         endDate: "",
         primaryInstitution: null,
-        typeStatus: ""
+        typeStatus: "",
+        description: "",
+        goals: "",
+        anotherInstitution: null,
+        carrier: null,
+        partners: null
     });
     const TypeStatus = ["OLD", "NEW"];
 
@@ -24,7 +29,12 @@ const EditInternationalProjectForm = (props) => {
                 startDate: props.project.startDate || "",
                 endDate: props.project.endDate || "",
                 primaryInstitution: props.project.primaryGrantHolder?.id || null,
-                typeStatus: props.project.typeStatus || ""
+                typeStatus: props.project.typeStatus || "",
+                description: props.project.description || "",
+                goals: props.project.goals || "",
+                anotherInstitution: props.project.anotherGrantHolder?.id || null,
+                carrier: props.project.carrier?.id || null,
+                partners: props.project.partners?.id || null,
             }));
         }
     }, [props.project]);
@@ -52,7 +62,12 @@ const EditInternationalProjectForm = (props) => {
             startDate: formData.startDate,
             endDate: formData.endDate,
             primaryInstitution: formData.primaryInstitution ? Number(formData.primaryInstitution) : null,
-            typeStatus: formData.typeStatus
+            typeStatus: formData.typeStatus,
+            description: formData.description,
+            goals: formData.goals,
+            anotherInstitution: formData.anotherInstitution ? Number(formData.anotherInstitution) : null,
+            carrier: formData.carrier ? Number(formData.carrier) : null,
+            partners: formData.partners ? Number(formData.partners) : null
         };
 
         console.log("Sending the following data to onEditNatProject:", preparedData);
@@ -65,7 +80,12 @@ const EditInternationalProjectForm = (props) => {
                 preparedData.startDate,
                 preparedData.endDate,
                 preparedData.primaryInstitution,
-                preparedData.typeStatus
+                preparedData.typeStatus,
+                preparedData.description,
+                preparedData.goals,
+                preparedData.anotherInstitution,
+                preparedData.carrier,
+                preparedData.partners
             );
             console.log("Project edited successfully.");
             props.loadInternationalProjects();
@@ -110,6 +130,41 @@ const EditInternationalProjectForm = (props) => {
                         <select name="typeStatus" className="form-control" value={formData.typeStatus} onChange={handleChange}>
                             {TypeStatus.map((status) => (
                                 <option key={status} value={status}>{status}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="description">Опис:</label>
+                        <input type="text" className="form-control" id="description" name="description" value={formData.description} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="goals">Цели:</label>
+                        <input type="text" className="form-control" id="goals" name="goals" value={formData.goals} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <label>Друг финансиер:</label>
+                        <select name="anotherInstitution" className="form-control" value={formData.anotherInstitution || ""} onChange={handleChange}>
+                            <option value="">None</option>
+                            {props.grandholders?.map((anotherInstitution) => (
+                                <option key={anotherInstitution.id} value={anotherInstitution.id}>{anotherInstitution.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label>Носител:</label>
+                        <select name="carrier" className="form-control" value={formData.carrier || ""} onChange={handleChange}>
+                            <option value="">None</option>
+                            {props.grandholders?.map((carrier) => (
+                                <option key={carrier.id} value={carrier.id}>{carrier.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label>Партнер:</label>
+                        <select name="partners" className="form-control" value={formData.partners || ""} onChange={handleChange}>
+                            <option value="">None</option>
+                            {props.grandholders?.map((partners) => (
+                                <option key={partners.id} value={partners.id}>{partners.name}</option>
                             ))}
                         </select>
                     </div>
