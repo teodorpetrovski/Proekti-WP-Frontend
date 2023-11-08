@@ -1,7 +1,7 @@
 import React from 'react';
 import AllProjectTerm from "../ProjectTerm/allProjectTerm";
 import ReactPaginate from "react-paginate";
-import NationalProjectTerm from "../../NationalProject/ProjectTerm/nationalProjectTerm";
+import NationalProjectTerm from "../../NationalProject/ProjectTerm(Admin)/nationalProjectTerm";
 import InternationalProjectTerm from "../../InternationalProject/ProjectTerm/internationalProjectTerm";
 
 

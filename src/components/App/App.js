@@ -18,6 +18,7 @@ import NationalProjectAdd from "../NationalProject/AddNationallProject/addNation
 import InternationalProjectAdd from "../InternationalProject/AddInternationalProject/addInternationalProject";
 import NationalDetails from "../NationalProject/DetailsNational/nationalDetails";
 import InternationalDetails from "../InternationalProject/DetailsInternational/internationalDetails";
+import ProjectsByCall from "../ScientificProjectCall/ProjectsByCallList/projectsByCallList";
 
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
             nationalProjects: [],
             selectedNationalProject: {},
             selectedInternationalProject: {},
+            selectedCall:{},
             calls: [],
             professors:[],
             grandholders:[],
@@ -126,7 +128,9 @@ class App extends Component {
                                        element={<Grandholder grandholder={this.state.grandholders}/>}/>
 
 
-                                <Route path={"/calls"} exactt element={<Calls calls={this.state.calls}/>}/>
+                                <Route path={"/calls"} exact element={<Calls calls={this.state.calls} onGetNationalProjects={this.fetchNationalProjectByCall}/>}/>
+
+                                <Route path={"/calls/projectsByCall/:callId"} exact element={<ProjectsByCall call={this.state.selectedCall} projects={this.state.nationalProjectsFiltered}/>}/>
                                 
                                 <Route path={"/international"} exact
                                        element={<InternationalProjects projects={this.state.internationalProjects}
@@ -400,6 +404,25 @@ class App extends Component {
 
     fetchInternationalProjectReport = () => {
         projectsRepository.fetchInternationalProjectReport()
+    }
+
+    fetchNationalProjectByCall = (callId)=>{
+            projectsRepository.fetchNationalProjectByCall(callId)
+                .then((data) => {
+                        this.setState({
+                            nationalProjectsFiltered: data.data
+
+                        })
+                    }
+                )
+        projectsRepository.fetchProjectCallById(callId)
+            .then((data) => {
+                    this.setState({
+                        selectedCall:data.data
+                    })
+                }
+            )
+
     }
 
 

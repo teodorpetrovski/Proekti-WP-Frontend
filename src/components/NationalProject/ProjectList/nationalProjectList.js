@@ -1,5 +1,5 @@
 import React from 'react';
-import NationalProjectTerm from "../ProjectTerm/nationalProjectTerm";
+import NationalProjectTerm from "../ProjectTerm(Admin)/nationalProjectTerm";
 import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
 import AddNationalProject from "../AddNationallProject/addNationalProject";

@@ -32,7 +32,7 @@ const EditNationalProjectForm = (props) => {
                 keyWords: props.project.keyWords || "",
                 summary: props.project.summary || "",
                 benefits: props.project.benefits || "",
-                members: props.project.members.map(member => member.id) || []
+                members: props.project.members?.map(member => member.id) || []
             }));
             setSelectedMembers(props.project.members ? props.project.members.map(member => member.id) : []);
         }

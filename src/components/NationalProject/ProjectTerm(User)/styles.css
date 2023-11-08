@@ -1,0 +1,37 @@
+.green-corner {
+    position: relative;
+}
+
+.green-corner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 20px 20px 0 0; /* Adjust the size of the corner */
+    border-color: green transparent transparent transparent; /* Set the corner color */
+    z-index: 4; /* Ensure it's above the card content */
+    transform: rotate(90deg);
+}
+
+
+
+.red-corner {
+    position: relative;
+}
+
+.red-corner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 20px 20px 0 0; /* Adjust the size of the corner */
+    border-color: darkred transparent transparent transparent; /* Set the corner color */
+    z-index: 4; /* Ensure it's above the card content */
+    transform: rotate(90deg);
+}
