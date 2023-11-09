@@ -51,7 +51,7 @@ const EditNationalProjectForm = (props) => {
 
     const handleMembersChange = (e) => {
         const selectedOptions = Array.from(e.target.selectedOptions);
-        setSelectedMembers(selectedOptions.map(option => option.value)); // Update selectedMembers state
+        setSelectedMembers(selectedOptions.map(option => option.value)); 
 
         updateFormData({
             ...formData,
@@ -157,7 +157,7 @@ const EditNationalProjectForm = (props) => {
                             multiple
                             name="members"
                             className="form-control"
-                            value={selectedMembers} // Use selectedMembers to manage selected options
+                            value={selectedMembers} 
                             onChange={handleMembersChange}
                         >
                             {Array.isArray(props.professors) &&
