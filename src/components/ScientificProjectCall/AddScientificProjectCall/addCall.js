@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CustomListGroup from '../../Home/CustomListGroup';
 
 
 const AddCall = (props) => {
@@ -13,6 +14,12 @@ const AddCall = (props) => {
         grantHolderDescription: '',
         typeStatus: '',
     });
+    const menuItems = [
+        { text: 'Сите проекти', link: '/' },
+        { text: 'Мои проекти', link: '#' },
+        { text: 'Нов повик', link: '/calls/add' },
+        { text: 'Управување на проекти', link: '#' },
+    ];
 
     const handleChange = (e) => {
         updateFormData({
@@ -44,8 +51,11 @@ const AddCall = (props) => {
     };
 
     return(
+        
         <div className="row mt-5">
-            <div className="col-md-5">
+            <CustomListGroup items={menuItems} />
+            <div className="col-md-5" style={{marginLeft:'300px', marginTop:'-180px'}}>
+                
                 <h3 className="text-black-50">Внес на нов повик</h3>
                 <p className="mb-3 ms-1 text-black-50">Опис на повикот</p>
                 <p className="mb-3 text-success fw-bold">Информации за повикот</p>
