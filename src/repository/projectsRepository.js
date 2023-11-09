@@ -229,6 +229,9 @@ const ProjectRepository = {
     fetchProjectCallById: (id) => {
         return axios.get(`/scientificProjectCall/${id}`);
     },
+    fetchNationalProjectByCall:(callId) =>{
+        return axios.post(`/national/filterByCallOrStatus?callId=${callId}`)
+    }
 
 }
 export default ProjectRepository;

@@ -66,7 +66,7 @@ class Calls extends React.Component {
     getCallsPage = (offset, nextPageOffset) => {
         const projectTerms = this.props.calls.map((term, index) => {
             return (
-                <CallTerm term={term}/>
+                <CallTerm term={term} onGetNationalProjects={this.props.onGetNationalProjects}/>
             );
         }).filter((product, index) => {
             return index >= offset && index < nextPageOffset;
