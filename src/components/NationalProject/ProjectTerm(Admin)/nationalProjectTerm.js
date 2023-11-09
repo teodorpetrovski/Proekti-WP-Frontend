@@ -35,7 +35,7 @@ const NationalProjectTerm = (props) => {
                             <strong>Статус: </strong>{props.term.typeStatus}<br/>
                         </p>
                         </Link>
-                        <Link className={"btn btn-info  mb-2 mt-3 ms-5 w-25 "}
+                        <Link className={"btn btn-info  mb-2 mt-3 ms-5 w-20 "}
                               onClick={() => props.onEdit(props.term.id)}
                               to={`/national/edit/${props.term.id}`}>
                             Уреди
@@ -45,11 +45,11 @@ const NationalProjectTerm = (props) => {
                         </button>
 
                         <br/>
-                        <button className="btn btn-primary btn-sm  mt-3 ms-5 w-25" onClick={handleExportClick}>
+                        <button className="btn btn-primary btn-sm  mt-3 ms-5 w-20" onClick={handleExportClick}>
                             Експорт
                         </button>
                         <button
-                            className="btn btn-warning btn-sm mt-3 ms-3 w-25"
+                            className="btn btn-warning btn-sm mt-3 ms-3 w-20"
                             onClick={handleApproveClick}
                             disabled={props.term.approved}
                         >

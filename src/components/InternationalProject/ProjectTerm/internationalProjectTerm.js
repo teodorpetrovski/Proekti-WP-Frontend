@@ -44,7 +44,7 @@ const InternationalProjectTerm = (props) => {
                                onClick={() => props.onDelete(props.term.id)}>
                                 Избриши
                             </a>
-                            <button className="btn btn-primary btn-sm mt-3 ms-5 w-15" onClick={handleExportClick}>
+                            <button className="btn btn-primary btn-sm mt-3 ms-5 w-20" onClick={handleExportClick}>
                                 Експорт
                             </button>
                             <button
