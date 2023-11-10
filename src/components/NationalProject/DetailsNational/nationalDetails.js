@@ -16,17 +16,46 @@ function NationalDetails({ fetchDetails, nationalProject }) {
 
     return (
         <div className="container">
-            <h1>Повеќе детали за национален проект</h1>
-            <div>
+            <div className="row m-3 bg-white " >
+                <h3 className="text-dark-50">{nationalProject.name}</h3>
+            </div>
+            <div className="mt-3 row">
+                <h6 className="text-dark-50">Информации за проектот</h6>
+            </div>
+            <div className="row">
+                <h6 className="col-6 text-dark-50">Внесен на:</h6>
+                <h6 className="col-6 text-black-50"> {nationalProject.dateEntry}</h6>
+            </div>
+            <div className="row">
+                <h6 className="col-6 text-dark-50">Клучни зборови (мак.) - Одалечувањети на зборови е со запирка:</h6>
+                <h6 className="col-6 text-black-50"> {nationalProject.keyWords}</h6>
+            </div>
+            <div className="row">
+                <h6 className="col-6 text-dark-50">Резиме на проектот што јасно ги опишува целите на проектот:</h6>
+                <h6 className="col-6 text-black-50"> {nationalProject.summary}</h6>
+            </div>
+            <div className="row">
+                <h6 className="col-6 text-dark-50">Досегашни публикации или проекти на членови на тимот:</h6>
+                {/*<h6 className="col-6 text-black-50"> {nationalProject.}</h6>*/}
 
-                <h2>{nationalProject.name}</h2>
-                <p>Внесен на: {nationalProject.dateEntry}</p>
-                <p>Повик: {nationalProject.scientificProjectCall?.name}</p>
-                <p>Клучни зборови: {nationalProject.keyWords}</p>
-                <p>Заклучок/Резиме: {nationalProject.summary}</p>
-                <p>Придобивки: {nationalProject.benefits}</p>
-                <p>Одобрено: {nationalProject.approved ? 'Yes' : 'No'}</p>
-                <p>Раководител на проект: {nationalProject.manager ? nationalProject.manager?.name : 'N/A'}</p>
+            </div>
+            <div className="row">
+                <h6 className="col-6 text-dark-50">Очекувани придобивки и резултати:</h6>
+                <h6 className="col-6 text-black-50"> {nationalProject.benefits}</h6>
+            </div>
+            <div className="row">
+                <h6 className="col-6 text-dark-50">Professors:</h6>
+                <div className="col-6">
+                    <ul style={{ listStyleType: 'none' }}>
+                        {nationalProject.members.map(professor => (
+                            <li key={professor.id}>{professor.name}</li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+            <div className="row">
+                <h6 className="col-6 text-dark-50">Раководител на проект:</h6>
+                <h6 className="col-6 text-black-50"> {nationalProject.manager ? nationalProject.manager?.name : 'N/A'} </h6>
             </div>
         </div>
     )
