@@ -15,48 +15,53 @@ function InternationalDetails({ fetchDetails, internationalProject }) {
     }
 
     return (
-        <div>
-            {internationalProject && (
-                <div>
-                    <h1>Повеќе детали за проектот</h1>
-                    <p>
-                        <strong>Име:</strong> {internationalProject.name}
-                    </p>
-                    <p>
-                        <strong>Тип:</strong> {internationalProject.type}
-                    </p>
-                    <p>
-                        <strong>Цели:</strong> {internationalProject.goals}
-                    </p>
-                    <p>
-                        <strong>Датум на внесување:</strong> {internationalProject.dateEntry}
-                    </p>
-                    <p>
-                        <strong>Почетен датум:</strong> {internationalProject.startDate}
-                    </p>
-                    <p>
-                        <strong>Краен ден:</strong> {internationalProject.endDate}
-                    </p>
-                    <p>
-                        <strong>Главен финансиер:</strong> {internationalProject.primaryGrantHolder?.name}
-                    </p>
-                    <p>
-                        <strong>Други финансиери:</strong> {internationalProject.anotherGrantHolder?.name}
-                    </p>
-                    <p>
-                        <strong>Кариера:</strong> {internationalProject.carrier?.name}
-                    </p>
-                    <p>
-                        <strong>Партнери:</strong> {internationalProject.partners?.name}
-                    </p>
-                    <p>
-                        <strong>Статус:</strong> {internationalProject.typeStatus}
-                    </p>
-                    <p>
-                        <strong>Одобрено:</strong> {internationalProject.approved ? "Yes" : "No"}
-                    </p>
-                </div>
-            )}
+        <div className="container">
+            <div className="row m-3 bg-white " >
+                <h3 className="text-dark-50">{internationalProject.name}</h3>
+            </div>
+            <div className="mt-3 ms-3 row">
+                <h6 className=" ms-3  text-dark-50">Информации за проектот</h6>
+            </div>
+            <div className="row ms-3 ">
+                <h6 className="col-6 text-dark-50">Внесен на:</h6>
+                <h6 className="col-6 text-black-50"> {internationalProject.dateEntry}</h6>
+            </div>
+            <div className="row ms-3 ">
+                <h6 className="col-6 text-dark-50">Почетен датум:</h6>
+                <h6 className="col-6 text-black-50"> {internationalProject.startDate}</h6>
+            </div>
+            <div className="row ms-3 ">
+                <h6 className="col-6 text-dark-50">Краен датум:</h6>
+                <h6 className="col-6 text-black-50"> {internationalProject.endDate}</h6>
+            </div>
+            <div className="row ms-3 ">
+                <h6 className="col-6 text-dark-50">Од кој тип е проектот:</h6>
+                <h6 className="col-6 text-black-50"> {internationalProject.type}</h6>
+            </div>
+            <div className="row ms-3 ">
+                <h6 className="col-6 text-dark-50">Кои се целите на проектот:</h6>
+                <h6 className="col-6 text-black-50"> {internationalProject.goals}</h6>
+            </div>
+            <div className="row ms-3 ">
+                <h6 className="col-6 text-dark-50">Статус на проектот:</h6>
+                <h6 className="col-6 text-black-50"> {internationalProject.typeStatus}</h6>
+            </div>
+            <div className="row ms-3 ">
+                <h6 className="col-6 text-dark-50">Главен финансиер на проектот:</h6>
+                <h6 className="col-6 text-black-50"> {internationalProject.primaryGrantHolder?.name}</h6>
+            </div>
+            <div className="row ms-3 ">
+                <h6 className="col-6 text-dark-50">Останати финансиери на проектот:</h6>
+                <h6 className="col-6 text-black-50"> {internationalProject.anotherGrantHolder?.name}</h6>
+            </div>
+            <div className="row ms-3 ">
+                <h6 className="col-6 text-dark-50">Носител на проектот:</h6>
+                <h6 className="col-6 text-black-50"> {internationalProject.carrier?.name}</h6>
+            </div>
+            <div className="row ms-3 ">
+                <h6 className="col-6 text-dark-50">Партнери кои се на проектот:</h6>
+                <h6 className="col-6 text-black-50"> {internationalProject.partners?.name}</h6>
+            </div>
         </div>
     )
 }
