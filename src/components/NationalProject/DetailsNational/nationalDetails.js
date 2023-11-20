@@ -1,14 +1,15 @@
 import React, { useEffect } from "react"; // Import useEffect from React
 import { useParams } from "react-router-dom";
 
-function NationalDetails({ fetchDetails, nationalProject }) {
+function NationalDetails({ fetchDetails, nationalProject,  exportNationalProjectMembers, nationalProjectMembers }) {
     const { projectId } = useParams();
 
     useEffect(() => {
         if (!nationalProject || nationalProject.id !== projectId) {
             fetchDetails(projectId);
+            exportNationalProjectMembers(projectId);
         }
-    }, [projectId, nationalProject, fetchDetails]);
+    }, [projectId, nationalProject, fetchDetails, exportNationalProjectMembers]);
 
     if (!nationalProject) {
         return <div>Loading...</div>;
@@ -36,7 +37,15 @@ function NationalDetails({ fetchDetails, nationalProject }) {
             </div>
             <div className="row">
                 <h6 className="col-6 text-dark-50">Досегашни публикации или проекти на членови на тимот:</h6>
-                {/*<h6 className="col-6 text-black-50"> {nationalProject.}</h6>*/}
+                <div className="col-6">
+                    <ul style={{ listStyleType: 'none' }}>
+                        {nationalProjectMembers?.map((member, index) => (
+                            <li key={index}>{member}</li>
+                        ))}
+                    </ul>
+
+                </div>
+
 
             </div>
             <div className="row">

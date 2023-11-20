@@ -35,6 +35,7 @@ class App extends Component {
             grandholders:[],
             internationalProjectsFiltered: [],
             nationalProjectsFiltered: [],
+            membersList:[],
         }
     }
 
@@ -193,7 +194,8 @@ class App extends Component {
                                        />}/>
                                 <Route
                                     path="/national/details/:projectId"
-                                    element={<NationalDetails fetchDetails={this.fetchNationalProjectDetails} nationalProject={this.state.nationalProject} />}
+                                    element={<NationalDetails fetchDetails={this.fetchNationalProjectDetails} nationalProject={this.state.nationalProject}
+                                                              exportNationalProjectMembers={this.exportNationalProjectMembers}/>}
                                 />
 
                                 <Route
@@ -392,6 +394,16 @@ class App extends Component {
         }
         exportInternationalProject = (id) => {
             projectsRepository.exportInternationalProject(id)
+        }
+
+        exportNationalProjectMembers = (id) =>{
+
+            projectsRepository.fetchNationalProjectMmembers(id).
+                then((data)=>{
+                    this.setState({
+                        membersList:data.data
+                    })
+            })
         }
 
         exportNationalProject = (id) => {
