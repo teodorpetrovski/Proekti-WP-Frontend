@@ -38,6 +38,10 @@ const ProjectRepository = {
         return axios.post(`/national/searchByNameOrKeyword?keyword=${keyword}`,)
     },
 
+    fetchNationalProjectMmembers:  (id) =>{
+      return axios.get(`national/project-members/${id}`);
+    },
+
     deleteNationalProject: (id) => {
         return axios.delete(`/national/delete/${id}`);
     },
