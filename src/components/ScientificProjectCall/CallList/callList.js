@@ -32,7 +32,7 @@ class Calls extends React.Component {
                 <br/>
                 <a href="/calls/add" class="btn btn-primary" className="btn btn-primary mb-3">Додади нов повик</a>
                 <div className={"row"}>
-                    <div className={"row"}>
+                    <div >
                         {calls}
                     </div>
                     <ul className="pagination justify-content-center">
@@ -64,26 +64,29 @@ class Calls extends React.Component {
 
 
     getCallsPage = (offset, nextPageOffset) => {
-        const projectTerms = this.props.calls.map((term, index) => {
-            return (
-                <CallTerm term={term} onGetNationalProjects={this.props.onGetNationalProjects}/>
-            );
-        }).filter((product, index) => {
-            return index >= offset && index < nextPageOffset;
-        });
+        const tableRows = [];
+        const terms = this.props.calls.slice(offset, nextPageOffset);
 
-        const callsPage = [];
-        for (let i = 0; i < projectTerms.length; i += 4) {
-            const pageTerms = projectTerms.slice(i, i + 4);
-            const page = (
-                <div className="row" key={i}>
-                    {pageTerms}
-                </div>
+        for (let i = 0; i < terms.length; i += 3) {
+            const termSlice = terms.slice(i, i + 3);
+            const row = (
+                <tr key={i}>
+                    {termSlice.map((term, index) => (
+                        <td className="p-1" key={index}>
+                            <CallTerm term={term} onGetNationalProjects={this.props.onGetNationalProjects} />
+                        </td>
+                    ))}
+                </tr>
             );
-            callsPage.push(page);
+            tableRows.push(row);
         }
-        return callsPage;
-    }
+
+        return (
+            <table className="table table-borderless table-light">
+                <tbody>{tableRows}</tbody>
+            </table>
+        );
+    };
 }
 
 export default Calls;

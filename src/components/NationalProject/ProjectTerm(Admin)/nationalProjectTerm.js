@@ -20,9 +20,9 @@ const NationalProjectTerm = (props) => {
 
 
     return (
-        <div className="col">
+        <div>
                 <div
-                    className={`card rounded-0 bg-white mb-3 ${props.term.approved === true ? 'green-corner' : 'red-corner'} `}
+                    className={`card rounded-0 bg-white m-0 border-0 ${props.term.approved === true ? 'green-corner' : 'red-corner'} `}
                     style={{maxWidth: 390}}>
                     <div className="card-body">
                         <Link className={"text-dark"} to={`/national/details/${props.term.id}`} style={{ textDecoration: 'none' }}>

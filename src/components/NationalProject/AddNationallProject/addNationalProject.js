@@ -8,7 +8,7 @@ const NationalProjectAdd = (props) => {
     const [formData, updateFormData] = React.useState({
         name: "",
         dateEntry: "",
-        callId: null,
+        callId: props.call != null ? props.call.id : null,
         professorId: 0,
         typeStatus: "",
         keyWords: "",
@@ -71,15 +71,35 @@ const NationalProjectAdd = (props) => {
                                onChange={handleChange}
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="callId">Повик:</label>
-                        <select name="callId" className="form-control" value={formData.callId || ""} onChange={handleChange}>
-                            <option value="">Избери повик</option>
-                            {props.calls.map((call) => (
-                                <option key={call.id} value={call.id}>{call.name}</option>
-                            ))}
-                        </select>
-                    </div>
+                    {props.call ? (
+                        <div className="form-group">
+                            <label htmlFor="callId">Повик:</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={props.call.name}
+                                readOnly
+                            />
+                            <input type="hidden" name="callId" value={props.call.id} />
+                        </div>
+                    ) : (
+                        <div className="form-group">
+                            <label htmlFor="callId">Повик:</label>
+                            <select
+                                name="callId"
+                                className="form-control"
+                                value={formData.callId || ''}
+                                onChange={handleChange}
+                            >
+                                <option value="">Избери повик</option>
+                                {props.calls.map((call) => (
+                                    <option key={call.id} value={call.id}>
+                                        {call.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
                     <div className="form-group">
                         <label>Раководител на проектот:</label>
                         <select name="professorId" className="form-control" value={formData.professorId || ""} onChange={handleChange}>

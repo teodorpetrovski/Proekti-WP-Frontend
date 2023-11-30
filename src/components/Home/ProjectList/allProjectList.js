@@ -3,7 +3,8 @@ import AllProjectTerm from "../ProjectTerm/allProjectTerm";
 import ReactPaginate from "react-paginate";
 import NationalProjectTerm from "../../NationalProject/ProjectTerm(Admin)/nationalProjectTerm";
 import InternationalProjectTerm from "../../InternationalProject/ProjectTerm/internationalProjectTerm";
-import CustomListGroup from "../CustomListGroup"; 
+import CustomListGroup from "../CustomListGroup";
+import CallTerm from "../../ScientificProjectCall/CallTerm/callTerm";
 
 class HomeProjects extends React.Component {
     constructor(props) {
@@ -72,51 +73,57 @@ class HomeProjects extends React.Component {
         });
     }
 
-    getInternationalProjects = (offset, nextPageOffset) => {
-        const projectTerms = this.props.internationalProjects.map((term, index) => {
-            return (
-                <InternationalProjectTerm term={term} key={index} />
-            );
-        }).filter((product, index) => {
-            return index >= offset && index < nextPageOffset;
-        });
 
-        const projectPages = [];
-        for (let i = 0; i < projectTerms.length; i += 3) {
-            const pageTerms = projectTerms.slice(i, i + 3);
-            const page = (
-                <div className="row" key={i}>
-                    {pageTerms}
-                </div>
+    getInternationalProjects = (offset, nextPageOffset) => {
+        const tableRows = [];
+        const terms = this.props.internationalProjects.slice(offset, nextPageOffset);
+
+        for (let i = 0; i < terms.length; i += 3) {
+            const termSlice = terms.slice(i, i + 3);
+            const row = (
+                <tr key={i}>
+                    {termSlice.map((term, index) => (
+                        <td className="p-1" key={index}>
+                            <InternationalProjectTerm term={term} key={index} />
+                        </td>
+                    ))}
+                </tr>
             );
-            projectPages.push(page);
+            tableRows.push(row);
         }
 
-        return projectPages;
+        return (
+            <table className="table table-borderless table-light">
+                <tbody>{tableRows}</tbody>
+            </table>
+        );
     }
 
     getNationalProjects = (offset, nextPageOffset) => {
-        const projectTerms = this.props.nationalProjects.map((term, index) => {
-            return (
-                <NationalProjectTerm term={term} key={index} />
-            );
-        }).filter((product, index) => {
-            return index >= offset && index < nextPageOffset;
-        });
+        const tableRows = [];
+        const terms = this.props.nationalProjects.slice(offset, nextPageOffset);
 
-        const projectPages = [];
-        for (let i = 0; i < projectTerms.length; i += 3) {
-            const pageTerms = projectTerms.slice(i, i + 3);
-            const page = (
-                <div className="row" key={i}>
-                    {pageTerms}
-                </div>
+        for (let i = 0; i < terms.length; i += 3) {
+            const termSlice = terms.slice(i, i + 3);
+            const row = (
+                <tr key={i}>
+                    {termSlice.map((term, index) => (
+                        <td className="p-1" key={index}>
+                            <NationalProjectTerm term={term} key={index} />
+                        </td>
+                    ))}
+                </tr>
             );
-            projectPages.push(page);
+            tableRows.push(row);
         }
 
-        return projectPages;
+        return (
+            <table className="table table-borderless table-light">
+                <tbody>{tableRows}</tbody>
+            </table>
+        );
     }
+
 }
 
 export default HomeProjects;

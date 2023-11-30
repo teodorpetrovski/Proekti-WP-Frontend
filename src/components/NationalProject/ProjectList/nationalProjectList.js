@@ -3,6 +3,7 @@ import NationalProjectTerm from "../ProjectTerm(Admin)/nationalProjectTerm";
 import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
 import AddNationalProject from "../AddNationallProject/addNationalProject";
+import CallTerm from "../../ScientificProjectCall/CallTerm/callTerm";
 
 
 class NationalProjects extends React.Component {
@@ -67,7 +68,7 @@ class NationalProjects extends React.Component {
         })
     }
 
-
+/*
     getNationalProjects = (offset, nextPageOffset) => {
         const projectTerms = this.props.projects.map((term, index) => {
             return (
@@ -97,6 +98,38 @@ class NationalProjects extends React.Component {
         }
 
         return projectPages;
+    }
+
+    */
+
+    getNationalProjects = (offset, nextPageOffset) => {
+        const tableRows = [];
+        const terms = this.props.projects.slice(offset, nextPageOffset);
+
+        for (let i = 0; i < terms.length; i += 3) {
+            const termSlice = terms.slice(i, i + 3);
+            const row = (
+                <tr key={i}>
+                    {termSlice.map((term, index) => (
+                        <td className="p-1" key={index}>
+                            <NationalProjectTerm key={term.id} term={term}
+                                                 onEdit={this.props.onEdit}
+                                                 onDelete={this.props.onDelete}
+                                                 onExport={this.props.onExport}
+                                                 onApprove={this.props.onApprove}
+                            />
+                        </td>
+                    ))}
+                </tr>
+            );
+            tableRows.push(row);
+        }
+
+        return (
+            <table className="table table-borderless table-light">
+                <tbody>{tableRows}</tbody>
+            </table>
+        );
     }
 
 

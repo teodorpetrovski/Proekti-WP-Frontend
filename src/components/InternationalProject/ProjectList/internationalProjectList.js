@@ -2,6 +2,7 @@ import React from 'react';
 import InternationalProjectTerm from "../ProjectTerm/internationalProjectTerm";
 import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
+import CallTerm from "../../ScientificProjectCall/CallTerm/callTerm";
 
 
 class InternationalProjects extends React.Component {
@@ -73,7 +74,7 @@ class InternationalProjects extends React.Component {
         })
     }
 
-
+/*
     getInternationalProjects = (offset, nextPageOffset) => {
         const projectTerms = this.props.projects.map((term, index) => {
             return (
@@ -99,6 +100,36 @@ class InternationalProjects extends React.Component {
         }
 
         return projectPages;
+    }
+    */
+
+    getInternationalProjects = (offset, nextPageOffset) => {
+        const tableRows = [];
+        const terms = this.props.projects.slice(offset, nextPageOffset);
+
+        for (let i = 0; i < terms.length; i += 3) {
+            const termSlice = terms.slice(i, i + 3);
+            const row = (
+                <tr key={i}>
+                    {termSlice.map((term, index) => (
+                        <td className="p-1" key={index}>
+                            <InternationalProjectTerm key={term.id} term={term}
+                                                      onEdit={this.props.onEdit}
+                                                      onDelete={this.props.onDelete}
+                                                      onExport={this.props.onExport}
+                                                      onApprove={this.props.onApprove}/>
+                        </td>
+                    ))}
+                </tr>
+            );
+            tableRows.push(row);
+        }
+
+        return (
+            <table className="table table-borderless table-light">
+                <tbody>{tableRows}</tbody>
+            </table>
+        );
     }
 
 
