@@ -1,4 +1,6 @@
 import React from 'react';
+import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
 import NationalProjectTerm from "../ProjectTerm(Admin)/nationalProjectTerm";
 import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
@@ -13,7 +15,8 @@ class NationalProjects extends React.Component {
 
         this.state = {
             page: 0,
-            size: 5
+            size: 5,
+            selectedDate: null,
         }
     }
     render() {
@@ -28,11 +31,29 @@ class NationalProjects extends React.Component {
                 <h3>Национални проекти</h3>
                 <br/>
 
-                <Link to="/national/add" className="btn btn-primary mb-3 me-3">Додади нов проект</Link>
+                <div className="row">
+                    <Link to="/national/add" className="btn btn-primary mb-3 me-3 col-3">Додади нов проект</Link>
+                    <div className="col-2"></div>
+                    <button
+                        className="btn btn-secondary mb-3 col-3"
+                        onClick={() => this.props.onReport(this.state.selectedDate)}
+                    >
+                        Преземи извештај
+                    </button>
+                    <Datetime
+                        value={this.state.selectedDate}
+                        onChange={(date) => this.setState({ selectedDate: date })}
+                        inputProps={{ placeholder: 'Select a date' }}
+                        className="w-25 col-3 mb-3"
+                    />
+                </div>
 
-                <button className="btn btn-secondary mb-3" onClick={this.props.onReport}>
-                    Преземи извештај
-                </button>
+
+
+                {/*<button className="btn btn-secondary mb-3" onClick={this.props.onReport}>*/}
+                {/*    Преземи извештај*/}
+                {/*</button>*/}
+
                 <div className={"row"}>
                     <div className={"row"}>
 
