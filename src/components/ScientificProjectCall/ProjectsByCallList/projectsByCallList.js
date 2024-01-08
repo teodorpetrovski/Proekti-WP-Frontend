@@ -2,6 +2,8 @@ import React from 'react';
 import ReactPaginate from "react-paginate";
 
 import NationalProjectTermUser from "../../NationalProject/ProjectTerm(User)/nationalProjectTermUser";
+import CallTerm from "../CallTerm/callTerm";
+import {Link} from "react-router-dom";
 
 
 
@@ -29,6 +31,10 @@ class ProjectsByCall extends React.Component {
             <div className={"container mm-4 mt-5"}>
                 <h3>{this.props.call.name}</h3>
                 <br/>
+                <Link className={"btn btn-info mb-3"}
+                      to={`/calls/projectsByCall/${this.props.call.id}/apply`}>
+                    Аплицирај проект
+                </Link>
                 <div className={"row "}>
                     <div className={"row"}>
 
@@ -64,7 +70,7 @@ class ProjectsByCall extends React.Component {
         })
     }
 
-
+/*
     getNationalProjects = (offset, nextPageOffset) => {
         const projectTerms = this.props.projects.map((term, index) => {
             return (
@@ -91,6 +97,33 @@ class ProjectsByCall extends React.Component {
         }
 
         return projectPages;
+    }
+    */
+
+    getNationalProjects = (offset, nextPageOffset) => {
+        const tableRows = [];
+        const terms = this.props.projects.slice(offset, nextPageOffset);
+
+        for (let i = 0; i < terms.length; i += 3) {
+            const termSlice = terms.slice(i, i + 3);
+            const row = (
+                <tr key={i}>
+                    {termSlice.map((term, index) => (
+                        <td className="p-1" key={index}>
+                            <NationalProjectTermUser key={term.id} term={term}
+                            />
+                        </td>
+                    ))}
+                </tr>
+            );
+            tableRows.push(row);
+        }
+
+        return (
+            <table className="table table-borderless table-light">
+                <tbody>{tableRows}</tbody>
+            </table>
+        );
     }
 
 

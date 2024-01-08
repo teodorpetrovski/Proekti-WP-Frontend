@@ -131,7 +131,15 @@ class App extends Component {
 
                                 <Route path={"/calls"} exact element={<Calls calls={this.state.calls} onGetNationalProjects={this.fetchNationalProjectByCall}/>}/>
 
-                                <Route path={"/calls/projectsByCall/:callId"} exact element={<ProjectsByCall call={this.state.selectedCall} projects={this.state.nationalProjectsFiltered}/>}/>
+                                <Route path={"/calls/projectsByCall/:callId"} exact element={<ProjectsByCall onGetCall={this.getCallById} call={this.state.selectedCall} projects={this.state.nationalProjectsFiltered}/>}/>
+
+                                <Route path={"/calls/projectsByCall/:callId/apply"} exact element={<NationalProjectAdd
+                                    call={this.state.selectedCall}
+                                    calls={this.state.calls}
+                                    professors={this.state.professors}
+                                    project={this.state.selectedNationalProject}
+                                    onAddNationalProject={this.addNationalProject}
+                                />}/>
                                 
                                 <Route path={"/international"} exact
                                        element={<InternationalProjects projects={this.state.internationalProjects}
@@ -181,6 +189,7 @@ class App extends Component {
 
                                 <Route path={"/national/add"} exact
                                        element={<NationalProjectAdd
+                                           call={null}
                                            calls={this.state.calls}
                                            professors={this.state.professors}
                                            project={this.state.selectedNationalProject}
@@ -435,6 +444,17 @@ class App extends Component {
                 }
             )
 
+    }
+
+    getCallById = (callId) =>
+    {
+        projectsRepository.fetchProjectCallById(callId)
+            .then((data) => {
+                    this.setState({
+                        selectedCall:data.data
+                    })
+                }
+            )
     }
 
 

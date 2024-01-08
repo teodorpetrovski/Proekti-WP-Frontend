@@ -1,7 +1,10 @@
 import React from 'react';
 import InternationalProjectTerm from "../ProjectTerm/internationalProjectTerm";
+import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
 import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
+import CallTerm from "../../ScientificProjectCall/CallTerm/callTerm";
 
 
 class InternationalProjects extends React.Component {
@@ -14,7 +17,8 @@ class InternationalProjects extends React.Component {
 
         this.state = {
             page: 0,
-            size: 5
+            size: 5,
+            selectedDate: null,
         }
     }
 
@@ -31,11 +35,33 @@ class InternationalProjects extends React.Component {
                 <h3>Меѓународни проекти</h3>
                 <br/>
 
-                <Link to="/international/add" className="btn btn-primary mb-3 me-3">Додади нов проект</Link>
+                <div className="row">
+                    <Link to="/international/add" className="btn btn-primary mb-3 me-3 col-3">Додади нов проект</Link>
+                    <div className="col-2"></div>
+                    <button className="btn btn-secondary mb-3 col-3" onClick={this.props.onReport}>
+                        Преземи извештај
+                    </button>
+                    <Datetime
+                        value={this.state.selectedDate}
+                        onChange={(date) => this.setState({ selectedDate: date })}
+                        inputProps={{ placeholder: 'Select a date' }}
+                        className="w-25 col-3 mb-3"
+                    />
+                </div>
 
-                <button className="btn btn-secondary mb-3" onClick={this.props.onReport}>
-                    Преземи извештај
-                </button>
+
+
+                {/*<button className="btn btn-secondary mb-3" onClick={this.props.onReport}>*/}
+                {/*    Преземи извештај*/}
+                {/*</button>*/}
+                {/*<button*/}
+                {/*    className="btn btn-secondary mb-3"*/}
+                {/*    onClick={() => this.props.onReport(this.state.selectedDate)}*/}
+                {/*>*/}
+                {/*    Преземи извештај*/}
+                {/*</button>*/}
+
+
                 <div className={"row"}>
                     <div className={"row"}>
 
@@ -73,7 +99,7 @@ class InternationalProjects extends React.Component {
         })
     }
 
-
+/*
     getInternationalProjects = (offset, nextPageOffset) => {
         const projectTerms = this.props.projects.map((term, index) => {
             return (
@@ -99,6 +125,36 @@ class InternationalProjects extends React.Component {
         }
 
         return projectPages;
+    }
+    */
+
+    getInternationalProjects = (offset, nextPageOffset) => {
+        const tableRows = [];
+        const terms = this.props.projects.slice(offset, nextPageOffset);
+
+        for (let i = 0; i < terms.length; i += 3) {
+            const termSlice = terms.slice(i, i + 3);
+            const row = (
+                <tr key={i}>
+                    {termSlice.map((term, index) => (
+                        <td className="p-1" key={index}>
+                            <InternationalProjectTerm key={term.id} term={term}
+                                                      onEdit={this.props.onEdit}
+                                                      onDelete={this.props.onDelete}
+                                                      onExport={this.props.onExport}
+                                                      onApprove={this.props.onApprove}/>
+                        </td>
+                    ))}
+                </tr>
+            );
+            tableRows.push(row);
+        }
+
+        return (
+            <table className="table table-borderless table-light">
+                <tbody>{tableRows}</tbody>
+            </table>
+        );
     }
 
 
