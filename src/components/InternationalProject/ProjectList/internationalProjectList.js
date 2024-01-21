@@ -1,5 +1,7 @@
 import React from 'react';
 import InternationalProjectTerm from "../ProjectTerm/internationalProjectTerm";
+import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
 import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
 import CallTerm from "../../ScientificProjectCall/CallTerm/callTerm";
@@ -15,7 +17,8 @@ class InternationalProjects extends React.Component {
 
         this.state = {
             page: 0,
-            size: 5
+            size: 5,
+            selectedDate: null,
         }
     }
 
@@ -32,11 +35,33 @@ class InternationalProjects extends React.Component {
                 <h3>Меѓународни проекти</h3>
                 <br/>
 
-                <Link to="/international/add" className="btn btn-primary mb-3 me-3">Додади нов проект</Link>
+                <div className="row">
+                    <Link to="/international/add" className="btn btn-primary mb-3 me-3 col-3">Додади нов проект</Link>
+                    <div className="col-2"></div>
+                    <button className="btn btn-secondary mb-3 col-3" onClick={this.props.onReport}>
+                        Преземи извештај
+                    </button>
+                    <Datetime
+                        value={this.state.selectedDate}
+                        onChange={(date) => this.setState({ selectedDate: date })}
+                        inputProps={{ placeholder: 'Select a date' }}
+                        className="w-25 col-3 mb-3"
+                    />
+                </div>
 
-                <button className="btn btn-secondary mb-3" onClick={this.props.onReport}>
-                    Преземи извештај
-                </button>
+
+
+                {/*<button className="btn btn-secondary mb-3" onClick={this.props.onReport}>*/}
+                {/*    Преземи извештај*/}
+                {/*</button>*/}
+                {/*<button*/}
+                {/*    className="btn btn-secondary mb-3"*/}
+                {/*    onClick={() => this.props.onReport(this.state.selectedDate)}*/}
+                {/*>*/}
+                {/*    Преземи извештај*/}
+                {/*</button>*/}
+
+
                 <div className={"row"}>
                     <div className={"row"}>
 
