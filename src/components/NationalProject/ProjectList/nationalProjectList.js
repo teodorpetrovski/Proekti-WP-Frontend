@@ -33,6 +33,7 @@ class NationalProjects extends React.Component {
                 <button className="btn btn-secondary mb-3" onClick={this.props.onReport}>
                     Преземи извештај
                 </button>
+
                 <div className={"row"}>
                     <div className={"row"}>
 
@@ -68,40 +69,6 @@ class NationalProjects extends React.Component {
         })
     }
 
-/*
-    getNationalProjects = (offset, nextPageOffset) => {
-        const projectTerms = this.props.projects.map((term, index) => {
-            return (
-
-
-                <NationalProjectTerm key={term.id} term={term}
-                                     onEdit={this.props.onEdit}
-                                     onDelete={this.props.onDelete}
-                                     onExport={this.props.onExport}
-                                     onApprove={this.props.onApprove}
-                />
-
-            );
-        }).filter((product, index) => {
-            return index >= offset && index < nextPageOffset;
-        });
-
-        const projectPages = [];
-        for (let i = 0; i < projectTerms.length; i += 4) {
-            const pageTerms = projectTerms.slice(i, i + 4);
-            const page = (
-                <div className="row" key={i}>
-                    {pageTerms}
-                </div>
-            );
-            projectPages.push(page);
-        }
-
-        return projectPages;
-    }
-
-    */
-
     getNationalProjects = (offset, nextPageOffset) => {
         const tableRows = [];
         const terms = this.props.projects.slice(offset, nextPageOffset);
@@ -117,6 +84,7 @@ class NationalProjects extends React.Component {
                                                  onDelete={this.props.onDelete}
                                                  onExport={this.props.onExport}
                                                  onApprove={this.props.onApprove}
+                                                 onFinish={this.props.onFinish}
                             />
                         </td>
                     ))}

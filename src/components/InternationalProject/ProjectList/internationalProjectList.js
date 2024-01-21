@@ -117,7 +117,9 @@ class InternationalProjects extends React.Component {
                                                       onEdit={this.props.onEdit}
                                                       onDelete={this.props.onDelete}
                                                       onExport={this.props.onExport}
-                                                      onApprove={this.props.onApprove}/>
+                                                      onApprove={this.props.onApprove}
+                                                      onFinish={this.props.onFinish}
+                            />
                         </td>
                     ))}
                 </tr>

@@ -83,7 +83,47 @@ class App extends Component {
                 console.error('Error approving project:', error);
             });
     };
+    handleFinishNationalProject = (projectId) => {
+        projectsRepository.finishNationalProject(projectId)
+            .then((response) => {
+                if (response.status === 200) {
+                    const updatedProjects = this.state.nationalProjects.map((project) => {
+                        if (project.id === projectId) {
+                            return {
+                                ...project,
+                                finished: true,
+                            };
+                        }
+                        return project;
+                    });
+                    this.setState({ nationalProjects: updatedProjects });
+                }
+            })
+            .catch((error) => {
+                console.error('Error finishing project:', error);
+            });
+    };
 
+    handleFinishInternationalProject = (projectId) => {
+        projectsRepository.finishInternationalProject(projectId)
+            .then((response) => {
+                if (response.status === 200) {
+                    const updatedProjects = this.state.internationalProjects.map((project) => {
+                        if (project.id === projectId) {
+                            return {
+                                ...project,
+                                finished: true,
+                            };
+                        }
+                        return project;
+                    });
+                    this.setState({ internationalProjects: updatedProjects });
+                }
+            })
+            .catch((error) => {
+                console.error('Error finishing project:', error);
+            });
+    };
     fetchNationalProjectDetails = (projectId) => {
         projectsRepository.getNationalProject(projectId)
             .then((response) => {
@@ -148,6 +188,7 @@ class App extends Component {
                                                                        onExport={this.exportInternationalProject}
                                                                        onApprove={this.handleApproveInternatioanlProject}
                                                                        onReport={this.fetchInternationalProjectReport}
+                                                                       onFinish={this.handleFinishInternationalProject}
                                        />
                                 }/>
 
@@ -166,6 +207,7 @@ class App extends Component {
                                                                   onExport={this.exportNationalProject}
                                                                   onApprove={this.handleApproveNationalProject}
                                                                   onReport={this.fetchNationalProjectReport}
+                                                                  onFinish={this.handleFinishNationalProject}
                                        />}/>
 
 
@@ -456,6 +498,7 @@ class App extends Component {
                 }
             )
     }
+    
 
 
 
