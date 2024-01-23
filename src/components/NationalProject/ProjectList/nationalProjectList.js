@@ -1,6 +1,4 @@
 import React from 'react';
-import Datetime from 'react-datetime';
-import 'react-datetime/css/react-datetime.css';
 import NationalProjectTerm from "../ProjectTerm(Admin)/nationalProjectTerm";
 import ReactPaginate from "react-paginate";
 import {Link} from "react-router-dom";
@@ -15,8 +13,7 @@ class NationalProjects extends React.Component {
 
         this.state = {
             page: 0,
-            size: 5,
-            selectedDate: null,
+            size: 5
         }
     }
     render() {
@@ -31,28 +28,11 @@ class NationalProjects extends React.Component {
                 <h3>Национални проекти</h3>
                 <br/>
 
-                <div className="row">
-                    <Link to="/national/add" className="btn btn-primary mb-3 me-3 col-3">Додади нов проект</Link>
-                    <div className="col-2"></div>
-                    <button
-                        className="btn btn-secondary mb-3 col-3"
-                        onClick={() => this.props.onReport(this.state.selectedDate)}
-                    >
-                        Преземи извештај
-                    </button>
-                    <Datetime
-                        value={this.state.selectedDate}
-                        onChange={(date) => this.setState({ selectedDate: date })}
-                        inputProps={{ placeholder: 'Select a date' }}
-                        className="w-25 col-3 mb-3"
-                    />
-                </div>
+                <Link to="/national/add" className="btn btn-primary mb-3 me-3">Додади нов проект</Link>
 
-
-
-                {/*<button className="btn btn-secondary mb-3" onClick={this.props.onReport}>*/}
-                {/*    Преземи извештај*/}
-                {/*</button>*/}
+                <button className="btn btn-secondary mb-3" onClick={this.props.onReport}>
+                    Преземи извештај
+                </button>
 
                 <div className={"row"}>
                     <div className={"row"}>
@@ -89,40 +69,6 @@ class NationalProjects extends React.Component {
         })
     }
 
-/*
-    getNationalProjects = (offset, nextPageOffset) => {
-        const projectTerms = this.props.projects.map((term, index) => {
-            return (
-
-
-                <NationalProjectTerm key={term.id} term={term}
-                                     onEdit={this.props.onEdit}
-                                     onDelete={this.props.onDelete}
-                                     onExport={this.props.onExport}
-                                     onApprove={this.props.onApprove}
-                />
-
-            );
-        }).filter((product, index) => {
-            return index >= offset && index < nextPageOffset;
-        });
-
-        const projectPages = [];
-        for (let i = 0; i < projectTerms.length; i += 4) {
-            const pageTerms = projectTerms.slice(i, i + 4);
-            const page = (
-                <div className="row" key={i}>
-                    {pageTerms}
-                </div>
-            );
-            projectPages.push(page);
-        }
-
-        return projectPages;
-    }
-
-    */
-
     getNationalProjects = (offset, nextPageOffset) => {
         const tableRows = [];
         const terms = this.props.projects.slice(offset, nextPageOffset);
@@ -138,6 +84,7 @@ class NationalProjects extends React.Component {
                                                  onDelete={this.props.onDelete}
                                                  onExport={this.props.onExport}
                                                  onApprove={this.props.onApprove}
+                                                 onFinish={this.props.onFinish}
                             />
                         </td>
                     ))}

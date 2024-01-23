@@ -146,6 +146,12 @@ const ProjectRepository = {
     approveInternationalProject: (id) => {
         return axios.post(`/international/approve/${id}`)
     },
+    finishNationalProject: (projectId) => {
+        return axios.post(`/national/finish/${projectId}`);
+    },
+    finishInternationalProject: (projectId) => {
+        return axios.post(`/international/finish/${projectId}`)
+    },
 
     exportInternationalProject: (id) => {
         return axios.get(`international/export/pdf/${id}`,
