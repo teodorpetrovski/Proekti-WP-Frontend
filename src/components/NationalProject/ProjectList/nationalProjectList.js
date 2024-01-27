@@ -1,6 +1,8 @@
 import React from 'react';
 import NationalProjectTerm from "../ProjectTerm(Admin)/nationalProjectTerm";
 import ReactPaginate from "react-paginate";
+import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
 import {Link} from "react-router-dom";
 import AddNationalProject from "../AddNationallProject/addNationalProject";
 import CallTerm from "../../ScientificProjectCall/CallTerm/callTerm";
@@ -27,12 +29,21 @@ class NationalProjects extends React.Component {
             <div className={"container mm-4 mt-5"}>
                 <h3>Национални проекти</h3>
                 <br/>
+                <div className="row">
+                    <Link to="/national/add" className="btn btn-primary mb-3 me-3 col-3">Додади нов проект</Link>
+                    <div className="col-2"></div>
+                    <button className="btn btn-secondary mb-3 col-3" onClick={this.props.onReport}>
+                        Преземи извештај
+                    </button>
+                    <Datetime
+                        value={this.state.selectedDate}
+                        onChange={(date) => this.setState({ selectedDate: date })}
+                        inputProps={{ placeholder: 'Select a date' }}
+                        className="w-25 col-3 mb-3"
+                    />
+                </div>
 
-                <Link to="/national/add" className="btn btn-primary mb-3 me-3">Додади нов проект</Link>
 
-                <button className="btn btn-secondary mb-3" onClick={this.props.onReport}>
-                    Преземи извештај
-                </button>
 
                 <div className={"row"}>
                     <div className={"row"}>

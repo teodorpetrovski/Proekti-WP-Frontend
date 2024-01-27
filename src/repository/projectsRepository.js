@@ -193,10 +193,11 @@ const ProjectRepository = {
             window.URL.revokeObjectURL(url);
         });
     },
-    fetchNationalProjectReport: () => {
+    fetchNationalProjectReport: (date) => {
         return axios.get("national/report",
             {
                 responseType: 'blob',
+                params: { date: date }
             }).then(response => {
 
             const blob = new Blob([response.data], {type: response.headers['content-type']});
@@ -213,10 +214,11 @@ const ProjectRepository = {
             window.URL.revokeObjectURL(url);
         });
     },
-    fetchInternationalProjectReport: () => {
+    fetchInternationalProjectReport: (date) => {
         return axios.get("international/report",
             {
                 responseType: 'blob',
+                params: { date: date }
             }).then(response => {
 
             const blob = new Blob([response.data], {type: response.headers['content-type']});

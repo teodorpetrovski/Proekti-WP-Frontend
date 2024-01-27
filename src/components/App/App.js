@@ -187,7 +187,7 @@ class App extends Component {
                                                                        onDelete={this.deleteInternationalProject}
                                                                        onExport={this.exportInternationalProject}
                                                                        onApprove={this.handleApproveInternatioanlProject}
-                                                                       onReport={this.fetchInternationalProjectReport}
+                                                                       onReport={() => this.fetchInternationalProjectReport(this.state.selectedDate)}
                                                                        onFinish={this.handleFinishInternationalProject}
                                        />
                                 }/>
@@ -206,7 +206,7 @@ class App extends Component {
                                                                   onDelete={this.deleteNationalProject}
                                                                   onExport={this.exportNationalProject}
                                                                   onApprove={this.handleApproveNationalProject}
-                                                                  onReport={this.fetchNationalProjectReport}
+                                                                  onReport={() => this.fetchNationalProjectReport(this.state.selectedDate)}
                                                                   onFinish={this.handleFinishNationalProject}
                                        />}/>
 
@@ -461,12 +461,12 @@ class App extends Component {
             projectsRepository.exportNationalProject(id)
         }
 
-    fetchNationalProjectReport = () => {
-        projectsRepository.fetchNationalProjectReport()
+    fetchNationalProjectReport = (date) => {
+        projectsRepository.fetchNationalProjectReport(date)
     }
 
-    fetchInternationalProjectReport = () => {
-        projectsRepository.fetchInternationalProjectReport()
+    fetchInternationalProjectReport = (date) => {
+        projectsRepository.fetchInternationalProjectReport(date)
     }
 
     fetchNationalProjectByCall = (callId)=>{
