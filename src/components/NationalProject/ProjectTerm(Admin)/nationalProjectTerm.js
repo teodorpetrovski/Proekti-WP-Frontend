@@ -47,7 +47,7 @@ const NationalProjectTerm = (props) => {
                         </p>
                         </Link>
                         <Link
-                            className={"btn mb-2 mt-3 ms-5 w-20 p-1"}
+                            className={"btn mb-2 mt-3 ms-5 w-20 p-0 ps-1 pe-1"}
                             onClick={() => props.onEdit(props.term.id)}
                             to={`/national/edit/${props.term.id}`}
                             style={{ color: 'white', backgroundColor: '#5ebd9a'}}
@@ -55,21 +55,14 @@ const NationalProjectTerm = (props) => {
                             <EditNoteOutlinedIcon style={{color: 'white'}}></EditNoteOutlinedIcon>Уреди
                         </Link>
 
-                        <button title="Delete" className="btn mb-2 mt-3 ms-3 p-1" onClick={() => props.onDelete(props.term.id)}
+                        <button title="Delete" className="btn mb-2 mt-3 ms-1 p-0 ps-1 pe-1" onClick={() => props.onDelete(props.term.id)}
                                 style={{ color: 'white', backgroundColor: '#ed6673'}}
                         >
                             <DeleteForeverOutlinedIcon></DeleteForeverOutlinedIcon>
                             Избриши
                         </button>
-
-                        <br/>
-                        <button className="btn btn-sm  mt-3 ms-5 w-20 p-1" onClick={handleExportClick}
-                        style={{color: 'white', backgroundColor: '#f0ce37'}}>
-                            <PrintIcon style = {{color: 'white'}}></PrintIcon>
-                            Експорт
-                        </button>
                         <button
-                            className="btn btn-sm mt-3 ms-3 w-20 p-1"
+                            className="btn btn-sm mt-3 ms-1 w-20 p-0 ps-1 pe-1 mb-2"
                             onClick={handleApproveClick}
                             disabled={props.term.approved}
                             style = {{color : 'white', backgroundColor: '#f0ce37'}}
@@ -77,8 +70,14 @@ const NationalProjectTerm = (props) => {
                             <DoneIcon style={{color: 'white'}}></DoneIcon>
                             {props.term.approved ? 'Одобрено' : 'Одобри'}
                         </button>
+                        <br/>
+                        <button className="btn btn-sm  mt-3 ms-3 w-20 p-0 ps-1 pe-1" onClick={handleExportClick}
+                        style={{color: 'white', backgroundColor: '#f0ce37'}}>
+                            <PrintIcon style = {{color: 'white'}}></PrintIcon>
+                            Експорт
+                        </button>
                         <button
-                            className="btn btn-warning btn-sm mt-3 ms-3 w-20"
+                            className="btn btn-warning btn-sm mt-3 ms-3 w-20 p-0 ps-1 pe-1"
                             onClick={handleFinishClick}
                             disabled={props.term.finished}
                         >
