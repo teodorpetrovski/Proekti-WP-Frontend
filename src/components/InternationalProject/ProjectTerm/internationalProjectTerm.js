@@ -28,6 +28,8 @@ const InternationalProjectTerm = (props) => {
         }
         props.onFinish(props.term.id);
     };
+
+    if(props.term.approved)
     return (
         <div>
 
@@ -47,34 +49,10 @@ const InternationalProjectTerm = (props) => {
                                 <strong>Статус: </strong>{props.term.typeStatus}<br/>
                             </p>
                             </Link>
-
-                            <Link className={"btn mb-2 mt-3 ms-3 w-20 p-0 ps-1 pe-1"}
-                                  onClick={() => props.onEdit(props.term.id)}
-                                  to={`/international/edit/${props.term.id}`}
-                                  style={{color: 'white', backgroundColor: '#5ebd9a'}}>
-                                <EditNoteOutlinedIcon style={{color: 'white'}}></EditNoteOutlinedIcon>
-                                Уреди
-                            </Link>
-                            <a title={"Delete"} className={"btn mb-2 mt-3 ms-1 w-20 p-0 ps-1 pe-1"}
-                               onClick={() => props.onDelete(props.term.id)}
-                               style={{color: 'white', backgroundColor: '#ed6673'}}>
-                                <DeleteForeverOutlinedIcon></DeleteForeverOutlinedIcon>
-                                Избриши
-                            </a>
-                            <button
-                                className="btn btn-sm mb-2 mt-3 ms-1 w-20 p-0 ps-1 pe-1"
-                                onClick={handleApproveClick}
-                                disabled={props.term.approved}
-                                style={{color: 'white', backgroundColor: '#f0ce37'}}>
-                                <DoneIcon style={{color: 'white'}}></DoneIcon>
-                                {props.term.approved ? 'Одобрено' : 'Одобри'}
-                            </button>
-
-
                             <button className="btn btn-sm mt-3 ms-3 w-20 p-0 ps-1 pe-1" onClick={handleExportClick}
                                     style={{color: 'white', backgroundColor: '#f0ce37'}}>
                                 <PrintIcon style = {{color: 'white'}}></PrintIcon>
-                                Експорт
+                                Испечати Проект
                             </button>
                             <button
                                 className="btn btn-warning  btn-sm mt-3 ms-3 w-20 p-0 ps-1 pe-1"
@@ -88,6 +66,54 @@ const InternationalProjectTerm = (props) => {
 
         </div>
     );
+    else {
+        return (
+            <div>
+
+                <div
+                    className={`card rounded-0 bg-white m-0 border-0 ${props.term.approved === true ? 'green-corner' : 'red-corner'} `}
+                    className={`card rounded-0 bg-white m-0 border-0 ${props.term.finished === true ? 'green-corner' : 'red-corner'} `}
+                    style={{maxWidth: 390}}>
+                    <div className="card-body">
+                        <Link className={"text-dark"} to={`/international/details/${props.term.id}`} style={{ textDecoration: 'none' }}>
+                            <h2 className="card-title fw-lighter" style = {{color: '#2319e0'}}>{props.term.name}</h2>
+                            <p className="card-text p-1" style={{fontSize: '15px'}}>
+                                <strong>Име на проектот: </strong>{props.term.name}<br/>
+                                <strong>Тип на проектот: </strong>{props.term.type}<br/>
+                                <strong>Почеток на проектот: </strong>{props.term.startDate}<br/>
+                                <strong>Крај на проектот: </strong>{props.term.endDate}<br/>
+                                <strong>Финансиер: </strong>{props.term.primaryGrantHolder.name}<br/>
+                                <strong>Статус: </strong>{props.term.typeStatus}<br/>
+                            </p>
+                        </Link>
+
+                        <Link className={"btn mb-2 mt-3 ms-3 w-20 p-0 ps-1 pe-1"}
+                              onClick={() => props.onEdit(props.term.id)}
+                              to={`/international/edit/${props.term.id}`}
+                              style={{color: 'white', backgroundColor: '#5ebd9a'}}>
+                            <EditNoteOutlinedIcon style={{color: 'white'}}></EditNoteOutlinedIcon>
+                            Уреди
+                        </Link>
+                        <a title={"Delete"} className={"btn mb-2 mt-3 ms-1 w-20 p-0 ps-1 pe-1"}
+                           onClick={() => props.onDelete(props.term.id)}
+                           style={{color: 'white', backgroundColor: '#ed6673'}}>
+                            <DeleteForeverOutlinedIcon></DeleteForeverOutlinedIcon>
+                            Избриши
+                        </a>
+                        <button
+                            className="btn btn-sm mb-2 mt-3 ms-1 w-20 p-0 ps-1 pe-1"
+                            onClick={handleApproveClick}
+                            disabled={props.term.approved}
+                            style={{color: 'white', backgroundColor: '#f0ce37'}}>
+                            <DoneIcon style={{color: 'white'}}></DoneIcon>
+                            {props.term.approved ? 'Одобрено' : 'Одобри'}
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        );
+    }
 }
 
 export default InternationalProjectTerm;
