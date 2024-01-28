@@ -161,6 +161,20 @@ class App extends Component {
                                 <Route path={"/results"} exact
                                        element={<SearchResults  internationalProjects={this.state.internationalProjectsFiltered}
                                                                nationalProjects={this.state.nationalProjectsFiltered}
+                                                                onEditNational={this.getNationalProject}
+                                                                onDeleteNational={this.deleteNationalProject}
+                                                                onExportNational={this.exportNationalProject}
+                                                                onApproveNational={this.handleApproveNationalProject}
+                                                                onFinishNational={this.handleFinishNationalProject}
+
+
+                                                                onEditInternational={this.getInternationalProject}
+                                                                onDeleteInternational={this.deleteInternationalProject}
+                                                                onExportInternational={this.exportInternationalProject}
+                                                                onApproveInternational={this.handleApproveInternatioanlProject}
+                                                                onFinishInternational={this.handleFinishInternationalProject}
+
+
                                        />}/>
                                 <Route path={"/professors"} exact
                                        element={<Professor professors={this.state.professors}/>}/>
@@ -198,6 +212,18 @@ class App extends Component {
                                 <Route path={"/"} exact
                                        element={<HomeProjects  internationalProjects={this.state.internationalProjects}
                                                                nationalProjects={this.state.nationalProjects}
+                                                               onEditNational={this.getNationalProject}
+                                                               onDeleteNational={this.deleteNationalProject}
+                                                               onExportNational={this.exportNationalProject}
+                                                               onApproveNational={this.handleApproveNationalProject}
+                                                               onFinishNational={this.handleFinishNationalProject}
+
+
+                                                               onEditInternational={this.getInternationalProject}
+                                                               onDeleteInternational={this.deleteInternationalProject}
+                                                               onExportInternational={this.exportInternationalProject}
+                                                               onApproveInternational={this.handleApproveInternatioanlProject}
+                                                               onFinishInternational={this.handleFinishInternationalProject}
                                                               />}/>
 
                                 <Route path={"/national"} exact

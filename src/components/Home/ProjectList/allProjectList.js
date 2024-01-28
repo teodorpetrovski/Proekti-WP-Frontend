@@ -11,7 +11,7 @@ class HomeProjects extends React.Component {
         super(props);
         this.state = {
             page: 0,
-            size: 5
+            size: 6
         };
     }
 
@@ -84,7 +84,13 @@ class HomeProjects extends React.Component {
                 <tr key={i}>
                     {termSlice.map((term, index) => (
                         <td className="p-1" key={index}>
-                            <InternationalProjectTerm term={term} key={index} />
+                            <InternationalProjectTerm term={term} key={index}
+                                                      onEdit={this.props.onEditInternational}
+                                                      onDelete={this.props.onDeleteInternational}
+                                                      onExport={this.props.onExportInternational}
+                                                      onApprove={this.props.onApproveInternational}
+                                                      onFinish={this.props.onFinishInternational}
+                            />
                         </td>
                     ))}
                 </tr>
@@ -109,7 +115,13 @@ class HomeProjects extends React.Component {
                 <tr key={i}>
                     {termSlice.map((term, index) => (
                         <td className="p-1" key={index}>
-                            <NationalProjectTerm term={term} key={index} />
+                            <NationalProjectTerm term={term} key={index}
+                                                 onEdit={this.props.onEditNational}
+                                                 onDelete={this.props.onDeleteNational}
+                                                 onExport={this.props.onExportNational}
+                                                 onApprove={this.props.onApproveNational}
+                                                 onFinish={this.props.onFinishNational}
+                            />
                         </td>
                     ))}
                 </tr>

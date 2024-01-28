@@ -12,14 +12,14 @@ class SearchResults extends React.Component {
         this.state = {
 
             page: 0,
-            size: 5
+            size: 6
         }
     }
 
     render() {
 
 
-        const pageCount = Math.ceil(this.props.internationalProjects.length+this.props.nationalProjects.length / this.state.size)/2;
+        const pageCount = Math.ceil((this.props.internationalProjects.length + this.props.nationalProjects.length) / (2 * this.state.size));
         const offset = this.state.page * this.state.size;
         const nextPageOffset = offset + this.state.size;
         const internationalProjects = this.getInternationalProjects(offset, nextPageOffset);
@@ -66,50 +66,66 @@ class SearchResults extends React.Component {
 
 
     getInternationalProjects = (offset, nextPageOffset) => {
-        const projectTerms = this.props.internationalProjects.map((term, index) => {
-            return (
-                <InternationalProjectTerm term={term}/>
-            );
-        }).filter((product, index) => {
-            return index >= offset && index < nextPageOffset;
-        });
+        const tableRows = [];
+        const terms = this.props.internationalProjects.slice(offset, nextPageOffset);
 
-        const projectPages = [];
-        for (let i = 0; i < projectTerms.length; i += 3) {
-            const pageTerms = projectTerms.slice(i, i + 3);
-            const page = (
-                <div className="row" key={i}>
-                    {pageTerms}
-                </div>
+        for (let i = 0; i < terms.length; i += 3) {
+            const termSlice = terms.slice(i, i + 3);
+            const row = (
+                <tr key={i}>
+                    {termSlice.map((term, index) => (
+                        <td className="p-1" key={index}>
+                            <InternationalProjectTerm term={term} key={index}
+                                                      onEdit={this.props.onEditInternational}
+                                                      onDelete={this.props.onDeleteInternational}
+                                                      onExport={this.props.onExportInternational}
+                                                      onApprove={this.props.onApproveInternational}
+                                                      onFinish={this.props.onFinishInternational}
+
+                            />
+                        </td>
+                    ))}
+                </tr>
             );
-            projectPages.push(page);
+            tableRows.push(row);
         }
 
-        return projectPages;
+        return (
+            <table className="table table-borderless table-light">
+                <tbody>{tableRows}</tbody>
+            </table>
+        );
     }
 
-
     getNationalProjects = (offset, nextPageOffset) => {
-        const projectTerms = this.props.nationalProjects.map((term, index) => {
-            return (
-                <NationalProjectTerm term={term}/>
-            );
-        }).filter((product, index) => {
-            return index >= offset && index < nextPageOffset;
-        });
+        const tableRows = [];
+        const terms = this.props.nationalProjects.slice(offset, nextPageOffset);
 
-        const projectPages = [];
-        for (let i = 0; i < projectTerms.length; i += 3) {
-            const pageTerms = projectTerms.slice(i, i + 3);
-            const page = (
-                <div className="row" key={i}>
-                    {pageTerms}
-                </div>
+        for (let i = 0; i < terms.length; i += 3) {
+            const termSlice = terms.slice(i, i + 3);
+            const row = (
+                <tr key={i}>
+                    {termSlice.map((term, index) => (
+                        <td className="p-1" key={index}>
+                            <NationalProjectTerm term={term} key={index}
+                                                 onEdit={this.props.onEditNational}
+                                                 onDelete={this.props.onDeleteNational}
+                                                 onExport={this.props.onExportNational}
+                                                 onApprove={this.props.onApproveNational}
+                                                 onFinish={this.props.onFinishNational}
+                            />
+                        </td>
+                    ))}
+                </tr>
             );
-            projectPages.push(page);
+            tableRows.push(row);
         }
 
-        return projectPages;
+        return (
+            <table className="table table-borderless table-light">
+                <tbody>{tableRows}</tbody>
+            </table>
+        );
     }
 
 

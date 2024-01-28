@@ -15,7 +15,7 @@ class NationalProjects extends React.Component {
 
         this.state = {
             page: 0,
-            size: 5
+            size: 6
         }
     }
     render() {
