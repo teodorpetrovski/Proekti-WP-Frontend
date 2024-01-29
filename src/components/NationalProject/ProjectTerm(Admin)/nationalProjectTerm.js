@@ -52,12 +52,12 @@ const NationalProjectTerm = (props) => {
                             <PrintIcon style = {{color: 'white'}}></PrintIcon>
                             Испечати Проект
                         </button>
-                        <button
-                            className="btn btn-warning btn-sm mt-3 ms-3 w-20 p-0 ps-1 pe-1"
-                            onClick={handleFinishClick}
-                            disabled={props.term.finished}>
-                            {props.term.finished ? 'Завршено' : 'Заврши'}
-                        </button>
+                        {/*<button*/}
+                        {/*    className="btn btn-warning btn-sm mt-3 ms-3 w-20 p-0 ps-1 pe-1"*/}
+                        {/*    onClick={handleFinishClick}*/}
+                        {/*    disabled={props.term.finished}>*/}
+                        {/*    {props.term.finished ? 'Завршено' : 'Заврши'}*/}
+                        {/*</button>*/}
                     </div>
                 </div>
         </div>
