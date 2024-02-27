@@ -7,6 +7,9 @@ import DoneIcon from '@mui/icons-material/Done';
 import PrintIcon from '@mui/icons-material/Print';
 
 const InternationalProjectTerm = (props) => {
+
+    const [finishButtonClicked, setFinishButtonClicked] = useState(false);
+    const [isFinished, setIsFinished] = useState(props.term.finished);
     const handleExportClick = () => {
         try {
             props.onExport(props.term.id);
@@ -16,29 +19,42 @@ const InternationalProjectTerm = (props) => {
     };
 
     const handleApproveClick = () => {
-        if (props.term.approved) {
+        if (props.term.approved || finishButtonClicked || isFinished) {
             return;
         }
         props.onApprove(props.term.id);
     };
 
-    const handleFinishClick = () => {
-        if (props.term.finished) {
-            return;
+    const handleFinishClick = async () => {
+        try {
+            if (props.term.approved || finishButtonClicked || isFinished) {
+                return;
+            }
+            setFinishButtonClicked(true);
+            setIsFinished(true);
+        } catch (error) {
+            console.error("Error finishing project:", error.message);
         }
-        props.onFinish(props.term.id);
     };
 
+    const isTermClickable = !finishButtonClicked && !isFinished && !props.term.approved;
+    
     if(props.term.approved)
     return (
         <div>
 
                     <div
-                        className={`card rounded-0 bg-white m-0 border-0 ${props.term.approved === true ? 'green-corner' : 'red-corner'} `}
-                        className={`card rounded-0 bg-white m-0 border-0 ${props.term.finished === true ? 'green-corner' : 'red-corner'} `}
-                        style={{maxWidth: 390}}>
+                        className={`card rounded-0 bg-white m-0 border-0 ${
+                            props.term.approved === true ? "green-corner" : "red-corner"
+                        } ${isFinished ? "finished-project" : ""}`}
+                        style={{ maxWidth: 390 }}
+                    >
                         <div className="card-body">
-                            <Link className={"text-dark"} to={`/international/details/${props.term.id}`} style={{ textDecoration: 'none' }}>
+                            <Link
+                                className={`text-dark ${!isTermClickable && "disabled-link"}`}
+                                to={isTermClickable ? `/international/details/${props.term.id}` : "#"}
+                                style={{ textDecoration: "none" }}
+                            >
                             <h2 className="card-title fw-lighter" style = {{color: '#2319e0'}}>{props.term.name}</h2>
                             <p className="card-text p-1" style={{fontSize: '15px'}}>
                                 <strong>Име на проектот: </strong>{props.term.name}<br/>
@@ -49,21 +65,43 @@ const InternationalProjectTerm = (props) => {
                                 <strong>Статус: </strong>{props.term.typeStatus}<br/>
                             </p>
                             </Link>
-                            <button className="btn btn-sm mt-3 ms-3 w-20 p-0 ps-1 pe-1" onClick={handleExportClick}
-                                    style={{color: 'white', backgroundColor: '#f0ce37'}}>
-                                <PrintIcon style = {{color: 'white'}}></PrintIcon>
+                            <button
+                                className="btn btn-sm  mt-3 ms-3 w-20 p-0 ps-1 pe-1"
+                                onClick={handleExportClick}
+                                style={{ color: "white", backgroundColor: "#f0ce37" }}
+                                disabled={isFinished || finishButtonClicked || props.term.approved}
+                            >
+                                <PrintIcon style={{ color: "white" }}></PrintIcon>
                                 Испечати Проект
                             </button>
-                            {/*<button*/}
-                            {/*    className="btn btn-warning  btn-sm mt-3 ms-3 w-20 p-0 ps-1 pe-1"*/}
-                            {/*    onClick={handleFinishClick}*/}
-                            {/*    disabled={props.term.finished}*/}
-                            {/*>*/}
-                            {/*    {props.term.finished ? 'Завршен' : 'Заврши'}*/}
-                            {/*</button>*/}
+                            {isFinished ? (
+                                <button
+                                    className="btn btn-warning btn-sm mt-3 ms-3 w-20 p-0 ps-1 pe-1"
+                                    disabled
+                                    style={{
+                                        color: "#6c757d",
+                                        backgroundColor: "#ddd",
+                                    }}
+                                >
+                                    Завршено
+                                </button>
+                            ) : (
+                                <button
+                                    className="btn btn-warning btn-sm mt-3 ms-3 w-20 p-0 ps-1 pe-1"
+                                    onClick={handleFinishClick}
+                                    disabled={
+                                        finishButtonClicked || isFinished || props.term.approved
+                                    }
+                                    style={{
+                                        color: isFinished ? "#6c757d" : "white",
+                                        backgroundColor: isFinished ? "#ddd" : "#f0ce37",
+                                    }}
+                                >
+                                    Заврши
+                                </button>
+                            )}
                         </div>
                     </div>
-
         </div>
     );
     else {
@@ -71,11 +109,17 @@ const InternationalProjectTerm = (props) => {
             <div>
 
                 <div
-                    className={`card rounded-0 bg-white m-0 border-0 ${props.term.approved === true ? 'green-corner' : 'red-corner'} `}
-                    className={`card rounded-0 bg-white m-0 border-0 ${props.term.finished === true ? 'green-corner' : 'red-corner'} `}
-                    style={{maxWidth: 390}}>
+                    className={`card rounded-0 bg-white m-0 border-0 ${
+                        props.term.approved === true ? "green-corner" : "red-corner"
+                    } ${isFinished ? "finished-project" : ""}`}
+                    style={{ maxWidth: 390 }}
+                >
                     <div className="card-body">
-                        <Link className={"text-dark"} to={`/international/details/${props.term.id}`} style={{ textDecoration: 'none' }}>
+                        <Link
+                            className={`text-dark ${!isTermClickable && "disabled-link"}`}
+                            to={isTermClickable ? `/international/details/${props.term.id}` : "#"}
+                            style={{ textDecoration: "none", cursor: isTermClickable ? "pointer" : "not-allowed" }}
+                        >
                             <h2 className="card-title fw-lighter" style = {{color: '#2319e0'}}>{props.term.name}</h2>
                             <p className="card-text p-1" style={{fontSize: '15px'}}>
                                 <strong>Име на проектот: </strong>{props.term.name}<br/>
@@ -87,27 +131,61 @@ const InternationalProjectTerm = (props) => {
                             </p>
                         </Link>
 
-                        <Link className={"btn mb-2 mt-3 ms-3 w-20 p-0 ps-1 pe-1"}
-                              onClick={() => props.onEdit(props.term.id)}
-                              to={`/international/edit/${props.term.id}`}
-                              style={{color: 'white', backgroundColor: '#5ebd9a'}}>
-                            <EditNoteOutlinedIcon style={{color: 'white'}}></EditNoteOutlinedIcon>
+                        <Link
+                            className={`btn mb-2 mt-3 ms-5 w-20 p-0 ps-1 pe-1 ${
+                                (finishButtonClicked || isFinished || !isTermClickable) && "disabled"
+                            } btn-primary`}
+                            onClick={() => props.onEdit(props.term.id)}
+                            to={`/international/edit/${props.term.id}`}
+                            disabled={finishButtonClicked || isFinished || !isTermClickable}
+                        >
+                            <EditNoteOutlinedIcon style={{ color: "white" }}></EditNoteOutlinedIcon>
                             Уреди
                         </Link>
-                        <a title={"Delete"} className={"btn mb-2 mt-3 ms-1 w-20 p-0 ps-1 pe-1"}
-                           onClick={() => props.onDelete(props.term.id)}
-                           style={{color: 'white', backgroundColor: '#ed6673'}}>
+                        <button
+                            title="Delete"
+                            className="btn mb-2 mt-3 ms-1 p-0 ps-1 pe-1 btn-danger"
+                            onClick={() => props.onDelete(props.term.id)}
+                            disabled={finishButtonClicked || isFinished}
+                        >
                             <DeleteForeverOutlinedIcon></DeleteForeverOutlinedIcon>
                             Избриши
-                        </a>
-                        <button
-                            className="btn btn-sm mb-2 mt-3 ms-1 w-20 p-0 ps-1 pe-1"
-                            onClick={handleApproveClick}
-                            disabled={props.term.approved}
-                            style={{color: 'white', backgroundColor: '#f0ce37'}}>
-                            <DoneIcon style={{color: 'white'}}></DoneIcon>
-                            {props.term.approved ? 'Одобрено' : 'Одобри'}
                         </button>
+                        <button
+                            className="btn btn-sm mt-3 ms-1 w-20 p-0 ps-1 pe-1 mb-2 btn-success"
+                            onClick={handleApproveClick}
+                            disabled={props.term.approved || isFinished}
+                        >
+                            <DoneIcon style={{ color: "white" }}></DoneIcon>
+                            {props.term.approved ? "Одобрено" : "Одобри"}
+                        </button>
+                        {isFinished ? (
+                            <button
+                                className="btn btn-warning btn-sm mt-3 ms-3 w-20 p-0 ps-1 pe-1"
+                                disabled
+                                style={{
+                                    color: "#6c757d",
+                                    backgroundColor: "#ddd",
+                                }}
+                            >
+                                Завршено
+                            </button>
+                        ) : (
+                            <button
+                                className="btn btn-warning btn-sm mt-3 ms-3 w-20 p-0 ps-1 pe-1"
+                                onClick={handleFinishClick}
+                                disabled={
+                                    finishButtonClicked || isFinished || props.term.approved
+                                }
+                                style={{
+                                    color: isFinished ? "#6c757d" : "white",
+                                    backgroundColor: isFinished ? "#ddd" : "#f0ce37",
+                                }}
+                            >
+                                Заврши
+                            </button>
+                        )}
+                        <br />
                     </div>
                 </div>
 
