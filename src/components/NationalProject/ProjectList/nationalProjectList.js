@@ -18,6 +18,7 @@ class NationalProjects extends React.Component {
             size: 6
         }
     }
+
     render() {
 
         const pageCount = Math.ceil(this.props.projects.length / this.state.size)
