@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function InternationalDetails({ fetchDetails, internationalProject }) {
     const { projectId } = useParams();
@@ -61,6 +62,15 @@ function InternationalDetails({ fetchDetails, internationalProject }) {
             <div className="row ms-3 ">
                 <h6 className="col-6 text-dark-50">Партнери кои се на проектот:</h6>
                 <h6 className="col-6 text-black-50"> {internationalProject.partners?.name}</h6>
+            </div>
+            <div className="row ms-1 me-1">
+                {/*<button type="submit" className="btn btn-info  ms-5 mt-3 col-3">*/}
+                {/*    Напиши извештај*/}
+                {/*</button>*/}
+                <Link
+                    to={`/report/add?idProject=${projectId}&type=international`}
+                    className="btn btn-info ms-5 mt-3 col-3"
+                >Напиши извештај</Link>
             </div>
         </div>
     )

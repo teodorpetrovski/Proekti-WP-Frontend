@@ -31,6 +31,16 @@ const ProjectRepository = {
         });
     },
 
+    addReport : (idProject, results, presentations, dateEntry, type) =>{
+        return axios.post("/report/add", {
+            "idProject": idProject,
+            "results": results,
+            "presentations": presentations,
+            "dateEntry": dateEntry,
+            "type":type
+        });
+    },
+
     fetchInternationalProjectsFiltered: (keyword) => {
         return axios.post(`/international/filterByKeyword?keyword=${keyword}`)
     },

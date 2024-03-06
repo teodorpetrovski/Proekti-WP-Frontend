@@ -19,6 +19,7 @@ import InternationalProjectAdd from "../InternationalProject/AddInternationalPro
 import NationalDetails from "../NationalProject/DetailsNational/nationalDetails";
 import InternationalDetails from "../InternationalProject/DetailsInternational/internationalDetails";
 import ProjectsByCall from "../ScientificProjectCall/ProjectsByCallList/projectsByCallList";
+import AddReport from "../Report/addReport/addReport";
 
 
 class App extends Component {
@@ -210,6 +211,8 @@ class App extends Component {
 
                                 <Route path="/calls/add" element={<AddCall onAdd={this.addCall} />}></Route>
 
+                                <Route path="/report/add" element={<AddReport onAdd={this.addReport} />}></Route>
+
                                 <Route path={"/"} exact
                                        element={<HomeProjects  internationalProjects={this.state.internationalProjects}
                                                                nationalProjects={this.state.nationalProjects}
@@ -247,7 +250,7 @@ class App extends Component {
                                             loadInternationalProjects={this.loadInternationalProjects}
                                        />}/>
 
-                                <Route path={"/national/edit/:projectId"}exact
+                                <Route path={"/national/edit/:projectId"} exact
                                        element={<EditNationalProjectForm
                                            calls={this.state.calls}
                                            professors={this.state.professors}
@@ -272,13 +275,17 @@ class App extends Component {
                                        />}/>
                                 <Route
                                     path="/national/details/:projectId"
-                                    element={<NationalDetails fetchDetails={this.fetchNationalProjectDetails} nationalProject={this.state.nationalProject}
-                                                              exportNationalProjectMembers={this.exportNationalProjectMembers}/>}
+                                    element={<NationalDetails fetchDetails={this.fetchNationalProjectDetails}
+                                                              nationalProject={this.state.nationalProject}
+                                                              exportNationalProjectMembers={this.exportNationalProjectMembers}
+                                                              onAddReport={this.addReport}/>}
                                 />
 
                                 <Route
                                     path="/international/details/:projectId"
-                                    element={<InternationalDetails fetchDetails={this.fetchInternationalProjectDetails} internationalProject={this.state.internationalProjects} />}
+                                    element={<InternationalDetails fetchDetails={this.fetchInternationalProjectDetails}
+                                                                   internationalProject={this.state.internationalProjects}
+                                                                    onAddReport={this.addReport}/>}
                                 />
 
                             </Routes>
@@ -391,6 +398,13 @@ class App extends Component {
             })
     }
 
+    addReport=(idProject, results, presentations, dateEntry, type)=>{
+        projectsRepository.addReport(idProject, results, presentations, dateEntry, type)
+            .then(() => {
+                this.loadCalls();
+            })
+
+    }
 
     deleteProject = (id) => {
         projectsRepository.deleteProject(id)
