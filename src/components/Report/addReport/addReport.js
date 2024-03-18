@@ -30,11 +30,12 @@ const AddReport = (props) => {
 
     const onFormSubmit = (e) => {
         e.preventDefault();
-        const idProject = formData.idProject;
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const idProject = urlSearchParams.get('idProject');
+        const type = urlSearchParams.get('type');
         const results = formData.results;
         const presentations = formData.presentations;
         const dateEntry = formData.dateEntry;
-        const type = formData.type;
         props.onAdd(
             idProject,
             results,
