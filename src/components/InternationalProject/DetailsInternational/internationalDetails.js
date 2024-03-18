@@ -67,10 +67,17 @@ function InternationalDetails({ fetchDetails, internationalProject }) {
                 {/*<button type="submit" className="btn btn-info  ms-5 mt-3 col-3">*/}
                 {/*    Напиши извештај*/}
                 {/*</button>*/}
+                {/*<Link*/}
+                {/*    to={`/report/add?idProject=${projectId}&type=international`}*/}
+                {/*    className="btn btn-info ms-5 mt-3 col-3"*/}
+                {/*>Напиши извештај</Link>*/}
                 <Link
-                    to={`/report/add?idProject=${projectId}&type=international`}
+                    to={`/report/add?idProject=${internationalProject.id}&type=international`}
                     className="btn btn-info ms-5 mt-3 col-3"
-                >Напиши извештај</Link>
+                >
+                    Напиши извештај
+                </Link>
+
             </div>
         </div>
     )
