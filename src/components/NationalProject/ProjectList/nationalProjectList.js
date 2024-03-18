@@ -1,5 +1,5 @@
 import React from 'react';
-import NationalProjectTerm from "../ProjectTerm(Admin)/nationalProjectTerm";
+import NationalProjectTerm from "../ProjectTerm(Adm)/nationalProjectTerm";
 import ReactPaginate from "react-paginate";
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
