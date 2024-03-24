@@ -203,7 +203,7 @@ class App extends Component {
                                                                        onDelete={this.deleteInternationalProject}
                                                                        onExport={this.exportInternationalProject}
                                                                        onApprove={this.handleApproveInternatioanlProject}
-                                                                       onReport={() => this.fetchInternationalProjectReport(this.state.selectedDate)}
+                                                                       onReport={this.fetchInternationalProjectReport}
                                                                        onFinish={this.handleFinishInternationalProject}
                                        />
                                 }/>
@@ -236,7 +236,7 @@ class App extends Component {
                                                                   onDelete={this.deleteNationalProject}
                                                                   onExport={this.exportNationalProject}
                                                                   onApprove={this.handleApproveNationalProject}
-                                                                  onReport={() => this.fetchNationalProjectReport(this.state.selectedDate)}
+                                                                  onReport={this.fetchNationalProjectReport}
                                                                   onFinish={this.handleFinishNationalProject}
                                        />}/>
 
@@ -503,7 +503,9 @@ class App extends Component {
         }
 
     fetchNationalProjectReport = (date) => {
-        projectsRepository.fetchNationalProjectReport(date)
+            console.log(date);
+            console.log(this.state.selectedDate);
+        projectsRepository.fetchNationalProjectReport(this.state.selectedDate)
     }
 
     fetchInternationalProjectReport = (date) => {

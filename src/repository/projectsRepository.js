@@ -203,12 +203,21 @@ const ProjectRepository = {
             window.URL.revokeObjectURL(url);
         });
     },
+
     fetchNationalProjectReport: (date) => {
+
+        console.log(date);
         return axios.get("national/report",
             {
                 responseType: 'blob',
                 params: { date: date }
             }).then(response => {
+            if (response.status === 404) {
+                // Do nothing or handle the error in a suitable way
+                console.log("Report not found");
+                return; // Exit the function
+            }
+
 
             const blob = new Blob([response.data], {type: response.headers['content-type']});
             const url = window.URL.createObjectURL(blob);
@@ -225,11 +234,17 @@ const ProjectRepository = {
         });
     },
     fetchInternationalProjectReport: (date) => {
+
         return axios.get("international/report",
             {
                 responseType: 'blob',
                 params: { date: date }
             }).then(response => {
+            if (response.status === 404) {
+                // Do nothing or handle the error in a suitable way
+                console.log("Report not found");
+                return; // Exit the function
+            }
 
             const blob = new Blob([response.data], {type: response.headers['content-type']});
             const url = window.URL.createObjectURL(blob);
