@@ -17,11 +17,8 @@ function InternationalDetails({ fetchDetails, internationalProject }) {
 
     return (
         <div className="container">
-            <div className="row m-3 bg-white " >
-                <h3 className="text-dark-50">{internationalProject.name}</h3>
-            </div>
-            <div className="mt-3 ms-3 row">
-                <h6 className=" ms-3  text-dark-50">Информации за проектот</h6>
+            <div className="row m-3 bg-white" >
+                <h3 style={{color: '#0dcaf0'}}>Информации за проект: {internationalProject.name}</h3>
             </div>
             <div className="row ms-3 ">
                 <h6 className="col-6 text-dark-50">Внесен на:</h6>
@@ -75,7 +72,7 @@ function InternationalDetails({ fetchDetails, internationalProject }) {
                     to={`/report/add?idProject=${internationalProject.id}&type=international`}
                     className="btn btn-info ms-5 mt-3 col-3"
                 >
-                    Напиши извештај
+                    Внеси извештај
                 </Link>
 
             </div>

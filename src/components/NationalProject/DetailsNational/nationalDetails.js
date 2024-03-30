@@ -18,11 +18,8 @@ function NationalDetails({ fetchDetails, nationalProject,  exportNationalProject
 
     return (
         <div className="container">
-            <div className="row m-3 bg-white " >
-                <h3 className="text-dark-50">{nationalProject.name}</h3>
-            </div>
-            <div className="mt-3 row">
-                <h6 className="text-dark-50">Информации за проектот</h6>
+            <div className="row m-3 bg-white" >
+                <h3 style={{color: '#0dcaf0'}}>Информации за проект: {nationalProject.name}</h3>
             </div>
             <div className="row">
                 <h6 className="col-6 text-dark-50">Внесен на:</h6>
@@ -54,9 +51,9 @@ function NationalDetails({ fetchDetails, nationalProject,  exportNationalProject
                 <h6 className="col-6 text-black-50"> {nationalProject.benefits}</h6>
             </div>
             <div className="row">
-                <h6 className="col-6 text-dark-50">Professors:</h6>
-                <div className="col-6">
-                    <ul style={{ listStyleType: 'none' }}>
+                <h6 className="col-6 text-dark-50">Членови:</h6>
+                <div className="col-6 text-black-50">
+                    <ul>
                         {nationalProject.members.map(professor => (
                             <li key={professor.id}>{professor.name}</li>
                         ))}
@@ -74,7 +71,7 @@ function NationalDetails({ fetchDetails, nationalProject,  exportNationalProject
                 <Link
                     to={`/report/add?idProject=${projectId}&type=national`}
                     className="btn btn-info ms-5 mt-3 col-3"
-                >Напиши извештај</Link>
+                >Внеси извештај</Link>
             </div>
         </div>
     )
