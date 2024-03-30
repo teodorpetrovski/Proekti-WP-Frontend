@@ -69,7 +69,7 @@ const InternationalProjectTerm = (props) => {
                                 className="btn btn-sm  mt-3 ms-3 w-20 p-0 ps-1 pe-1"
                                 onClick={handleExportClick}
                                 style={{ color: "white", backgroundColor: "#f0ce37" }}
-                                disabled={isFinished || finishButtonClicked || props.term.approved}
+                                disabled={ !props.term.approved }
                             >
                                 <PrintIcon style={{ color: "white" }}></PrintIcon>
                                 Испечати Проект
