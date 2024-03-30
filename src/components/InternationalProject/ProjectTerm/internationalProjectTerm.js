@@ -90,7 +90,7 @@ const InternationalProjectTerm = (props) => {
                                     className="btn btn-warning btn-sm mt-3 ms-3 w-20 p-0 ps-1 pe-1"
                                     onClick={handleFinishClick}
                                     disabled={
-                                        finishButtonClicked || isFinished || props.term.approved
+                                         !props.term.approved
                                     }
                                     style={{
                                         color: isFinished ? "#6c757d" : "white",
