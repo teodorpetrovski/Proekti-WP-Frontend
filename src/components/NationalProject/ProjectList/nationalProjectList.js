@@ -19,10 +19,14 @@ class NationalProjects extends React.Component {
 
         this.state = {
             page: 0,
-            size: 6
+            size: 6,
+            showErrorDialog: false
         }
     }
 
+    handleCloseDialog = () => {
+        this.setState({ showErrorDialog: false });
+    }
 
     render() {
 
@@ -36,6 +40,12 @@ class NationalProjects extends React.Component {
             <div className={"container mm-4 mt-5"}>
                 <h3>Национални проекти</h3>
                 <br/>
+                {this.state.showErrorDialog && (
+                    <div className="alert alert-danger d-flex justify-content-between fade show" role="alert">
+                        Нема пронајдено извештаи по избраниот датум.
+                        <button type="button" className="btn-close" aria-label="Close" onClick={this.handleCloseDialog}></button>
+                    </div>
+                )}
                 <div className="row">
                     <Link to="/national/add" className="btn btn-primary mb-3 me-3 col-3">Додади нов проект</Link>
                     <div className="col-2"></div>
@@ -118,6 +128,13 @@ class NationalProjects extends React.Component {
 
 
             window.URL.revokeObjectURL(url);
+        }).catch(error => {
+
+            if (error.response.status === 404) {
+                this.setState({ showErrorDialog: true });
+                console.log(this.state.showErrorDialog);
+            }
+
         });
     }
 

@@ -18,8 +18,11 @@ class InternationalProjects extends React.Component {
         this.state = {
             page: 0,
             size: 6,
-            selectedDate: null,
+            showErrorDialog: false
         }
+    }
+    handleCloseDialog = () => {
+        this.setState({ showErrorDialog: false });
     }
 
     render() {
@@ -34,7 +37,12 @@ class InternationalProjects extends React.Component {
 
                 <h3>Меѓународни проекти</h3>
                 <br/>
-
+                {this.state.showErrorDialog && (
+                    <div className="alert alert-danger d-flex justify-content-between fade show" role="alert">
+                        Нема пронајдено извештаи по избраниот датум.
+                        <button type="button" className="btn-close" aria-label="Close" onClick={this.handleCloseDialog}></button>
+                    </div>
+                )}
                 <div className="row">
                     <Link to="/international/add" className="btn btn-primary mb-3 me-3 col-3">Додади нов проект</Link>
                     <div className="col-2"></div>
@@ -105,21 +113,20 @@ class InternationalProjects extends React.Component {
     }
 
     fetchInternationalProjectReport = () => {
-
-        return axios.get("international/report",
-            {
-                responseType: 'blob',
-                params: {date: this.state.selectedDate}
-            }).then(response => {
+        return axios.get("international/report", {
+            responseType: 'blob',
+            params: { date: this.state.selectedDate }
+        }).then(response => {
+            const contentType = response.headers['content-type'];
             if (response.status === 404) {
-                // Do nothing or handle the error in a suitable way
-                console.log("Report not found");
+                // Display dialog for 404 error
+                this.setState({ showErrorDialog: false });
+                console.log(this.state.showErrorDialog);
                 return; // Exit the function
             }
 
-            const blob = new Blob([response.data], {type: response.headers['content-type']});
+            const blob = new Blob([response.data], { type: contentType });
             const url = window.URL.createObjectURL(blob);
-
 
             const link = document.createElement('a');
             link.href = url;
@@ -127,8 +134,14 @@ class InternationalProjects extends React.Component {
             document.body.appendChild(link);
             link.click();
 
-
             window.URL.revokeObjectURL(url);
+        }).catch(error => {
+
+            if (error.response.status === 404) {
+                this.setState({ showErrorDialog: true });
+                console.log(this.state.showErrorDialog);
+            }
+
         });
     }
 
