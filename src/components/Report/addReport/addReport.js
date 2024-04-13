@@ -43,7 +43,12 @@ const AddReport = (props) => {
             dateEntry,
             type
         )
-        navigate("/calls");
+        if(type==='national'){
+            navigate("/national");
+        }else if(type==='international'){
+            navigate('/international');
+        }
+
     };
 
     return (

@@ -110,11 +110,11 @@ const EditInternationalProjectForm = (props) => {
                     </div>
                     <div className="form-group">
                         <label>Почеток на проектот:</label>
-                        <input type="text" className="form-control" id="startDate" name="startDate" value={formData.startDate} onChange={handleChange} />
+                        <input type="date" className="form-control" id="startDate" name="startDate" value={formData.startDate} onChange={handleChange} />
                     </div>
                     <div className="form-group">
                         <label>Крај на проектот:</label>
-                        <input type="text" className="form-control" id="endDate" name="endDate" value={formData.endDate} onChange={handleChange} />
+                        <input type="date" className="form-control" id="endDate" name="endDate" value={formData.endDate} onChange={handleChange} />
                     </div>
                     <div className="form-group">
                         <label>Финансиер:</label>

@@ -111,7 +111,7 @@ const EditNationalProjectForm = (props) => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="dateEntry">Внесен на:</label>
-                        <input type="text" className="form-control" id="dateEntry" name="dateEntry" value={formData.dateEntry} onChange={handleChange} />
+                        <input type="date" className="form-control" id="dateEntry" name="dateEntry" value={formData.dateEntry} onChange={handleChange} />
                     </div>
                     <div className="form-group">
                         <label>Повик:</label>
