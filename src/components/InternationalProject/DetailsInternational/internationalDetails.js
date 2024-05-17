@@ -8,6 +8,7 @@ function InternationalDetails({ fetchDetails, internationalProject }) {
     useEffect(() => {
         if (!internationalProject || internationalProject.id !== projectId) {
             fetchDetails(projectId);
+
         }
     }, [projectId, internationalProject, fetchDetails]);
 

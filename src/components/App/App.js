@@ -401,14 +401,9 @@ class App extends Component {
     addReport=(idProject, results, presentations, dateEntry, type)=>{
         projectsRepository.addReport(idProject, results, presentations, dateEntry, type)
             .then(() => {
-                if (type === 'national') {
-                    // history.push('/national');
-                    this.loadNationalProjects()
-                } else if(type === 'international') {
-                    this.loadInternationalProjects()
-                    // history.push('/international');
-                }
+                this.loadCalls();
             })
+
 
     }
 
